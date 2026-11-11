@@ -14,7 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/status-badge";
 import { SectionHeading } from "@/components/page-header";
-import { SearchCommand } from "@/components/search-command";
+import { SearchTrigger } from "@/components/search-command";
 import { TrainingProgressCard } from "@/components/training-progress-card";
 import { site } from "@/content/site";
 import { countSteps, guides } from "@/content/guides";
@@ -39,7 +39,7 @@ export default function DashboardPage() {
           streams. Search for the step you need, or start the training path if you are new.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <SearchCommand className="h-10 w-full justify-start sm:w-96" />
+          <SearchTrigger className="h-10 w-full justify-start sm:w-96" />
           <Button variant="default" size="lg" render={<Link href="/guides/live-cut-ins" />}>
             Open Live Cut-Ins guide
             <ArrowRightIcon data-icon="inline-end" />

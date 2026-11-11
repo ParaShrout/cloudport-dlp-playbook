@@ -71,13 +71,12 @@ export function TrainingPath() {
                       const external = item.href?.startsWith("http");
                       return (
                         <li key={item.id}>
-                          <label
-                            htmlFor={id}
-                            className="flex cursor-pointer items-start gap-3 rounded-md px-2 py-2 text-sm hover:bg-muted"
-                          >
+                          <div className="flex items-start gap-3 rounded-md px-2 py-2 text-sm hover:bg-muted">
                             <Checkbox id={id} checked={checked} onCheckedChange={() => toggle(item.id)} className="mt-0.5" />
                             <span className={cn("flex-1", checked ? "text-muted-foreground line-through" : "")}>
-                              {item.text}
+                              <label htmlFor={id} className="cursor-pointer">
+                                {item.text}
+                              </label>
                               {item.href ? (
                                 <>
                                   {" "}
@@ -87,24 +86,19 @@ export function TrainingPath() {
                                       target="_blank"
                                       rel="noreferrer"
                                       className="inline-flex items-center gap-0.5 text-xs text-primary underline underline-offset-4"
-                                      onClick={(e) => e.stopPropagation()}
                                     >
                                       {item.hrefLabel ?? "Open"}
                                       <ExternalLinkIcon className="size-3" />
                                     </a>
                                   ) : (
-                                    <Link
-                                      href={item.href}
-                                      className="text-xs text-primary underline underline-offset-4"
-                                      onClick={(e) => e.stopPropagation()}
-                                    >
+                                    <Link href={item.href} className="text-xs text-primary underline underline-offset-4">
                                       {item.hrefLabel ?? "Open"}
                                     </Link>
                                   )}
                                 </>
                               ) : null}
                             </span>
-                          </label>
+                          </div>
                         </li>
                       );
                     })}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { RadioTowerIcon } from "lucide-react";
 import { site } from "@/content/site";
 import { SidebarNav } from "./sidebar-nav";
-import { SearchCommand } from "./search-command";
+import { SearchDialog, SearchTrigger } from "./search-command";
 import { MobileNav } from "./mobile-nav";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -28,7 +28,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Brand compact />
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <SearchCommand className="w-full max-w-md justify-start sm:w-80" />
+            <SearchTrigger className="w-full max-w-md justify-start sm:w-80" />
           </div>
         </header>
         <main className="flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
@@ -43,6 +43,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </footer>
       </div>
+      <SearchDialog />
     </div>
   );
 }

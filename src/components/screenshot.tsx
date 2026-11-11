@@ -14,6 +14,16 @@ import { cn } from "cn";
 export function Screenshot({ shot, className }: { shot: ScreenshotType; className?: string }) {
   const [missing, setMissing] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const imgRef = React.useRef<HTMLImageElement>(null);
+
+  // The error event can fire before hydration attaches onError, so re-check
+  // the image state once mounted.
+  React.useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) {
+      setMissing(true);
+    }
+  }, []);
 
   if (missing) {
     return (
@@ -41,7 +51,13 @@ export function Screenshot({ shot, className }: { shot: ScreenshotType; classNam
           aria-label={`Enlarge screenshot: ${shot.alt}`}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={shot.src} alt={shot.alt} className="block w-full" onError={() => setMissing(true)} />
+          <img
+            ref={imgRef}
+            src={shot.src}
+            alt={shot.alt}
+            className="block w-full"
+            onError={() => setMissing(true)}
+          />
           <span className="absolute right-2 top-2 rounded-md bg-background/90 p-1.5 opacity-0 shadow transition-opacity group-hover:opacity-100">
             <MaximizeIcon className="size-3.5" />
           </span>

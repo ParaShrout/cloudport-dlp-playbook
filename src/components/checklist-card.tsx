@@ -41,27 +41,22 @@ export function ChecklistCard({ checklist }: { checklist: Checklist }) {
             const id = `${checklist.id}-${item.id}`;
             return (
               <li key={item.id}>
-                <label
-                  htmlFor={id}
-                  className="flex cursor-pointer items-start gap-3 rounded-md px-2 py-2 text-sm hover:bg-muted"
-                >
+                <div className="flex items-start gap-3 rounded-md px-2 py-2 text-sm hover:bg-muted">
                   <Checkbox id={id} checked={checked} onCheckedChange={() => toggle(item.id)} className="mt-0.5" />
                   <span className={cn("flex-1", checked ? "text-muted-foreground line-through" : "")}>
-                    {item.text}
+                    <label htmlFor={id} className="cursor-pointer">
+                      {item.text}
+                    </label>
                     {item.guide ? (
                       <>
                         {" "}
-                        <Link
-                          href={`/guides/${item.guide}`}
-                          className="text-xs text-primary underline underline-offset-4"
-                          onClick={(e) => e.stopPropagation()}
-                        >
+                        <Link href={`/guides/${item.guide}`} className="text-xs text-primary underline underline-offset-4">
                           guide
                         </Link>
                       </>
                     ) : null}
                   </span>
-                </label>
+                </div>
               </li>
             );
           })}

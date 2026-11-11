@@ -276,13 +276,12 @@ function StepCard({
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <h3 className="text-lg font-semibold leading-tight">{step.title}</h3>
-              <label
-                htmlFor={checkboxId}
-                className="no-print inline-flex cursor-pointer select-none items-center gap-2 rounded-md border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground hover:bg-muted"
-              >
+              <div className="no-print inline-flex items-center gap-2 rounded-md border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground hover:bg-muted">
                 <Checkbox id={checkboxId} checked={done} onCheckedChange={onToggle} />
-                Done
-              </label>
+                <label htmlFor={checkboxId} className="cursor-pointer select-none">
+                  Done
+                </label>
+              </div>
             </div>
             <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">{step.summary}</p>
             {step.details && step.details.length > 0 ? (

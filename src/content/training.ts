@@ -11,10 +11,11 @@ export const trainingModules: TrainingModule[] = [
     goal: "Understand what Cloudport does for the station streams and what the DLP is responsible for.",
     duration: "30 min",
     items: [
+      { id: "or-0", text: "Pick your station (Baltimore, Sacramento or Miami) in the header so escalation paths show your channel and Lead DLP." },
       { id: "or-1", text: "Read the Operations page end to end.", href: "/operations", hrefLabel: "Operations" },
       { id: "or-2", text: "Read the Escalations page and know the four severity levels.", href: "/escalations", hrefLabel: "Escalations" },
       { id: "or-3", text: "Skim the Glossary. You should recognise every term by the end of week one.", href: "/glossary", hrefLabel: "Glossary" },
-      { id: "or-4", text: "Join the shift, incident and DLP support channels." },
+      { id: "or-4", text: "Join your station's troubleshooting channel, the incident channel and the DLP support channel.", href: "/escalations#contacts", hrefLabel: "Contacts" },
     ],
   },
   {

@@ -3,10 +3,12 @@ import type { Guide } from "./types";
 /**
  * Step-by-step guides.
  *
- * To update a guide, edit the text here. Screenshots live under
- * /public/screenshots/<guide-slug>/ and are referenced by `screenshot.src`.
- * If an image file is missing the UI shows a labelled placeholder with the
- * expected path, so you can drop files in later without touching code.
+ * To update a guide, edit the text here. Screenshots are NOT referenced
+ * here: drop image files into /public/screenshots/<guide-slug>/ named by
+ * step number ("03.png", "03b-live-sources.png") or by step id
+ * ("verify-source.png") and they appear on that step automatically. Steps
+ * with no image show a labelled slot unless `wantsScreenshot: false`.
+ * Use `npm run screenshots -- status` to see which steps still need one.
  *
  * Status values:
  *  - "published"   : verified against the Cloudport playbook, safe to follow
@@ -46,8 +48,9 @@ export const guides: Guide[] = [
           {
             id: "confirm-request",
             title: "Confirm the request",
+            wantsScreenshot: false,
             summary:
-              "Get the who, what, when and how long from the control room or assignment desk, and post it in the shift channel so everyone on duty sees it.",
+              "Get the who, what, when and how long from the control room or assignment desk, and post it in your station's troubleshooting channel so everyone on duty sees it.",
             details: [
               "Station / channel the cut-in is for.",
               "Live source name as it appears in Cloudport (e.g. the control room program feed).",
@@ -55,7 +58,7 @@ export const guides: Guide[] = [
               "How the cut-in should end: return to the scheduled program where it left off, or join the schedule in progress.",
             ],
             expected:
-              "A one-line note in the shift channel: station, source, start time, expected end, return behaviour.",
+              "A one-line note in your station's troubleshooting channel: station, source, start time, expected end, return behaviour.",
             callout: {
               kind: "tip",
               text: "If the request is vague on duration, assume it will run long and plan around the next hard-start item in the schedule.",
@@ -72,14 +75,10 @@ export const guides: Guide[] = [
             ],
             expected:
               "The channel's playout dashboard is open, the status indicator shows On Air, and the current item is playing.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/02-select-channel.png",
-              alt: "Cloudport channel list with the station channel highlighted",
-              caption: "Channels list. Open the station channel from here.",
-            },
+            screenshotCaption: "Channels list. Open the station channel from here.",
             callout: {
               kind: "critical",
-              text: "Several stations share one Cloudport account. Cutting in on the wrong channel puts another market's live feed on air.",
+              text: "Baltimore, Sacramento and Miami share one Cloudport account. Cutting in on the wrong channel puts another market's live feed on air.",
             },
           },
           {
@@ -94,11 +93,7 @@ export const guides: Guide[] = [
             ],
             expected:
               "Source shows Active with a live-updating preview and audio. If anything is red or frozen, stop and use the Troubleshooting section below.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/03-live-sources.png",
-              alt: "Live Sources panel showing an active input with preview and audio meters",
-              caption: "Live Sources panel. Confirm status, preview and audio before going any further.",
-            },
+            screenshotCaption: "Live Sources panel. Confirm status, preview and audio before going any further.",
           },
           {
             id: "review-playlist",
@@ -112,11 +107,7 @@ export const guides: Guide[] = [
             ],
             expected:
               "You can say out loud: what is playing, what will be interrupted, and when the next hard start is.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/04-playlist-now-next.png",
-              alt: "Playlist timeline showing the current item, upcoming items and a hard-start marker",
-              caption: "Playlist timeline with the current item and the next hard start.",
-            },
+            screenshotCaption: "Playlist timeline with the current item and the next hard start.",
           },
         ],
       },
@@ -132,11 +123,7 @@ export const guides: Guide[] = [
               "From the channel's playout dashboard, open the Live / Cut-In control panel.",
             expected:
               "The cut-in panel is visible with a source selector, a return-behaviour option and a Preview / Take control.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/05-open-live-control.png",
-              alt: "Playout dashboard with the Live Cut-In control panel open",
-              caption: "Live Cut-In panel on the playout dashboard.",
-            },
+            screenshotCaption: "Live Cut-In panel on the playout dashboard.",
           },
           {
             id: "select-source",
@@ -149,11 +136,7 @@ export const guides: Guide[] = [
             ],
             expected:
               "The source name in the panel matches the control room's request and the return behaviour matches what was agreed in step 1.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/06-select-source.png",
-              alt: "Live Cut-In panel with source dropdown and return behaviour options",
-              caption: "Source and return-behaviour selection.",
-            },
+            screenshotCaption: "Source and return-behaviour selection.",
             callout: {
               kind: "warning",
               text: "Default to Join in progress when a hard-start newscast is coming up. Default to Resume for short cut-ins in the middle of long-form content.",
@@ -166,11 +149,7 @@ export const guides: Guide[] = [
               "Use Preview to confirm the live source has picture and audio before it goes to air.",
             expected:
               "Preview window shows the live control room output with audio. If the preview is black, frozen or silent, do not take.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/07-preview.png",
-              alt: "Preview window showing the live feed before take",
-              caption: "Preview before take.",
-            },
+            screenshotCaption: "Preview before take.",
           },
           {
             id: "take",
@@ -179,11 +158,7 @@ export const guides: Guide[] = [
               "When the control room gives the cue, click Take / Go Live and confirm the dialog.",
             expected:
               "The channel status changes to LIVE, the timeline shows a live event at the current position and the on-air output switches to the live feed within a few seconds.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/08-take.png",
-              alt: "Confirmation dialog for taking the live cut-in",
-              caption: "Take confirmation.",
-            },
+            screenshotCaption: "Take confirmation.",
             callout: {
               kind: "note",
               text: "Expect a short delay (typically a few seconds) between clicking Take and seeing the change on the output monitor. Do not click Take twice.",
@@ -200,12 +175,8 @@ export const guides: Guide[] = [
               "Tell the control room you are live on the stream.",
             ],
             expected:
-              "Live feed confirmed on the external output and acknowledged by the control room. Post 'Live on stream at HH:MM' in the shift channel.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/09-on-air.png",
-              alt: "Channel status showing LIVE with the output monitor displaying the live feed",
-              caption: "LIVE status with external output confirmation.",
-            },
+              "Live feed confirmed on the external output and acknowledged by the control room. Post 'Live on stream at HH:MM' in your station's troubleshooting channel.",
+            screenshotCaption: "LIVE status with external output confirmation.",
           },
         ],
       },
@@ -216,6 +187,7 @@ export const guides: Guide[] = [
           {
             id: "monitor-source",
             title: "Monitor source health and timing",
+            wantsScreenshot: false,
             summary:
               "Stay on the playout dashboard. Watch the source status, the output monitor and the clock against the next hard start.",
             details: [
@@ -239,11 +211,7 @@ export const guides: Guide[] = [
               "On the control room's cue, click Return to Schedule / End Live and confirm. The channel returns using the behaviour you set earlier.",
             expected:
               "Channel status changes from LIVE back to On Air (scheduled), and the timeline shows the schedule resuming.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/11-return-to-schedule.png",
-              alt: "Return to Schedule control on the Live Cut-In panel",
-              caption: "Return to Schedule.",
-            },
+            screenshotCaption: "Return to Schedule.",
           },
           {
             id: "verify-resume",
@@ -257,15 +225,12 @@ export const guides: Guide[] = [
             ],
             expected:
               "Scheduled content is on air and you know whether the schedule is on time or running late.",
-            screenshot: {
-              src: "/screenshots/live-cut-ins/12-verify-resume.png",
-              alt: "Playlist showing scheduled playback resumed after the live cut-in",
-              caption: "Schedule resumed after the cut-in.",
-            },
+            screenshotCaption: "Schedule resumed after the cut-in.",
           },
           {
             id: "fix-drift",
             title: "Fix any schedule drift",
+            wantsScreenshot: false,
             summary:
               "If the schedule is running late and a hard-start item is at risk, trim or skip lower-priority items so the hard start hits on time.",
             details: [
@@ -282,15 +247,16 @@ export const guides: Guide[] = [
           {
             id: "log",
             title: "Log it",
+            wantsScreenshot: false,
             summary:
-              "Record the cut-in in the shift log and close the loop in the shift channel.",
+              "Record the cut-in in the shift log and close the loop in your station's troubleshooting channel.",
             details: [
               "Actual start and end time, source used, return behaviour.",
               "Any issues (source drops, audio problems, drift) and how you resolved them.",
               "Anything that needs follow-up from Stream Ops or Amagi.",
             ],
             expected:
-              "Shift log entry complete; a 'Back to schedule at HH:MM' post in the shift channel.",
+              "Shift log entry complete; a 'Back to schedule at HH:MM' post in your station's troubleshooting channel.",
           },
         ],
       },
@@ -319,7 +285,7 @@ export const guides: Guide[] = [
       },
       {
         symptom: "Cut-in was taken on the wrong channel.",
-        fix: "Immediately Return to Schedule on the wrong channel, then take the cut-in on the correct channel. Post what happened in the shift channel.",
+        fix: "Immediately Return to Schedule on the wrong channel, then take the cut-in on the correct channel. Post what happened in your station's troubleshooting channel.",
         escalate: "Always report this as a Sev 2 so the team can review.",
       },
     ],

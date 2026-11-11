@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { getGuide, guides } from "@/content/guides";
 import { GuideView } from "@/components/guide/guide-view";
 import { ComingSoonGuide } from "@/components/guide/coming-soon-guide";
+import { discoverScreenshots } from "@/lib/screenshots";
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -36,7 +37,9 @@ async function GuideContent({ params }: { params: PageProps<"/guides/[slug]">["p
   const { slug } = await params;
   const guide = getGuide(slug);
   if (!guide) notFound();
-  return guide.status === "coming-soon" ? <ComingSoonGuide guide={guide} /> : <GuideView guide={guide} />;
+  if (guide.status === "coming-soon") return <ComingSoonGuide guide={guide} />;
+  const screenshots = discoverScreenshots(guide);
+  return <GuideView guide={guide} screenshots={screenshots} />;
 }
 
 function GuideSkeleton() {

@@ -58,7 +58,7 @@ export default function OperationsPage() {
         <SectionHeading
           id="stations"
           title="Stations in scope"
-          description="Which station channels DLPs operate through Cloudport. Confirm the channel name before you touch anything on air."
+          description="Three stations run on one Cloudport account. Confirm the channel name before you touch anything on air, and pick your station in the header so escalation paths show your channel."
         />
         <div className="overflow-hidden rounded-lg border">
           <Table>
@@ -67,6 +67,8 @@ export default function OperationsPage() {
                 <TableHead>Call sign</TableHead>
                 <TableHead>Market</TableHead>
                 <TableHead>Cloudport channel</TableHead>
+                <TableHead>Time zone</TableHead>
+                <TableHead>Troubleshooting channel</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
@@ -75,10 +77,19 @@ export default function OperationsPage() {
               {stations.map((s) => {
                 const st = stationStatus[s.status];
                 return (
-                  <TableRow key={`${s.callSign}-${s.market}`}>
+                  <TableRow key={s.id} className="align-top">
                     <TableCell className="font-medium">{s.callSign}</TableCell>
                     <TableCell>{s.market}</TableCell>
                     <TableCell>{s.channelName}</TableCell>
+                    <TableCell className="text-muted-foreground">{s.timeZone.replace("_", " ")}</TableCell>
+                    <TableCell
+                      className={cn(
+                        "whitespace-normal",
+                        s.escalation.troubleshootingChannel.startsWith("Add ") ? "italic text-muted-foreground" : "",
+                      )}
+                    >
+                      {s.escalation.troubleshootingChannel}
+                    </TableCell>
                     <TableCell>
                       <Badge variant="outline" className={cn(st.className)}>
                         {st.label}

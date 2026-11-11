@@ -22,7 +22,7 @@ export const severities: Severity[] = [
     responseTarget: "Immediate. Phone first, then post.",
     firstAction:
       "Call the Amagi NOC and the on-call Stream Ops lead at the same time. Post in the incident channel with station, time, what you see and what you tried.",
-    notify: ["Amagi NOC (phone)", "Stream Ops on-call (phone)", "Lead DLP", "Incident channel"],
+    notify: ["Amagi NOC (phone)", "Stream Ops on-call (phone)", "Your station's Lead DLP", "Incident channel"],
   },
   {
     level: "Sev 2",
@@ -39,7 +39,7 @@ export const severities: Severity[] = [
     responseTarget: "Within 15 minutes.",
     firstAction:
       "Try the matching Troubleshooting entry in the guide. If not fixed in 2 minutes, post in the incident channel and page Stream Ops.",
-    notify: ["Stream Ops on-call", "Lead DLP", "Incident channel"],
+    notify: ["Stream Ops on-call", "Your station's Lead DLP", "Incident channel", "Your station's troubleshooting channel"],
   },
   {
     level: "Sev 3",
@@ -53,8 +53,8 @@ export const severities: Severity[] = [
       "A Cloudport feature is misbehaving but there is a workaround.",
     ],
     responseTarget: "Same shift.",
-    firstAction: "Post in the DLP support channel with the channel name, the item and a screenshot.",
-    notify: ["DLP support channel", "Lead DLP"],
+    firstAction: "Post in your station's troubleshooting channel with the Cloudport channel name, the item and a screenshot. Tag the Lead DLP.",
+    notify: ["Your station's troubleshooting channel", "Your station's Lead DLP"],
   },
   {
     level: "Sev 4",
@@ -67,8 +67,8 @@ export const severities: Severity[] = [
       "Request for a new report or template.",
     ],
     responseTarget: "Next business day.",
-    firstAction: "Check this playbook first, then post in the DLP support channel or file a ticket.",
-    notify: ["DLP support channel"],
+    firstAction: "Check this playbook first, then post in your station's troubleshooting channel. Access requests and documentation fixes go to the DLP support channel.",
+    notify: ["Your station's troubleshooting channel", "DLP support channel"],
   },
 ];
 
@@ -88,7 +88,7 @@ export const tiers: EscalationTier[] = [
       "The senior DLP covering the shift. Knows the day's schedule and can approve removing content.",
     useWhen:
       "Any decision about what airs, schedule drift that threatens a hard start, or when a guide does not cover your situation.",
-    howToReach: ["Shift channel: Add Slack channel name", "Direct message or call"],
+    howToReach: ["Your station's troubleshooting channel (see Your station, above)", "Lead DLP contact for your station"],
     expectedResponse: "Minutes.",
   },
   {
@@ -119,13 +119,8 @@ export const tiers: EscalationTier[] = [
   },
 ];
 
+/** Contacts shared by every station. Station-specific channels live in operations.ts. */
 export const contacts: Contact[] = [
-  {
-    name: "Shift channel",
-    role: "Live coordination between DLPs and the Lead DLP",
-    channel: "Add Slack channel name",
-    hours: "During broadcast hours",
-  },
   {
     name: "Incident channel",
     role: "Sev 1 and Sev 2 incidents",
@@ -154,7 +149,7 @@ export const contacts: Contact[] = [
   },
 ];
 
-export const incidentTemplate = `Station / channel:
+export const incidentTemplate = `Station (Baltimore / Sacramento / Miami) and Cloudport channel:
 Time noticed (local):
 Severity (Sev 1-4):
 What viewers see:

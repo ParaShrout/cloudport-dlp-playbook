@@ -7,10 +7,46 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { cn } from "cn";
 
 /**
- * Renders a guide screenshot. If the image file is not in /public yet, shows a
- * labelled placeholder with the expected path so the slot is obvious to
- * whoever is adding the real images.
+ * Screenshots for one step. Shows a labelled empty slot (with the file name
+ * to save) when nothing has been added yet.
  */
+export function StepScreenshots({
+  shots,
+  slotPath,
+  className,
+}: {
+  shots: ScreenshotType[];
+  /** e.g. "public/screenshots/live-cut-ins/03.png" */
+  slotPath?: string;
+  className?: string;
+}) {
+  if (shots.length === 0) {
+    if (!slotPath) return null;
+    return (
+      <div
+        className={cn(
+          "flex items-center gap-3 rounded-lg border border-dashed bg-muted/40 px-3.5 py-3 text-xs text-muted-foreground",
+          className,
+        )}
+      >
+        <ImageIcon className="size-4 shrink-0" />
+        <p>
+          <span className="font-medium text-foreground/80">Screenshot slot.</span> Save the image as{" "}
+          <code className="rounded bg-background px-1.5 py-0.5 text-[11px]">{slotPath}</code> and it appears here.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={cn("grid gap-3", shots.length > 1 ? "sm:grid-cols-2" : "", className)}>
+      {shots.map((shot) => (
+        <Screenshot key={shot.src} shot={shot} />
+      ))}
+    </div>
+  );
+}
+
 export function Screenshot({ shot, className }: { shot: ScreenshotType; className?: string }) {
   const [missing, setMissing] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -28,9 +64,9 @@ export function Screenshot({ shot, className }: { shot: ScreenshotType; classNam
   if (missing) {
     return (
       <figure className={cn("overflow-hidden rounded-lg border border-dashed bg-muted/40", className)}>
-        <div className="flex flex-col items-center justify-center gap-2 px-4 py-10 text-center text-muted-foreground">
+        <div className="flex flex-col items-center justify-center gap-2 px-4 py-8 text-center text-muted-foreground">
           <ImageIcon className="size-6" />
-          <p className="text-sm font-medium text-foreground">Screenshot slot</p>
+          <p className="text-sm font-medium text-foreground">Image not found</p>
           <p className="text-xs">{shot.alt}</p>
           <code className="mt-1 rounded bg-background px-2 py-1 text-[11px]">public{shot.src}</code>
         </div>

@@ -19,6 +19,7 @@ const GROUP_ORDER: SearchItem["group"][] = [
   "Guides",
   "Steps",
   "Troubleshooting",
+  "Stations",
   "Escalations",
   "Operations",
   "Training",
@@ -48,7 +49,14 @@ function useSearchOpen() {
   );
 }
 
-export function SearchTrigger({ className }: { className?: string }) {
+export function SearchTrigger({ className, iconOnly = false }: { className?: string; iconOnly?: boolean }) {
+  if (iconOnly) {
+    return (
+      <Button variant="outline" size="icon" className={className} onClick={() => setOpen(true)} aria-label="Search the playbook">
+        <SearchIcon />
+      </Button>
+    );
+  }
   return (
     <Button
       variant="outline"
@@ -57,8 +65,7 @@ export function SearchTrigger({ className }: { className?: string }) {
       aria-label="Search the playbook"
     >
       <SearchIcon data-icon="inline-start" />
-      <span className="hidden text-muted-foreground sm:inline">Search steps, terms, escalations…</span>
-      <span className="text-muted-foreground sm:hidden">Search</span>
+      <span className="text-muted-foreground">Search steps, terms, escalations…</span>
       <kbd className="ml-auto hidden rounded border bg-muted px-1.5 font-mono text-[10px] text-muted-foreground md:inline-block">
         /
       </kbd>

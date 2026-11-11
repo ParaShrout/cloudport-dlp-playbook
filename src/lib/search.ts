@@ -1,12 +1,12 @@
 import { guides } from "@/content/guides";
 import { glossary } from "@/content/glossary";
 import { severities, tiers } from "@/content/escalations";
-import { checklists } from "@/content/operations";
+import { checklists, stations } from "@/content/operations";
 import { trainingModules } from "@/content/training";
 
 export type SearchItem = {
   id: string;
-  group: "Guides" | "Steps" | "Troubleshooting" | "Escalations" | "Operations" | "Training" | "Glossary";
+  group: "Guides" | "Steps" | "Troubleshooting" | "Stations" | "Escalations" | "Operations" | "Training" | "Glossary";
   title: string;
   subtitle?: string;
   href: string;
@@ -46,6 +46,17 @@ export function buildSearchIndex(): SearchItem[] {
         href: `/guides/${g.slug}#troubleshooting`,
         keywords: t.fix,
       });
+    });
+  }
+
+  for (const s of stations) {
+    items.push({
+      id: `station-${s.id}`,
+      group: "Stations",
+      title: `${s.market} · ${s.callSign}`,
+      subtitle: `${s.channelName} · ${s.escalation.troubleshootingChannel}`,
+      href: "/escalations#station",
+      keywords: `${s.escalation.leadDlp} ${s.escalation.controlRoom} station escalation`,
     });
   }
 

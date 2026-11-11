@@ -16,6 +16,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { SectionHeading } from "@/components/page-header";
 import { SearchTrigger } from "@/components/search-command";
 import { TrainingProgressCard } from "@/components/training-progress-card";
+import { StationStrip } from "@/components/station/station-path";
 import { site } from "@/content/site";
 import { countSteps, guides } from "@/content/guides";
 import { severities } from "@/content/escalations";
@@ -35,8 +36,9 @@ export default function DashboardPage() {
           What do you need to do in {site.toolName} right now?
         </h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Step-by-step procedures, daily operations and escalation paths for Digital Line Producers running station
-          streams. Search for the step you need, or start the training path if you are new.
+          Step-by-step procedures, daily operations and escalation paths for Digital Line Producers running the
+          Baltimore, Sacramento and Miami streams. Search for the step you need, or start the training path if you are
+          new.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <SearchTrigger className="h-10 w-full justify-start sm:w-96" />
@@ -58,14 +60,17 @@ export default function DashboardPage() {
               {sev1.definition} That is a <strong>{sev1.level}</strong>: {sev1.firstAction}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-wrap gap-2">
-            <Button variant="destructive" render={<Link href="/escalations#severity" />}>
-              <PhoneCallIcon data-icon="inline-start" />
-              Severity levels and who to call
-            </Button>
-            <Button variant="outline" render={<Link href="/guides/live-cut-ins#troubleshooting" />}>
-              Live cut-in troubleshooting
-            </Button>
+          <CardContent className="flex flex-col gap-3">
+            <StationStrip />
+            <div className="flex flex-wrap gap-2">
+              <Button variant="destructive" render={<Link href="/escalations#severity" />}>
+                <PhoneCallIcon data-icon="inline-start" />
+                Severity levels and who to call
+              </Button>
+              <Button variant="outline" render={<Link href="/guides/live-cut-ins#troubleshooting" />}>
+                Live cut-in troubleshooting
+              </Button>
+            </div>
           </CardContent>
         </Card>
         <TrainingProgressCard />

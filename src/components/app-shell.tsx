@@ -4,6 +4,7 @@ import { site } from "@/content/site";
 import { SidebarNav } from "./sidebar-nav";
 import { SearchDialog, SearchTrigger } from "./search-command";
 import { MobileNav } from "./mobile-nav";
+import { StationSwitcher } from "./station-switcher";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
@@ -27,8 +28,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="lg:hidden">
             <Brand compact />
           </div>
-          <div className="ml-auto flex items-center gap-2">
-            <SearchTrigger className="w-full max-w-md justify-start sm:w-80" />
+          <div className="ml-auto flex min-w-0 items-center gap-2">
+            <SearchTrigger className="hidden justify-start sm:inline-flex sm:w-64 lg:w-80" />
+            <SearchTrigger iconOnly className="sm:hidden" />
+            <StationSwitcher />
           </div>
         </header>
         <main className="flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
@@ -54,7 +57,7 @@ function Brand({ compact = false }: { compact?: boolean }) {
       <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
         <RadioTowerIcon className="size-4" />
       </span>
-      <span className="flex flex-col leading-tight">
+      <span className="flex flex-col leading-tight whitespace-nowrap">
         <span className="text-sm font-semibold">{site.name}</span>
         {!compact ? <span className="text-xs text-muted-foreground">{site.toolName} user guide</span> : null}
       </span>

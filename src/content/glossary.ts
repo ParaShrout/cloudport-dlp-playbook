@@ -98,6 +98,12 @@ export const glossary: GlossaryTerm[] = [
       "An external view of what viewers actually receive. Always confirm on-air changes here, not only in the Cloudport UI.",
   },
   {
+    term: "Troubleshooting channel",
+    aka: ["Station channel"],
+    definition:
+      "Each station's own Slack channel for its DLPs. Where cut-ins are announced, Sev 3-4 issues are raised and the Lead DLP is reached. Pick your station in the header to see yours.",
+  },
+  {
     term: "Shift log",
     aka: ["As-run notes"],
     definition:

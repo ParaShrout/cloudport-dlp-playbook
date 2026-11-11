@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
 import { CopyButton } from "@/components/copy-button";
+import { YourStationSection } from "@/components/station/station-path";
+import { stations } from "@/content/operations";
 import { contacts, incidentTemplate, severities, tiers } from "@/content/escalations";
 import type { Severity } from "@/content/types";
 import { cn } from "cn";
@@ -39,8 +41,12 @@ export default function EscalationsPage() {
       <PageHeader
         eyebrow="Escalations & support"
         title="Who to contact, and how fast"
-        description="Decide the severity first. The severity tells you who to contact, in what order, and how quickly you should expect a response."
+        description="Decide the severity first. The severity tells you who to contact, in what order, and how quickly you should expect a response. Tier 1 contacts differ by station; everything else is shared."
       />
+
+      <section id="station" className="scroll-mt-24">
+        <YourStationSection />
+      </section>
 
       <section>
         <SectionHeading
@@ -135,7 +141,37 @@ export default function EscalationsPage() {
       </section>
 
       <section>
-        <SectionHeading id="contacts" title="Contacts" description="Keep this table current. Placeholders read 'Add ...'." />
+        <SectionHeading
+          id="contacts"
+          title="Contacts"
+          description="Station channels first, then the contacts shared by all stations. Placeholders read 'Add ...'."
+        />
+        <div className="mb-4 overflow-hidden rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Station</TableHead>
+                <TableHead>Troubleshooting channel</TableHead>
+                <TableHead>Lead DLP</TableHead>
+                <TableHead>Control room</TableHead>
+                <TableHead>Cloudport channel</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {stations.map((s) => (
+                <TableRow key={s.id} className="align-top">
+                  <TableCell className="font-medium">
+                    {s.market} <span className="font-normal text-muted-foreground">· {s.callSign}</span>
+                  </TableCell>
+                  <PlaceholderCell value={s.escalation.troubleshootingChannel} />
+                  <PlaceholderCell value={s.escalation.leadDlp} />
+                  <PlaceholderCell value={s.escalation.controlRoom} />
+                  <TableCell className="whitespace-normal">{s.channelName}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
         <div className="overflow-hidden rounded-lg border">
           <Table>
             <TableHeader>
@@ -152,11 +188,7 @@ export default function EscalationsPage() {
                 <TableRow key={c.name} className="align-top">
                   <TableCell className="font-medium">{c.name}</TableCell>
                   <TableCell className="whitespace-normal">{c.role}</TableCell>
-                  <TableCell
-                    className={cn("whitespace-normal", c.channel.startsWith("Add ") ? "italic text-muted-foreground" : "")}
-                  >
-                    {c.channel}
-                  </TableCell>
+                  <PlaceholderCell value={c.channel} />
                   <TableCell>{c.hours}</TableCell>
                   <TableCell className="whitespace-normal text-muted-foreground">{c.notes}</TableCell>
                 </TableRow>
@@ -183,5 +215,13 @@ export default function EscalationsPage() {
         </Card>
       </section>
     </div>
+  );
+}
+
+function PlaceholderCell({ value }: { value: string }) {
+  return (
+    <TableCell className={cn("whitespace-normal", value.startsWith("Add ") ? "italic text-muted-foreground" : "")}>
+      {value}
+    </TableCell>
   );
 }

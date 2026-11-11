@@ -5,28 +5,66 @@ import type { Checklist, Station } from "./types";
  * items are plain data.
  */
 
+/**
+ * Stations running Cloudport. Each station has its own troubleshooting
+ * channel and Lead DLP, so DLPs pick their station in the header and the
+ * dashboard, escalations page and guides show that station's path.
+ *
+ * Values beginning with "Add " are placeholders. Replace them with the real
+ * Slack channel names and phone numbers.
+ */
 export const stations: Station[] = [
   {
+    id: "baltimore",
     callSign: "WJZ",
     market: "Baltimore",
     channelName: "CBS News Baltimore",
+    timeZone: "America/New_York",
     status: "live",
-    notes: "POC station. All guides were written against this channel.",
+    notes: "POC station. Guides were first written against this channel.",
+    escalation: {
+      troubleshootingChannel: "Add Baltimore troubleshooting Slack channel",
+      leadDlp: "Add Baltimore Lead DLP contact",
+      controlRoom: "Add WJZ control room phone / intercom",
+    },
   },
   {
-    callSign: "Add call sign",
-    market: "Add market",
-    channelName: "Add Cloudport channel name",
-    status: "planned",
-    notes: "Add one row per station as it onboards.",
+    id: "sacramento",
+    callSign: "KOVR",
+    market: "Sacramento",
+    channelName: "CBS News Sacramento",
+    timeZone: "America/Los_Angeles",
+    status: "live",
+    escalation: {
+      troubleshootingChannel: "Add Sacramento troubleshooting Slack channel",
+      leadDlp: "Add Sacramento Lead DLP contact",
+      controlRoom: "Add KOVR control room phone / intercom",
+    },
+  },
+  {
+    id: "miami",
+    callSign: "WFOR",
+    market: "Miami",
+    channelName: "CBS News Miami",
+    timeZone: "America/New_York",
+    status: "live",
+    escalation: {
+      troubleshootingChannel: "Add Miami troubleshooting Slack channel",
+      leadDlp: "Add Miami Lead DLP contact",
+      controlRoom: "Add WFOR control room phone / intercom",
+    },
   },
 ];
+
+export function getStation(id: string | null | undefined): Station | undefined {
+  return stations.find((s) => s.id === id);
+}
 
 export const dailyRhythm = [
   {
     time: "Start of shift",
     title: "Take the handoff",
-    text: "Read the previous shift's log, confirm the channel is on air, confirm today's schedule is published and note any planned live hits.",
+    text: "Read the previous shift's log, confirm your station's channel is on air, confirm today's schedule is published and note any planned live hits.",
   },
   {
     time: "Before first newscast",
@@ -62,7 +100,7 @@ export const checklists: Checklist[] = [
       { id: "ps-4", text: "Confirm today's playlist is published through end of day." },
       { id: "ps-5", text: "Check Live Sources: all station inputs Active." },
       { id: "ps-6", text: "Note planned live hits and hard-start newscasts for the shift." },
-      { id: "ps-7", text: "Post 'On shift' in the shift channel." },
+      { id: "ps-7", text: "Post 'On shift' in your station's troubleshooting channel." },
     ],
   },
   {
@@ -86,15 +124,15 @@ export const checklists: Checklist[] = [
       { id: "ho-2", text: "Shift log written: live events, issues, resolutions." },
       { id: "ho-3", text: "Open escalations listed with ticket / thread links." },
       { id: "ho-4", text: "Upcoming live hits for the next shift noted." },
-      { id: "ho-5", text: "Post 'Off shift, handed to <name>' in the shift channel." },
+      { id: "ho-5", text: "Post 'Off shift, handed to <name>' in your station's troubleshooting channel." },
     ],
   },
 ];
 
 export const communicationNorms = [
   {
-    title: "Shift channel",
-    text: "Every live cut-in gets two posts: 'Live on stream at HH:MM' and 'Back to schedule at HH:MM'. Keep it short; details go in the shift log.",
+    title: "Station troubleshooting channel",
+    text: "Each station has its own channel. Every live cut-in gets two posts there: 'Live on stream at HH:MM' and 'Back to schedule at HH:MM'. Questions and Sev 3-4 issues go there first. Keep it short; details go in the shift log.",
   },
   {
     title: "Incident channel",

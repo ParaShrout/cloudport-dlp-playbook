@@ -10,15 +10,17 @@ import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Callout } from "@/components/callout";
-import { Screenshot } from "@/components/screenshot";
+import { StepScreenshots } from "@/components/screenshot";
+import { StationStrip } from "@/components/station/station-path";
+import type { StepScreenshots as StepScreenshotMap } from "@/lib/screenshots";
 import { StatusBadge } from "@/components/status-badge";
 import { SectionHeading } from "@/components/page-header";
 import { countSteps, getGuide } from "@/content/guides";
-import type { Guide, Step } from "@/content/types";
+import type { Guide, Screenshot, Step } from "@/content/types";
 import { useCompletedSet } from "@/lib/use-local-storage";
 import { cn } from "cn";
 
-export function GuideView({ guide }: { guide: Guide }) {
+export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: StepScreenshotMap }) {
   const { ids, toggle, reset, has, hydrated } = useCompletedSet(`dlp-playbook:guide:${guide.slug}`);
   const total = countSteps(guide);
   const done = hydrated ? ids.length : 0;
@@ -83,7 +85,7 @@ export function GuideView({ guide }: { guide: Guide }) {
               <CardTitle className="text-base">Before you start</CardTitle>
               <CardDescription>All of these should be true.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col gap-4">
               <ul className="flex flex-col gap-1.5 text-sm text-foreground/90">
                 {guide.prerequisites.map((p) => (
                   <li key={p} className="flex gap-2">
@@ -92,6 +94,7 @@ export function GuideView({ guide }: { guide: Guide }) {
                   </li>
                 ))}
               </ul>
+              <StationStrip />
             </CardContent>
           </Card>
         </div>
@@ -110,6 +113,8 @@ export function GuideView({ guide }: { guide: Guide }) {
                       key={step.id}
                       step={step}
                       number={stepNumbers.get(step.id) ?? 0}
+                      guideSlug={guide.slug}
+                      shots={screenshots[step.id] ?? []}
                       done={hydrated && has(step.id)}
                       onToggle={() => toggle(step.id)}
                     />
@@ -246,15 +251,21 @@ export function GuideView({ guide }: { guide: Guide }) {
 function StepCard({
   step,
   number,
+  guideSlug,
+  shots,
   done,
   onToggle,
 }: {
   step: Step;
   number: number;
+  guideSlug: string;
+  shots: Screenshot[];
   done: boolean;
   onToggle: () => void;
 }) {
   const checkboxId = `done-${step.id}`;
+  const slotPath =
+    step.wantsScreenshot === false ? undefined : `public/screenshots/${guideSlug}/${String(number).padStart(2, "0")}.png`;
   return (
     <li id={step.id} className="scroll-mt-24">
       <article
@@ -298,7 +309,7 @@ function StepCard({
               </div>
             ) : null}
             {step.callout ? <Callout callout={step.callout} className="mt-4" /> : null}
-            {step.screenshot ? <Screenshot shot={step.screenshot} className="mt-4" /> : null}
+            <StepScreenshots shots={shots} slotPath={slotPath} className="mt-4" />
           </div>
         </div>
       </article>

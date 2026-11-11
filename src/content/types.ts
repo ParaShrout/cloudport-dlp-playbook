@@ -24,7 +24,17 @@ export type Step = {
   details?: string[];
   /** What the DLP should see when the step succeeded. */
   expected?: string;
-  screenshot?: Screenshot;
+  /**
+   * Screenshots are discovered automatically from
+   * /public/screenshots/<guide-slug>/ by step number (e.g. "03.png",
+   * "03b-anything.png") or by step id ("verify-source.png"). Use this field
+   * only to add images that live somewhere else.
+   */
+  screenshots?: Screenshot[];
+  /** Caption shown under auto-discovered screenshots for this step. */
+  screenshotCaption?: string;
+  /** Set false for steps that never need a screenshot (hides the empty slot). */
+  wantsScreenshot?: boolean;
   callout?: Callout;
 };
 
@@ -107,12 +117,29 @@ export type Checklist = {
   items: ChecklistItem[];
 };
 
+export type StationEscalation = {
+  /** Station-specific troubleshooting / support channel. First stop for anything not covered by a guide. */
+  troubleshootingChannel: string;
+  /** How to reach the Lead DLP covering this station's shift. */
+  leadDlp: string;
+  /** Control room / master control contact for live source and cue coordination. */
+  controlRoom: string;
+  /** Anything specific to this station's path, e.g. who approves content removal. */
+  notes?: string;
+};
+
 export type Station = {
+  /** Stable id used for the station switcher and URLs. */
+  id: string;
   callSign: string;
   market: string;
+  /** Channel name exactly as it appears in Cloudport. */
   channelName: string;
+  /** Local time zone, used when writing times in the shift log. */
+  timeZone: string;
   status: "live" | "onboarding" | "planned";
   notes?: string;
+  escalation: StationEscalation;
 };
 
 export type TrainingItem = {

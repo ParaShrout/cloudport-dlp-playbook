@@ -20,18 +20,47 @@ import type { Guide } from "@/content/types";
  * tick-off checklist, screenshots and troubleshooting table.
  */
 export function GuideList({ guides }: { guides: Guide[] }) {
+  // Guides listed as a method of an overview guide render indented beneath
+  // that parent instead of as top-level rows.
+  const parentOf = new Map<string, Guide>();
+  guides.forEach((g) =>
+    g.methods?.forEach((m) => {
+      if (!parentOf.has(m.slug)) parentOf.set(m.slug, g);
+    }),
+  );
+  const rows: { guide: Guide; parent?: Guide }[] = [];
+  guides.forEach((g) => {
+    if (parentOf.has(g.slug)) return;
+    rows.push({ guide: g });
+    g.methods?.forEach((m) => {
+      const child = guides.find((c) => c.slug === m.slug);
+      if (child && parentOf.get(m.slug) === g)
+        rows.push({ guide: child, parent: g });
+    });
+  });
+
   return (
     <Accordion className="rounded-lg border bg-card px-4 sm:px-5">
-      {guides.map((g) => (
-        <AccordionItem key={g.slug} value={g.slug}>
+      {rows.map(({ guide: g, parent }) => (
+        <AccordionItem
+          key={g.slug}
+          value={g.slug}
+          className={parent ? "ml-6 sm:ml-8" : ""}
+        >
           <AccordionTrigger
             className="items-start gap-4 py-4 hover:no-underline"
             disabled={g.status === "coming-soon"}
           >
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-base font-semibold leading-snug tracking-tight">
-                  {g.title}
+                <span
+                  className={
+                    parent
+                      ? "text-[15px] font-semibold leading-snug tracking-tight"
+                      : "text-base font-semibold leading-snug tracking-tight"
+                  }
+                >
+                  {parent ? (g.shortTitle ?? g.title) : g.title}
                 </span>
                 <StatusBadge status={g.status} />
               </div>

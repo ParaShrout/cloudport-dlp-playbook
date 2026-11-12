@@ -58,7 +58,7 @@ export function discoverScreenshots(guide: Guide): StepScreenshots {
     if (!step) continue;
     const list = (result[step.id] ??= []);
     list.push({
-      src: `/screenshots/${guide.slug}/${file}`,
+      src: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/screenshots/${guide.slug}/${file}`,
       alt: `${step.title} (screenshot ${list.length + 1})`,
       caption: list.length === 0 ? step.screenshotCaption : undefined,
     });

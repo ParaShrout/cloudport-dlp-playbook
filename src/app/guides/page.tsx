@@ -10,7 +10,7 @@ import type { Guide } from "@/content/types";
 
 export const metadata: Metadata = { title: "Step-by-step guides" };
 
-const CATEGORY_ORDER: Guide["category"][] = ["Live Operations", "Scheduling", "Content", "Shift"];
+const CATEGORY_ORDER: Guide["category"][] = ["Live Operations", "Programming Hours", "Troubleshooting"];
 
 export default function GuidesPage() {
   return (
@@ -18,7 +18,7 @@ export default function GuidesPage() {
       <PageHeader
         eyebrow="Guides"
         title="Step-by-step guides"
-        description="Every procedure a DLP runs in Cloudport, written to be followed under pressure: one action per step, what you should see when it worked, and what to do when it did not."
+        description="The User Manual procedures from the Streaming Google Site, one action per step, with a checklist you can tick off while you work. Pages not yet transferred are marked Coming soon."
       />
       <div className="flex flex-col gap-10">
         {CATEGORY_ORDER.map((category) => {
@@ -34,7 +34,7 @@ export default function GuidesPage() {
                       <CardHeader>
                         <div className="flex items-center justify-between gap-2">
                           <StatusBadge status={g.status} />
-                          {g.status !== "coming-soon" ? (
+                          {g.status !== "coming-soon" && g.kind !== "overview" ? (
                             <span className="inline-flex items-center gap-3 text-xs text-muted-foreground">
                               <span className="inline-flex items-center gap-1">
                                 <ListChecksIcon className="size-3.5" /> {countSteps(g)} steps

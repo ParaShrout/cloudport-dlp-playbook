@@ -36,15 +36,19 @@ export default function DashboardPage() {
           What do you need to do in {site.toolName} right now?
         </h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Step-by-step procedures, daily operations and escalation paths for Digital Line Producers running the
+          The User Manual procedures, daily operations and escalation paths for Digital Line Producers running the
           Baltimore, Sacramento and Miami streams. Search for the step you need, or start the training path if you are
           new.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <SearchTrigger className="h-10 w-full justify-start sm:w-96" />
           <Button variant="default" size="lg" render={<Link href="/guides/live-cut-ins" />}>
-            Open Live Cut-Ins guide
+            Live Cut-Ins
             <ArrowRightIcon data-icon="inline-end" />
+          </Button>
+          <Button variant="outline" size="lg" render={<a href={site.toolUrl} target="_blank" rel="noreferrer" />}>
+            Open Cloudport
+            <ExternalLinkIcon data-icon="inline-end" />
           </Button>
         </div>
       </section>
@@ -100,12 +104,18 @@ export default function DashboardPage() {
                   <CardDescription>{g.summary}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1">
-                    <ListChecksIcon className="size-3.5" /> {countSteps(g)} steps
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <ClockIcon className="size-3.5" /> ~{g.estimatedMinutes} min
-                  </span>
+                  {g.kind === "overview" ? (
+                    <span>{g.methods?.length ?? 0} methods</span>
+                  ) : (
+                    <>
+                      <span className="inline-flex items-center gap-1">
+                        <ListChecksIcon className="size-3.5" /> {countSteps(g)} steps
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <ClockIcon className="size-3.5" /> ~{g.estimatedMinutes} min
+                      </span>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             </Link>
@@ -114,8 +124,8 @@ export default function DashboardPage() {
             <Card className="h-full border-dashed">
               <CardHeader>
                 <CardTitle className="text-base">Being documented next</CardTitle>
-                <CardDescription>
-                  Summaries exist so you know what is coming. Steps and screenshots are in progress.
+                  <CardDescription>
+                  These pages exist on the Google Site and will be transferred here next.
                 </CardDescription>
               </CardHeader>
               <CardContent>

@@ -1,101 +1,104 @@
 import type { GlossaryTerm } from "./types";
 
+/**
+ * Definitions use the vocabulary of the Google Site user manual. Add terms
+ * as more pages are transferred (Simulcast / Replay / Wheel Hours, etc.).
+ */
 export const glossary: GlossaryTerm[] = [
   {
     term: "Cloudport",
     definition:
-      "Amagi's cloud playout platform. It holds the channel, the daily playlist, the media library and the live sources, and it produces the stream viewers watch.",
+      "Amagi's cloud playout platform used to run the station streams. Accessed in Google Chrome at cbsnews.east-cloudport.amagi.tv.",
   },
   {
     term: "DLP",
     aka: ["Digital Line Producer"],
     definition:
-      "The person responsible for what is on a station's stream during a shift: building and adjusting the schedule, running live cut-ins and escalating problems.",
+      "The person responsible for what is on a station's stream during a shift: watching the schedule, running live cut-ins and escalating problems.",
   },
   {
     term: "Lead DLP",
-    definition:
-      "Senior DLP on shift. Approves removing program content and is the first escalation point for judgement calls.",
+    definition: "Senior DLP on shift for a station. First escalation point for judgement calls.",
   },
   {
     term: "Channel",
     definition:
-      "One station's 24/7 stream inside Cloudport (for example CBS News Baltimore). Each channel has its own playlist, live sources and output.",
+      "One station's stream inside Cloudport. Each station's DLPs see only their own schedule, rundown and playout.",
   },
   {
-    term: "Playlist",
-    aka: ["Schedule", "Timeline"],
+    term: "Playout page",
     definition:
-      "The ordered list of items (assets, live blocks, breaks) that Cloudport plays for a channel across the day. Changes to the published playlist take effect on air.",
+      "The Cloudport page showing the schedule of events for your channel. Live cut-ins are added and taken from here; Take Next is in the lower left, Take Live and Live Off in the upper right.",
   },
   {
-    term: "Rundown",
+    term: "Event",
     definition:
-      "The newsroom's running order for a newscast. In this project the stream's playlist is built from, and kept in sync with, the station rundowns.",
+      "One item in the Playout schedule (a show, a segment, a live segment). Live segments are added by right-clicking the event before where you want the cut-in.",
   },
   {
-    term: "Asset",
-    definition: "A video file in the Cloudport media library that can be placed in a playlist.",
-  },
-  {
-    term: "Live source",
-    aka: ["Input", "Live input", "Encoder feed"],
-    definition:
-      "A live video/audio input into Cloudport, usually the control room program output sent over SRT or RTMP. Must be Active before it can be put on air.",
+    term: "File playback programming",
+    aka: ["File show"],
+    definition: "Scheduled programming played from files rather than a live source. Live cut-ins interrupt file playback.",
   },
   {
     term: "Live cut-in",
-    aka: ["Cut-in", "Go live"],
     definition:
-      "Interrupting the scheduled playlist with a live source, then returning to the schedule. The core live-operations task for DLPs.",
+      "Inserting a live source into file playback programming. Two methods: Adding Live Segments (preferred) and Immediate Live.",
   },
   {
-    term: "Take",
-    aka: ["Go Live"],
-    definition: "The action that puts the selected live source on air.",
-  },
-  {
-    term: "Return to schedule",
-    aka: ["End live"],
+    term: "Adding Live Segments",
+    aka: ["Add Live Segment"],
     definition:
-      "Ending a cut-in so the playlist takes over again, using either Resume or Join in progress.",
+      "The preferred cut-in method. A live segment is added after an existing event, its source and duration are set, and Take Next is used to start and end it. Offers the most control over when normal programming resumes.",
   },
   {
-    term: "Resume",
+    term: "Immediate Live",
+    aka: ["Take Live"],
     definition:
-      "Return behaviour: continue the interrupted item where it stopped. The rest of the schedule runs late by the length of the cut-in.",
+      "The quick cut-in method. Take Live inserts an immediate live show into the schedule (now or at a chosen time); Live Off ends it and Cloudport joins the originally scheduled programming in progress.",
   },
   {
-    term: "Join in progress",
+    term: "Live segment",
     definition:
-      "Return behaviour: jump to whatever the playlist says should be airing at the current clock time. Keeps the schedule on time; interrupted content is skipped.",
+      "An event that plays a live source. Becomes active as soon as the prior event's duration expires, so confirm there is adequate time before the next event.",
   },
   {
-    term: "Hard start",
-    aka: ["Fixed start", "Must-air"],
+    term: "Hold mode",
     definition:
-      "A playlist item that must begin at a fixed clock time, typically a live newscast. Everything else in the schedule flexes around hard starts.",
+      "The default state of a newly added live segment. The segment holds until you click Take Next to move on.",
   },
   {
-    term: "Drift",
+    term: "Take Next",
     definition:
-      "The gap between where the playlist should be and where it actually is, usually caused by a cut-in that used Resume or an item that ran long.",
+      "Button in the lower left of the Playout page. Starts the live segment when you are ready, and moves on to the next event when the cut-in completes.",
   },
   {
-    term: "Filler",
-    aka: ["Evergreen", "Promo"],
-    definition: "Low-priority content used to pad the schedule. First thing to skip when recovering from drift.",
-  },
-  {
-    term: "Slate",
+    term: "Live Off",
     definition:
-      "A static graphic Cloudport can show when nothing else is available, for example if a live source drops.",
+      "Button in the upper right of the Playout page. Ends an Immediate Live cut-in; Cloudport joins the originally scheduled programming in progress.",
   },
   {
-    term: "Output monitor",
-    aka: ["Player", "Multiviewer"],
+    term: "Live template",
+    definition: "A preset selected during Immediate Live that defines the live source. Confirm the correct source is present before proceeding.",
+  },
+  {
+    term: "Preview column",
     definition:
-      "An external view of what viewers actually receive. Always confirm on-air changes here, not only in the Cloudport UI.",
+      "Column on the Playout page with an orange button that previews the live source for a segment. Use it to confirm the correct source, and switch the toggle to Custom to pick a different one.",
+  },
+  {
+    term: "Start trigger",
+    definition:
+      "A setting on a show that controls when it starts. After a cut-in begins, check that start triggers on the following show are adjusted as necessary.",
+  },
+  {
+    term: "Disabled event",
+    definition:
+      "An event marked so it does not play. Used for a live segment whose exact start time is unknown; move it as necessary and enable it when ready.",
+  },
+  {
+    term: "Rundown",
+    definition: "The newsroom's running order for a newscast. The stream's schedule is built from, and kept in sync with, the station rundown.",
   },
   {
     term: "Troubleshooting channel",
@@ -105,7 +108,6 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: "Shift log",
-    aka: ["As-run notes"],
     definition:
       "Written record of each shift: live events with times, issues, fixes and open escalations. Read at the start of the next shift.",
   },
@@ -124,14 +126,5 @@ export const glossary: GlossaryTerm[] = [
     aka: ["Stream Ops"],
     definition:
       "The CBS Digital team that owns the Cloudport rollout, configuration and vendor relationship. Tier 2 support.",
-  },
-  {
-    term: "SRT / RTMP",
-    definition: "Transport protocols used to send the control room's live feed into Cloudport.",
-  },
-  {
-    term: "FAST",
-    definition:
-      "Free Ad-supported Streaming TV. The 24/7 station streams operated through Cloudport are FAST channels.",
   },
 ];

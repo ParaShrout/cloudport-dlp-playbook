@@ -3,6 +3,10 @@ import type { QuizQuestion, TrainingModule } from "./types";
 /**
  * Onboarding path for new DLPs. Progress is stored in the browser so a new
  * hire can work through it over several days.
+ *
+ * Module content references only procedures that exist in the playbook.
+ * The Google Site also has a TRAINING MATERIAL section; link items to it
+ * (or transfer it) when that content is available.
  */
 export const trainingModules: TrainingModule[] = [
   {
@@ -21,38 +25,38 @@ export const trainingModules: TrainingModule[] = [
   {
     id: "access",
     title: "2. Access and setup",
-    goal: "Be able to log in to Cloudport and see the station channel.",
+    goal: "Be able to sign in to Cloudport in Chrome and reach your station's Playout page.",
     duration: "Depends on provisioning",
     items: [
-      { id: "ac-1", text: "Request a Cloudport account with the DLP role for your station (Sev 4 request in the DLP support channel)." },
-      { id: "ac-2", text: "Log in and confirm you can see the station channel and that it is marked Production." },
-      { id: "ac-3", text: "Bookmark the output monitor / player for the station." },
-      { id: "ac-4", text: "Bookmark this playbook." },
+      { id: "ac-1", text: "Request a Cloudport account for your station (Sev 4 request in the DLP support channel)." },
+      { id: "ac-2", text: "In Google Chrome, sign in at cbsnews.east-cloudport.amagi.tv and open the Playout page.", href: "https://cbsnews.east-cloudport.amagi.tv/", hrefLabel: "Cloudport" },
+      { id: "ac-3", text: "Bookmark Cloudport and this playbook." },
     ],
   },
   {
     id: "fundamentals",
     title: "3. Cloudport fundamentals",
-    goal: "Navigate the channel dashboard, playlist, live sources and monitors without help.",
+    goal: "Navigate the Playout page and read the schedule without help.",
     duration: "1-2 hours shadowing",
     items: [
       { id: "fu-1", text: "Shadow a DLP for a full start-of-shift checklist.", href: "/operations#checklists", hrefLabel: "Start of shift checklist" },
-      { id: "fu-2", text: "Find today's playlist and identify the current item, the next item and the next hard start." },
-      { id: "fu-3", text: "Open Live Sources and explain what Active, preview and audio meters tell you." },
-      { id: "fu-4", text: "Explain the difference between Resume and Join in progress.", href: "/glossary", hrefLabel: "Glossary" },
+      { id: "fu-2", text: "On the Playout page, scroll to a future time and identify an event and the event that follows it." },
+      { id: "fu-3", text: "Find the Take Next button (lower left) and the Take Live / Live Off buttons (upper right)." },
+      { id: "fu-4", text: "Explain the difference between Adding Live Segments and Immediate Live, and which one is preferred.", href: "/guides/live-cut-ins", hrefLabel: "Live Cut-Ins" },
     ],
   },
   {
     id: "live-cut-ins",
     title: "4. Live cut-ins",
-    goal: "Take and return a live cut-in on your own, following the guide.",
+    goal: "Run both live cut-in methods on your own, following the guides.",
     duration: "2-3 supervised cut-ins",
     items: [
-      { id: "lc-1", text: "Read the Live Cut-Ins guide and the troubleshooting table.", href: "/guides/live-cut-ins", hrefLabel: "Live Cut-Ins guide" },
-      { id: "lc-2", text: "Watch an experienced DLP take a cut-in and narrate each step back to them." },
-      { id: "lc-3", text: "Take a cut-in on a staging / test channel with a Lead DLP watching." },
-      { id: "lc-4", text: "Take a production cut-in with a Lead DLP watching." },
-      { id: "lc-5", text: "Pass the knowledge check below." },
+      { id: "lc-1", text: "Read the Adding Live Segments guide (16 steps).", href: "/guides/live-cut-in-add-live-segment", hrefLabel: "Adding Live Segments" },
+      { id: "lc-2", text: "Read the Immediate Live guide (9 steps).", href: "/guides/live-cut-in-immediate-live", hrefLabel: "Immediate Live" },
+      { id: "lc-3", text: "Watch an experienced DLP add a live segment and narrate each step back to them." },
+      { id: "lc-4", text: "Add a live segment yourself with a Lead DLP watching, including Take Next at both ends." },
+      { id: "lc-5", text: "Run an Immediate Live cut-in and Live Off with a Lead DLP watching." },
+      { id: "lc-6", text: "Pass the knowledge check below." },
     ],
   },
   {
@@ -71,62 +75,75 @@ export const trainingModules: TrainingModule[] = [
 export const quiz: QuizQuestion[] = [
   {
     id: "q1",
-    question: "Before taking a live cut-in, what must you confirm about the live source?",
-    options: [
-      "That it exists in the dropdown",
-      "That it is Active with a moving preview and audio meters",
-      "That it was used yesterday",
-      "Nothing, the control room checks it",
-    ],
+    question: "Under most conditions, which live cut-in method should you use?",
+    options: ["Immediate Live", "Adding Live Segments", "Either, it does not matter", "Create a New Show on the Fly"],
     answerIndex: 1,
     explanation:
-      "Status alone is not enough. A source can be Connected but sending black or silence; the preview and meters catch that.",
+      "Adding Live Segments offers better control over the return to normal programming. Immediate Live is for when you need to go to air now.",
   },
   {
     id: "q2",
-    question: "A hard-start newscast begins in 12 minutes and you are about to take a 10-minute cut-in. Which return behaviour should you choose?",
-    options: ["Resume", "Join in progress", "Either, it does not matter", "Ask Amagi"],
+    question: "When does a live segment you have added become active?",
+    options: [
+      "When you click Save",
+      "As soon as the prior event's duration expires",
+      "Only when you click Take Live",
+      "At the top of the next hour",
+    ],
     answerIndex: 1,
     explanation:
-      "Join in progress keeps the schedule on the clock so the newscast starts on time. Resume would push it late by the cut-in length.",
+      "That is the caution on step 5: the live segment becomes active as soon as the prior event duration expires, so confirm there is adequate time before the next event.",
   },
   {
     id: "q3",
-    question: "You clicked Take and nothing changed on the output after 3 seconds. What do you do?",
+    question: "You have added a live segment but do not know the exact start time yet. What do you do?",
     options: [
-      "Click Take repeatedly until it switches",
-      "Wait about 10 seconds, check channel status, then try once more",
-      "Refresh the browser",
-      "Call Amagi immediately",
+      "Delete it and re-add it later",
+      "Mark the event as disabled and move it as necessary",
+      "Set the duration to zero",
+      "Click Take Next immediately",
     ],
     answerIndex: 1,
-    explanation:
-      "There is normally a short delay. Clicking repeatedly can queue multiple events. Escalate only if the second attempt fails.",
+    explanation: "Step 9: if the exact start time is unknown, mark the event as disabled and move it as necessary.",
   },
   {
     id: "q4",
-    question: "The stream has been black for 45 seconds. What severity is this?",
-    options: ["Sev 4", "Sev 3", "Sev 2", "Sev 1"],
-    answerIndex: 3,
-    explanation: "Off air for more than 30 seconds is Sev 1: call the Amagi NOC and Stream Ops on-call, then post.",
+    question: "How do you confirm the correct live source before an added live segment goes to air?",
+    options: [
+      "Check the channel output monitor",
+      "Click the orange button in the Preview column; switch the toggle to Custom if the default is wrong",
+      "Ask the control room",
+      "Open the live template list",
+    ],
+    answerIndex: 1,
+    explanation:
+      "Step 7: the orange Preview button confirms the source. If the default source is not correct, move the toggle to Custom and select the desired source.",
   },
   {
     id: "q5",
-    question: "After returning from a cut-in the schedule is 6 minutes late. What can you do without Lead DLP approval?",
-    options: [
-      "Remove the next newscast",
-      "Skip promos and filler ahead of the next hard start",
-      "Nothing",
-      "Re-publish the whole day",
-    ],
+    question: "With Immediate Live, which start-time option takes the source to air right away?",
+    options: ["'Now'", "'Next 10 seconds'", "'Top of hour'", "Leave it blank"],
     answerIndex: 1,
-    explanation: "Skipping filler is a routine fix. Removing program content needs the Lead DLP.",
+    explanation: "Step 6 of Immediate Live: to go now, select the 'Next 10 seconds' option.",
   },
   {
     id: "q6",
-    question: "Where does the first post about a Sev 2 incident go?",
-    options: ["Shift channel", "Incident channel, using the incident template", "Email to Amagi", "Nowhere, just fix it"],
+    question: "How do you end an Immediate Live cut-in, and what does Cloudport do?",
+    options: [
+      "Click Take Next; Cloudport restarts the interrupted show from the beginning",
+      "Click Live Off (upper right); Cloudport joins the originally scheduled programming in progress",
+      "Refresh the browser",
+      "Delete the live show from the schedule",
+    ],
     answerIndex: 1,
-    explanation: "The incident channel thread becomes the record. Use the template so Stream Ops has what they need immediately.",
+    explanation:
+      "Step 9 of Immediate Live: click Live Off in the upper right. Cloudport joins the originally scheduled programming in progress.",
+  },
+  {
+    id: "q7",
+    question: "The stream has been black for 45 seconds. What severity is this?",
+    options: ["Sev 4", "Sev 3", "Sev 2", "Sev 1"],
+    answerIndex: 3,
+    explanation: "Off air for more than 30 seconds is Sev 1: call the Amagi NOC and Stream Ops on-call, then post in the incident channel.",
   },
 ];

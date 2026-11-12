@@ -7,8 +7,9 @@ A self-hosted user guide and operations dashboard for Digital Line Producers (DL
 | Route | Purpose |
 | --- | --- |
 | `/` | Dashboard: search, on-air emergency panel, guide cards, start-of-shift checklist, training progress, links to the original Google Site and SharePoint playbook |
-| `/guides` | All step-by-step procedures grouped by category, with status badges (Published / Needs review / Coming soon) |
-| `/guides/[slug]` | A single procedure: when to use it, prerequisites, numbered steps with "You should see" checks, screenshots, callouts, a tick-off checklist saved in the browser, a troubleshooting table and print support |
+| `/guides` | The User Manual procedures from the Streaming Google Site, grouped by category, with status badges (Published / Needs review / Coming soon) |
+| `/guides/live-cut-ins` | Overview page: the Note on Usage and a chooser between the two cut-in methods |
+| `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support |
 | `/operations` | Daily rhythm, interactive start-of-shift / pre-live / handoff checklists, stations table (Baltimore, Sacramento, Miami), communication norms |
 | `/escalations` | Your station's path (per-station troubleshooting channel, Lead DLP, control room), severity levels (Sev 1-4), shared escalation tiers, contacts, copyable incident template |
 | `/training` | Five-module onboarding path with saved progress and a six-question knowledge check |
@@ -22,7 +23,7 @@ All copy lives in plain TypeScript data files under `src/content/`. No component
 
 | File | Contents |
 | --- | --- |
-| `src/content/guides.ts` | Step-by-step guides. Live Cut-Ins is fully written; the others are summaries with `status: "coming-soon"`. |
+| `src/content/guides.ts` | Step-by-step guides. Live Cut-Ins (overview + Adding Live Segments + Immediate Live) are transferred from the Google Site; the other User Manual pages are stubs with `status: "coming-soon"`. |
 | `src/content/operations.ts` | Stations and their escalation contacts, daily rhythm, checklists, communication norms |
 | `src/content/escalations.ts` | Severity definitions, escalation tiers, contacts, incident template |
 | `src/content/training.ts` | Training modules and quiz questions |
@@ -35,11 +36,13 @@ All copy lives in plain TypeScript data files under `src/content/`. No component
 Screenshots are discovered from the filesystem at build time; no code changes are needed. Put image files (`png`, `jpg`, `gif`, `webp`) in `public/screenshots/<guide-slug>/` and name them by **step number**:
 
 ```
-public/screenshots/live-cut-ins/
-  02.png                 -> step 2
-  03-live-sources.png    -> step 3 (anything after the number is ignored)
-  03b.png                -> a second image for step 3 (letter suffix = order)
-  verify-source.png      -> also step 3, matched by step id instead of number
+public/screenshots/live-cut-in-add-live-segment/
+  06.png                 -> step 6 (Add Live Segment)
+  07-preview-button.png  -> step 7 (anything after the number is ignored)
+  07b.png                -> a second image for step 7 (letter suffix = order)
+  take-next.png          -> step 10, matched by step id instead of number
+public/screenshots/live-cut-in-immediate-live/
+  05.png                 -> step 5 (Take Live)
 ```
 
 Step numbers are shown on each step card and in `npm run screenshots -- status`. Steps with no image show a "Screenshot slot" line with the exact filename to save; set `wantsScreenshot: false` on a step to hide that slot. Captions come from the step's `screenshotCaption` field. Clicking a loaded screenshot opens it full-size.
@@ -49,16 +52,16 @@ Step numbers are shown on each step card and in `npm run screenshots -- status`.
 If you have exported all the screenshots for a guide (for example by downloading the SharePoint folder or saving them from the Google Site), put them in one folder, make sure their filenames sort in step order (`Screenshot 1.png`, `Screenshot 2.png`, ... is fine), and run:
 
 ```bash
-npm run screenshots -- import live-cut-ins ~/Downloads/live-cut-in-shots --dry-run   # preview the mapping
-npm run screenshots -- import live-cut-ins ~/Downloads/live-cut-in-shots             # copy and rename
-npm run screenshots -- status                                                        # see what is still missing
+npm run screenshots -- import live-cut-in-add-live-segment ~/Downloads/segment-shots --dry-run   # preview the mapping
+npm run screenshots -- import live-cut-in-add-live-segment ~/Downloads/segment-shots             # copy and rename
+npm run screenshots -- status                                                                    # see what is still missing
 ```
 
-Steps marked `wantsScreenshot: false` are skipped automatically. Use `--start N` if the folder begins partway through the guide. If a step already has an image the new one is added as `NNb.png` rather than overwriting.
+The import assigns images to consecutive steps, so it suits a folder that has one image per step. If the site only has screenshots for some steps, name the files by step number instead. Use `--start N` if the folder begins partway through the guide. If a step already has an image the new one is added as `NNb.png` rather than overwriting.
 
 #### Bulk upload without a terminal
 
-Once this repo is on GitHub, open `public/screenshots/live-cut-ins/` in the GitHub web UI, choose **Add file → Upload files**, and drag the whole set in. Name them `02.png`, `03.png`, ... first (or by step id). Commit, and the next deploy picks them up.
+Open `public/screenshots/live-cut-in-add-live-segment/` (or `.../live-cut-in-immediate-live/`) in the GitHub web UI, choose **Add file → Upload files**, and drag the whole set in. Name them `03.png`, `04.png`, ... first (or by step id). Commit, and the next deploy picks them up.
 
 ### Stations
 

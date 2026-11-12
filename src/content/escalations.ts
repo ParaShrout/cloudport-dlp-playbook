@@ -16,7 +16,7 @@ export const severities: Severity[] = [
       "A station's stream is black, frozen, silent or showing the wrong content, or a breaking-news cut-in cannot be taken.",
     examples: [
       "Channel output is black or frozen for more than 30 seconds.",
-      "Live cut-in fails on the second attempt during breaking news.",
+      "A live cut-in cannot be taken to air during breaking news.",
       "Wrong content is airing on the channel.",
     ],
     responseTarget: "Immediate. Phone first, then post.",
@@ -32,12 +32,12 @@ export const severities: Severity[] = [
       "The stream is on air but something is wrong for viewers, or an on-air problem is likely within the next 15 minutes.",
     examples: [
       "No audio or wrong audio on a live cut-in.",
-      "Live source offline 2 minutes before a planned cut-in.",
-      "Schedule running late enough to miss a hard-start newscast.",
+      "Live source preview shows the wrong source or no signal shortly before a planned cut-in.",
+      "A cut-in has pushed the schedule late enough that the next show will miss its start time.",
     ],
     responseTarget: "Within 15 minutes.",
     firstAction:
-      "Try the matching Troubleshooting entry in the guide. If not fixed in 2 minutes, post in the incident channel and page Stream Ops.",
+      "Check the Troubleshooting Tips page. If not fixed in 2 minutes, post in the incident channel and page Stream Ops.",
     notify: ["Stream Ops on-call", "Your station's Lead DLP", "Incident channel", "Your station's troubleshooting channel"],
   },
   {
@@ -47,8 +47,8 @@ export const severities: Severity[] = [
     definition:
       "A problem that will affect air later today if not fixed, but nothing is wrong for viewers right now.",
     examples: [
-      "An asset failed QC and is scheduled for later today.",
-      "A scheduling error spotted before publish.",
+      "A show or live segment scheduled later today has the wrong source or duration.",
+      "A scheduling conflict spotted ahead of air.",
       "A Cloudport feature is misbehaving but there is a workaround.",
     ],
     responseTarget: "Same shift.",
@@ -77,7 +77,7 @@ export const tiers: EscalationTier[] = [
     name: "Self-serve",
     whoTheyAre: "This playbook: step-by-step guides, troubleshooting tables and the glossary.",
     useWhen: "You are unsure of a step or something looks off but is not affecting air.",
-    howToReach: ["Search this site (press / or Cmd+K)", "Troubleshooting section at the bottom of each guide"],
+    howToReach: ["Search this site (press / or Cmd+K)", "Troubleshooting Tips in the guides list"],
     expectedResponse: "Instant.",
   },
   {
@@ -86,7 +86,7 @@ export const tiers: EscalationTier[] = [
     whoTheyAre:
       "The senior DLP covering the shift. Knows the day's schedule and can approve removing content.",
     useWhen:
-      "Any decision about what airs, schedule drift that threatens a hard start, or when a guide does not cover your situation.",
+      "Any decision about what airs, a cut-in that will make the next show start late, or when a guide does not cover your situation.",
     howToReach: ["Your station's troubleshooting channel (see Your station, above)", "Lead DLP contact for your station"],
     expectedResponse: "Minutes.",
   },

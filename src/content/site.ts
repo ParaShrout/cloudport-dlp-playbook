@@ -2,6 +2,7 @@ export const site = {
   name: "DLP Playbook",
   tagline: "Cloudport operations guide for Digital Line Producers",
   toolName: "Cloudport",
+  toolUrl: "https://cbsnews.east-cloudport.amagi.tv/",
   vendorName: "Amagi",
   program: "Streaming Rundown POC",
   team: "CBS Digital Stream Planning & Ops",
@@ -10,7 +11,7 @@ export const site = {
     {
       label: "Google Site (original user guide)",
       href: "https://sites.google.com/paramount.com/baltimorepoc/home",
-      description: "Legacy user guide. Being migrated into this dashboard.",
+      description: "Source of truth for procedures. Being migrated into this dashboard page by page.",
     },
     {
       label: "SharePoint: Cloudport playbook & screenshots",

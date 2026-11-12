@@ -51,13 +51,30 @@ export type Troubleshooting = {
   escalate?: string;
 };
 
+export type GuideCategory = "Live Operations" | "Programming Hours" | "Troubleshooting";
+
+export type GuideMethod = {
+  /** Slug of the guide that documents this method. */
+  slug: string;
+  /** Short note on when to pick this method, taken from the source material. */
+  note: string;
+};
+
 export type Guide = {
   slug: string;
   title: string;
   shortTitle?: string;
   summary: string;
-  category: "Live Operations" | "Scheduling" | "Content" | "Shift";
+  category: GuideCategory;
   status: GuideStatus;
+  /**
+   * "procedure" (default) renders numbered steps. "overview" renders the
+   * intro paragraphs and a chooser between the guides listed in `methods`.
+   */
+  kind?: "procedure" | "overview";
+  /** Paragraphs shown at the top of an overview guide. */
+  intro?: string[];
+  methods?: GuideMethod[];
   /** Shown as a reviewer note while status is "review". */
   reviewNote?: string;
   estimatedMinutes: number;

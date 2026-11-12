@@ -3,364 +3,263 @@ import type { Guide } from "./types";
 /**
  * Step-by-step guides.
  *
- * To update a guide, edit the text here. Screenshots are NOT referenced
- * here: drop image files into /public/screenshots/<guide-slug>/ named by
- * step number ("03.png", "03b-live-sources.png") or by step id
- * ("verify-source.png") and they appear on that step automatically. Steps
- * with no image show a labelled slot unless `wantsScreenshot: false`.
- * Use `npm run screenshots -- status` to see which steps still need one.
+ * Source of truth: the "User Manual" section of the Streaming Google Site.
+ * Step text is copied from there as written. When a page is transferred,
+ * keep the wording and numbering identical so DLPs can cross-reference.
+ *
+ * Screenshots are NOT referenced here: drop image files into
+ * /public/screenshots/<guide-slug>/ named by step number ("03.png",
+ * "03b-anything.png") or by step id ("take-next.png") and they appear on
+ * that step automatically. Steps with no image show a labelled slot unless
+ * `wantsScreenshot: false`. Use `npm run screenshots -- status` to see
+ * which steps still need one.
  *
  * Status values:
- *  - "published"   : verified against the Cloudport playbook, safe to follow
- *  - "review"      : full steps present, pending verification by the team
- *  - "coming-soon" : summary only, steps not yet documented
+ *  - "published"   : matches the Google Site, safe to follow
+ *  - "review"      : transferred, awaiting a read-through by the team
+ *  - "coming-soon" : page exists on the Google Site, not transferred yet
  */
+
+const OWNER = "CBS Digital Stream Planning & Ops";
+const UPDATED = "2026-11-12";
+
 export const guides: Guide[] = [
   {
     slug: "live-cut-ins",
     title: "Live Cut-Ins",
-    shortTitle: "Live Cut-Ins",
     summary:
-      "Interrupt the scheduled stream with a live feed from the control room, monitor it on air, then return cleanly to the schedule.",
+      "Two methods for inserting live cut-ins during file playback programming: Adding Live Segments and Immediate Live.",
+    category: "Live Operations",
+    status: "review",
+    kind: "overview",
+    reviewNote:
+      "Transferred from the Google Site page 'Abnormal Operations - Live Cut-ins'. Read through once against the site, then switch to Published.",
+    intro: [
+      "We have established two methods of inserting live cut-ins during file playback programming: Adding Live Segments and Immediate Live.",
+      "Which method a user selects depends on time available to set up the cut-in, and how much control the user requires over when normal programming is resumed. Under most conditions, a user should select the 'Adding Live Segment' approach because it offers better control over the return to normal programming.",
+    ],
+    methods: [
+      {
+        slug: "live-cut-in-add-live-segment",
+        note: "Preferred under most conditions. Use when there is time to set up the cut-in and you want control over when normal programming resumes.",
+      },
+      {
+        slug: "live-cut-in-immediate-live",
+        note: "Use when the live source needs to go to air now. Cloudport rejoins the in-progress programming when you turn live off.",
+      },
+    ],
+    estimatedMinutes: 0,
+    whenToUse: [],
+    prerequisites: [],
+    phases: [],
+    troubleshooting: [],
+    lastUpdated: UPDATED,
+    owner: OWNER,
+  },
+  {
+    slug: "live-cut-in-add-live-segment",
+    title: "Live Cut-In: Adding Live Segments",
+    shortTitle: "Adding Live Segments",
+    summary:
+      "All shows scheduled in Cloudport will allow a user to add a live segment. This is how we will typically add live cut-ins in order to allow the user maximum flexibility when rejoining normal content.",
     category: "Live Operations",
     status: "review",
     reviewNote:
-      "PLACEHOLDER DRAFT. These steps were written from general Cloudport knowledge, not from the official Live Cut-Ins procedure on the Google Site. Do not follow them on air. They will be replaced with the official steps and screenshots.",
+      "Steps 1-16 transferred word for word from the Google Site. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 10,
     whenToUse: [
-      "Breaking news or weather coverage that needs to go to the stream now.",
-      "A scheduled live hit (press conference, live shot) that is not already built into the day's playlist.",
-      "Extending a live newscast past its scheduled end time.",
+      "There is time to set up the cut-in before it needs to start.",
+      "You need control over when normal programming resumes.",
     ],
-    prerequisites: [
-      "You are logged in to Cloudport with the DLP role for the station you are operating.",
-      "The control room has confirmed which live source (encoder/input) carries the feed.",
-      "You know the expected start time and approximate duration of the cut-in.",
-      "An output monitor (player or multiviewer) for the channel is open and visible.",
-    ],
+    prerequisites: [],
     phases: [
       {
-        id: "prepare",
-        title: "Before the cut-in",
-        description:
-          "Two to five minutes of prep prevents most on-air problems. Do not skip the source check.",
+        id: "steps",
+        title: "Steps",
         steps: [
+          { id: "open-chrome", title: "Open Google Chrome Browser", summary: "Open Google Chrome Browser." },
           {
-            id: "confirm-request",
-            title: "Confirm the request",
-            wantsScreenshot: false,
+            id: "navigate",
+            title: "Navigate to Cloudport",
+            summary: "Navigate to https://cbsnews.east-cloudport.amagi.tv/",
+          },
+          { id: "sign-in", title: "Sign-in to Cloudport", summary: "Sign-in to Cloudport." },
+          {
+            id: "playout-page",
+            title: "Navigate to Playout page",
+            summary: "Navigate to Playout page, scroll to the time for planned cut-in.",
+          },
+          {
+            id: "identify-prior-event",
+            title: "Identify the event prior to the cut-in",
             summary:
-              "Get the who, what, when and how long from the control room or assignment desk, and post it in your station's troubleshooting channel so everyone on duty sees it.",
-            details: [
-              "Station / channel the cut-in is for.",
-              "Live source name as it appears in Cloudport (e.g. the control room program feed).",
-              "Planned start time and expected duration.",
-              "How the cut-in should end: return to the scheduled program where it left off, or join the schedule in progress.",
-            ],
-            expected:
-              "A one-line note in your station's troubleshooting channel: station, source, start time, expected end, return behaviour.",
+              "Identify the event prior to where you would like the cut-in to be placed. Confirm there is adequate time left before the start of the next event.",
             callout: {
-              kind: "tip",
-              text: "If the request is vague on duration, assume it will run long and plan around the next hard-start item in the schedule.",
+              kind: "critical",
+              title: "Caution",
+              text: "The live segment will become active as soon as the prior event duration expires.",
             },
           },
           {
-            id: "open-channel",
-            title: "Open your station's channel in Cloudport",
+            id: "add-live-segment",
+            title: "Add Live Segment",
             summary:
-              "From the Cloudport home screen, open your station's channel. Each station only sees its own schedule, rundown and playout.",
-            details: [
-              "Confirm the channel header shows your station's channel name.",
-              "Confirm you are in the Production environment, not Staging or a test channel.",
-            ],
-            expected:
-              "The channel's playout dashboard is open, the status indicator shows On Air, and the current item is playing.",
-            screenshotCaption: "Channels list. Open the station channel from here.",
+              "Right click on the event prior to where you would like the cut-in to be placed; select Add Live Segment.",
           },
           {
-            id: "verify-source",
-            title: "Verify the live source is healthy",
+            id: "confirm-source",
+            title: "Confirm the live source",
             summary:
-              "Open the Live Sources (inputs) panel and find the source the control room named. Check that it is active, that the thumbnail preview is updating, and that audio meters are moving.",
-            details: [
-              "Status should read Active / Connected (green).",
-              "Preview thumbnail should show the control room output, not a slate or black.",
-              "Audio meters should show movement on both channels.",
-            ],
-            expected:
-              "Source shows Active with a live-updating preview and audio. If anything is red or frozen, stop and use the Troubleshooting section below.",
-            screenshotCaption: "Live Sources panel. Confirm status, preview and audio before going any further.",
+              "Click the orange button in the Preview column to confirm the correct live source is selected. If the default source is not correct, move the toggle button to Custom, and select the desired source.",
           },
           {
-            id: "review-playlist",
-            title: "Review what is on air and what is next",
+            id: "set-duration",
+            title: "Update the duration",
             summary:
-              "In the playlist / timeline, note the item currently playing, the next few items and any hard-start items (top-of-hour newscasts, must-air content) that the cut-in could collide with.",
-            details: [
-              "Note the time remaining on the current item.",
-              "Identify the next hard-start item and its start time.",
-              "Note any ad breaks that will be skipped while live.",
-            ],
-            expected:
-              "You can say out loud: what is playing, what will be interrupted, and when the next hard start is.",
-            screenshotCaption: "Playlist timeline with the current item and the next hard start.",
-          },
-        ],
-      },
-      {
-        id: "execute",
-        title: "Take the cut-in",
-        description: "Preview first, then take. Never take blind.",
-        steps: [
-          {
-            id: "open-live-control",
-            title: "Open the Live Cut-In control",
-            summary:
-              "From the channel's playout dashboard, open the Live / Cut-In control panel.",
-            expected:
-              "The cut-in panel is visible with a source selector, a return-behaviour option and a Preview / Take control.",
-            screenshotCaption: "Live Cut-In panel on the playout dashboard.",
+              "Update the duration of the live segment to the estimated duration of the cut-in. By default, the segment will be added with the hold mode enabled.",
           },
           {
-            id: "select-source",
-            title: "Select the live source and return behaviour",
-            summary:
-              "Choose the live source you verified earlier, then set how the channel should behave when the cut-in ends.",
-            details: [
-              "Resume: continue the interrupted program from where it stopped (schedule will run late by the cut-in length).",
-              "Join in progress: jump to whatever the schedule says should be airing now (keeps the schedule on time, skips interrupted content).",
-            ],
-            expected:
-              "The source name in the panel matches the control room's request and the return behaviour matches what was agreed in step 1.",
-            screenshotCaption: "Source and return-behaviour selection.",
-            callout: {
-              kind: "warning",
-              text: "Default to Join in progress when a hard-start newscast is coming up. Default to Resume for short cut-ins in the middle of long-form content.",
-            },
+            id: "disable-if-unknown",
+            title: "Disable the event if the start time is unknown",
+            summary: "If the exact start time of the event is unknown, mark the event as disabled. Move as necessary.",
           },
           {
-            id: "preview",
-            title: "Preview the live feed",
-            summary:
-              "Use Preview to confirm the live source has picture and audio before it goes to air.",
-            expected:
-              "Preview window shows the live control room output with audio. If the preview is black, frozen or silent, do not take.",
-            screenshotCaption: "Preview before take.",
+            id: "take-next",
+            title: "Take Next to start the cut-in",
+            summary: "When ready to start the cut-in, click the Take Next button in the lower left.",
           },
           {
-            id: "take",
-            title: "Take the cut-in",
+            id: "confirm-time-and-triggers",
+            title: "Confirm show duration and start triggers",
             summary:
-              "When the control room gives the cue, click Take / Go Live and confirm the dialog.",
-            expected:
-              "The channel status changes to LIVE, the timeline shows a live event at the current position and the on-air output switches to the live feed within a few seconds.",
-            screenshotCaption: "Take confirmation.",
-            callout: {
-              kind: "note",
-              text: "Expect a short delay (typically a few seconds) between clicking Take and seeing the change on the output monitor. Do not click Take twice.",
-            },
+              "After the cut-in has started, confirm there is adequate time left in the show duration, and that any start triggers on the following show have been adjusted as necessary.",
           },
           {
-            id: "verify-on-air",
-            title: "Verify on air",
+            id: "check-following-events",
+            title: "Check the events following the cut-in",
             summary:
-              "Confirm the live feed is actually on the output, not just in the Cloudport UI.",
-            details: [
-              "Output monitor / player shows the live feed with audio.",
-              "Cloudport channel status reads LIVE.",
-              "Tell the control room you are live on the stream.",
-            ],
-            expected:
-              "Live feed confirmed on the external output and acknowledged by the control room. Post 'Live on stream at HH:MM' in your station's troubleshooting channel.",
-            screenshotCaption: "LIVE status with external output confirmation.",
-          },
-        ],
-      },
-      {
-        id: "monitor",
-        title: "While live",
-        steps: [
-          {
-            id: "monitor-source",
-            title: "Monitor source health and timing",
-            wantsScreenshot: false,
-            summary:
-              "Stay on the playout dashboard. Watch the source status, the output monitor and the clock against the next hard start.",
-            details: [
-              "If the source drops, Cloudport will typically fall back to the schedule or a slate. Be ready to re-take once the source recovers.",
-              "Give the control room a heads-up a few minutes before the next hard-start item.",
-              "Keep a note of the actual start time and any issues for the shift log.",
-            ],
-            expected:
-              "No surprises: you know when the cut-in will end and what the schedule will do when it does.",
-          },
-        ],
-      },
-      {
-        id: "return",
-        title: "Return to schedule",
-        steps: [
-          {
-            id: "end-live",
-            title: "End the cut-in",
-            summary:
-              "On the control room's cue, click Return to Schedule / End Live and confirm. The channel returns using the behaviour you set earlier.",
-            expected:
-              "Channel status changes from LIVE back to On Air (scheduled), and the timeline shows the schedule resuming.",
-            screenshotCaption: "Return to Schedule.",
+              "Prior to the end of the cut-in, check the events following the cut-in for conflicting content. Modify the schedule as necessary.",
           },
           {
-            id: "verify-resume",
-            title: "Verify the schedule resumed correctly",
-            summary:
-              "Confirm the right item is playing and that the schedule is where you expect it to be.",
-            details: [
-              "Output monitor shows scheduled content, not black or a slate.",
-              "The item playing matches the playlist's current position.",
-              "If you used Resume, check how late the schedule now runs and whether the next hard start is at risk.",
-            ],
-            expected:
-              "Scheduled content is on air and you know whether the schedule is on time or running late.",
-            screenshotCaption: "Schedule resumed after the cut-in.",
+            id: "monitor-audio",
+            title: "Monitor the audio",
+            summary: "Monitor the audio from the live source preview window.",
           },
           {
-            id: "fix-drift",
-            title: "Fix any schedule drift",
-            wantsScreenshot: false,
-            summary:
-              "If the schedule is running late and a hard-start item is at risk, trim or skip lower-priority items so the hard start hits on time.",
-            details: [
-              "Prefer skipping promos / filler before trimming program content.",
-              "Never remove must-air items without checking with the Lead DLP.",
-            ],
-            expected:
-              "The next hard-start item is scheduled to begin at its correct clock time.",
-            callout: {
-              kind: "warning",
-              text: "Changes to the live playlist take effect immediately. Make one change at a time and re-check the timeline after each.",
-            },
+            id: "take-next-to-end",
+            title: "Take Next when the event completes",
+            summary: "When the event completes in the preview window, click Take Next.",
           },
           {
-            id: "log",
-            title: "Log it",
-            wantsScreenshot: false,
+            id: "confirm-transition",
+            title: "Confirm the transition",
+            summary: "Confirm the playlist and channel output transition to the next event.",
+          },
+          {
+            id: "assess-timing",
+            title: "Assess timing impact",
             summary:
-              "Record the cut-in in the shift log and close the loop in your station's troubleshooting channel.",
-            details: [
-              "Actual start and end time, source used, return behaviour.",
-              "Any issues (source drops, audio problems, drift) and how you resolved them.",
-              "Anything that needs follow-up from Stream Ops or Amagi.",
-            ],
-            expected:
-              "Shift log entry complete; a 'Back to schedule at HH:MM' post in your station's troubleshooting channel.",
+              "Assess timing impact of the cut-in and adjust schedule so that the next show starts on time.",
           },
         ],
       },
     ],
-    troubleshooting: [
-      {
-        symptom: "Live source shows Offline / red, or the preview is black.",
-        fix: "Confirm with the control room that the encoder is sending. Refresh the Live Sources panel. If a second source exists for the station, verify and use it instead.",
-        escalate:
-          "If the source is still down 2 minutes before the planned start, escalate as Sev 2 (Sev 1 if it is breaking news).",
-      },
-      {
-        symptom: "Picture is live but there is no audio.",
-        fix: "Check audio meters on the source in Cloudport. If the meters move, the issue is downstream: check the output monitor's mute and audio track selection. If the meters are flat, the control room is not sending audio on the expected channels.",
-        escalate: "Sev 2 if it cannot be fixed within 2 minutes while on air.",
-      },
-      {
-        symptom: "Clicked Take but the output did not change.",
-        fix: "Wait 10 seconds and check the channel status. If it still reads On Air (scheduled), confirm the dialog was accepted and try Take once more. Do not spam the button.",
-        escalate: "Sev 1 if the cut-in is for breaking news and the second attempt fails.",
-      },
-      {
-        symptom: "After returning, the schedule is running several minutes late.",
-        fix: "Follow the 'Fix any schedule drift' step: skip filler and promos ahead of the next hard start.",
-        escalate: "Ask the Lead DLP before removing program content.",
-      },
-    ],
-    related: ["breaking-news-extended-coverage", "shift-handoff"],
-    lastUpdated: "2026-11-11",
-    owner: "CBS Digital Stream Planning & Ops",
-  },
-  {
-    slug: "daily-schedule-build",
-    title: "Build and publish the daily schedule",
-    summary:
-      "Create the day's playlist from the template, place newscasts and live blocks, fill with evergreen content and publish to the channel.",
-    category: "Scheduling",
-    status: "coming-soon",
-    estimatedMinutes: 30,
-    whenToUse: ["Start of each broadcast day, before the first scheduled newscast."],
-    prerequisites: [],
-    phases: [],
     troubleshooting: [],
-    lastUpdated: "2026-11-11",
-    owner: "CBS Digital Stream Planning & Ops",
+    related: ["live-cut-ins", "live-cut-in-immediate-live"],
+    lastUpdated: UPDATED,
+    owner: OWNER,
   },
   {
-    slug: "rundown-changes",
-    title: "Change the rundown during the day",
+    slug: "live-cut-in-immediate-live",
+    title: "Live Cut-In: Immediate Live",
+    shortTitle: "Immediate Live",
     summary:
-      "Move, replace or remove items in the live playlist without knocking hard-start items off time.",
-    category: "Scheduling",
-    status: "coming-soon",
-    estimatedMinutes: 10,
-    whenToUse: ["A newscast runs long or short.", "Content is pulled or replaced after publish."],
-    prerequisites: [],
-    phases: [],
-    troubleshooting: [],
-    lastUpdated: "2026-11-11",
-    owner: "CBS Digital Stream Planning & Ops",
-  },
-  {
-    slug: "breaking-news-extended-coverage",
-    title: "Breaking news and extended coverage",
-    summary:
-      "Run an open-ended live block, manage the schedule behind it and decide when and how to return to regular programming.",
+      "Cloudport offers an immediate live cut-in feature that will take a live source to air, and offer the user a way to re-join the \"in progress\" programming at the end of the live cut-in.",
     category: "Live Operations",
-    status: "coming-soon",
-    estimatedMinutes: 15,
-    whenToUse: ["Live coverage that will run longer than a standard cut-in."],
-    prerequisites: [],
-    phases: [],
-    troubleshooting: [],
-    related: ["live-cut-ins"],
-    lastUpdated: "2026-11-11",
-    owner: "CBS Digital Stream Planning & Ops",
-  },
-  {
-    slug: "add-or-replace-asset",
-    title: "Add or replace a video asset",
-    summary:
-      "Upload or locate an asset in the Cloudport library, check it passed QC and place it in the schedule.",
-    category: "Content",
-    status: "coming-soon",
-    estimatedMinutes: 10,
-    whenToUse: ["A new package or special needs to air today."],
-    prerequisites: [],
-    phases: [],
-    troubleshooting: [],
-    lastUpdated: "2026-11-11",
-    owner: "CBS Digital Stream Planning & Ops",
-  },
-  {
-    slug: "shift-handoff",
-    title: "Shift handoff",
-    summary:
-      "What to check, record and communicate when handing the channel to the next DLP.",
-    category: "Shift",
-    status: "coming-soon",
+    status: "review",
+    reviewNote:
+      "Steps 1-9 transferred word for word from the Google Site. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 5,
-    whenToUse: ["End of every shift."],
+    whenToUse: ["The live source needs to go to air now, with little or no set-up time."],
     prerequisites: [],
-    phases: [],
+    phases: [
+      {
+        id: "steps",
+        title: "Steps",
+        steps: [
+          { id: "open-chrome", title: "Open Google Chrome Browser", summary: "Open Google Chrome Browser." },
+          {
+            id: "navigate",
+            title: "Navigate to Cloudport",
+            summary: "Navigate to https://cbsnews.east-cloudport.amagi.tv/",
+          },
+          { id: "sign-in", title: "Sign-in to Cloudport", summary: "Sign-in to Cloudport." },
+          { id: "playout-page", title: "Navigate to Playout page", summary: "Navigate to Playout page." },
+          {
+            id: "take-live",
+            title: "Click Take Live",
+            summary: "Click the Take Live button (upper right of screen).",
+          },
+          {
+            id: "set-start-time",
+            title: "Set the start time",
+            summary:
+              "Set the start time. To go now, select the 'Next 10 seconds' option. If you know the future time you want the event to start, enter that time.",
+          },
+          {
+            id: "select-template",
+            title: "Select a live template",
+            summary: "Select a live template. Confirm the correct source is present.",
+          },
+          {
+            id: "proceed",
+            title: "Click Proceed",
+            summary:
+              "Click proceed. Cloudport will insert an immediate live show into the schedule below the on-air show (or at the selected time).",
+          },
+          {
+            id: "live-off",
+            title: "Click Live Off to end the cut-in",
+            summary:
+              "At the conclusion of the cut-in, click the Live Off button in the upper right to terminate the live cut-in. Cloudport will join the originally scheduled programming in progress.",
+          },
+        ],
+      },
+    ],
     troubleshooting: [],
-    lastUpdated: "2026-11-11",
-    owner: "CBS Digital Stream Planning & Ops",
+    related: ["live-cut-ins", "live-cut-in-add-live-segment"],
+    lastUpdated: UPDATED,
+    owner: OWNER,
   },
+
+  // --- Pages that exist on the Google Site but have not been transferred yet ---
+  ...comingSoon("simulcast-hours", "Simulcast Hours", "Programming Hours"),
+  ...comingSoon("replay-hours", "Replay Hours", "Programming Hours"),
+  ...comingSoon("wheel-hours", "Wheel Hours", "Programming Hours"),
+  ...comingSoon("prepare-file-shows-for-live-cut-in", "All File Shows - Prepare for Live Cut-in", "Live Operations"),
+  ...comingSoon("enable-live-recording", "All Live Shows - Enable Live Recording", "Live Operations"),
+  ...comingSoon("create-new-show-on-the-fly", "Create a New Show on the Fly", "Live Operations"),
+  ...comingSoon("troubleshooting-tips", "Troubleshooting Tips", "Troubleshooting"),
 ];
+
+function comingSoon(slug: string, title: string, category: Guide["category"]): Guide[] {
+  return [
+    {
+      slug,
+      title,
+      summary: "Page exists in the User Manual on the Google Site. Steps have not been transferred to the playbook yet.",
+      category,
+      status: "coming-soon",
+      estimatedMinutes: 0,
+      whenToUse: [],
+      prerequisites: [],
+      phases: [],
+      troubleshooting: [],
+      lastUpdated: UPDATED,
+      owner: OWNER,
+    },
+  ];
+}
 
 export function getGuide(slug: string): Guide | undefined {
   return guides.find((g) => g.slug === slug);

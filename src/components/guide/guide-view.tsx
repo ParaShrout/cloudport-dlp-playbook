@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import Link from "next/link";
 import { CheckCircle2Icon, ClockIcon, ListChecksIcon, PrinterIcon, RotateCcwIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -67,45 +68,54 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
           ) : null}
         </header>
 
-        <div className="mb-10 grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">When to use this</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="flex list-disc flex-col gap-1.5 pl-4 text-sm text-foreground/90">
-                {guide.whenToUse.map((w) => (
-                  <li key={w}>{w}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Before you start</CardTitle>
-              <CardDescription>All of these should be true.</CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-4">
-              <ul className="flex flex-col gap-1.5 text-sm text-foreground/90">
-                {guide.prerequisites.map((p) => (
-                  <li key={p} className="flex gap-2">
-                    <CheckCircle2Icon className="mt-0.5 size-4 shrink-0 text-emerald-600" />
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-              <StationStrip />
-            </CardContent>
-          </Card>
-        </div>
+        <StationStrip className="mb-6" />
+
+        {guide.whenToUse.length > 0 || guide.prerequisites.length > 0 ? (
+          <div className="mb-10 grid gap-4 md:grid-cols-2">
+            {guide.whenToUse.length > 0 ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">When to use this</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="flex list-disc flex-col gap-1.5 pl-4 text-sm text-foreground/90">
+                    {guide.whenToUse.map((w) => (
+                      <li key={w}>{w}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ) : null}
+            {guide.prerequisites.length > 0 ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Before you start</CardTitle>
+                  <CardDescription>All of these should be true.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="flex flex-col gap-1.5 text-sm text-foreground/90">
+                    {guide.prerequisites.map((p) => (
+                      <li key={p} className="flex gap-2">
+                        <CheckCircle2Icon className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="flex flex-col gap-12">
           {guide.phases.map((phase) => (
             <section key={phase.id} id={phase.id} className="scroll-mt-24">
-              <div className="mb-5 border-b pb-3">
-                <h2 className="text-xl font-semibold tracking-tight">{phase.title}</h2>
-                {phase.description ? <p className="mt-1 text-sm text-muted-foreground">{phase.description}</p> : null}
-              </div>
+              {guide.phases.length > 1 || phase.description ? (
+                <div className="mb-5 border-b pb-3">
+                  <h2 className="text-xl font-semibold tracking-tight">{phase.title}</h2>
+                  {phase.description ? <p className="mt-1 text-sm text-muted-foreground">{phase.description}</p> : null}
+                </div>
+              ) : null}
               <ol className="flex flex-col gap-6">
                 {phase.steps.map((step) => {
                   return (
@@ -197,7 +207,7 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
               {guide.phases.map((phase) => (
                 <div key={phase.id}>
                   <a href={`#${phase.id}`} className="text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground">
-                    {phase.title}
+                    {guide.phases.length > 1 ? phase.title : "Steps"}
                   </a>
                   <ul className="mt-1 flex flex-col">
                     {phase.steps.map((s) => {
@@ -294,7 +304,7 @@ function StepCard({
                 </label>
               </div>
             </div>
-            <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">{step.summary}</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">{linkify(step.summary)}</p>
             {step.details && step.details.length > 0 ? (
               <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-sm text-foreground/85">
                 {step.details.map((d) => (
@@ -314,5 +324,23 @@ function StepCard({
         </div>
       </article>
     </li>
+  );
+}
+
+const URL_RE = /(https?:\/\/[^\s]+)/g;
+const URL_TEST = /^https?:\/\/[^\s]+$/;
+
+/** Turn bare URLs in step text into links that open in a new tab. */
+function linkify(text: string): React.ReactNode {
+  const parts = text.split(URL_RE);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    URL_TEST.test(part) ? (
+      <a key={i} href={part} target="_blank" rel="noreferrer" className="break-all text-primary underline underline-offset-4">
+        {part}
+      </a>
+    ) : (
+      <span key={i}>{part}</span>
+    ),
   );
 }

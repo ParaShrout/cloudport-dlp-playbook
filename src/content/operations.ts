@@ -69,17 +69,17 @@ export const dailyRhythm = [
   {
     time: "Before first newscast",
     title: "Pre-air checks",
-    text: "Verify live sources for the station are active, the output monitor is up, and the first hard-start item is on time.",
+    text: "Sign in to Cloudport in Chrome, open the Playout page and confirm the first show of the day is scheduled as expected.",
   },
   {
     time: "Through the day",
     title: "Monitor and adjust",
-    text: "Watch for schedule drift after live events, run cut-ins on request, and keep the shift channel current.",
+    text: "Run live cut-ins on request (Adding Live Segments preferred), check the events after each cut-in, and keep your station's troubleshooting channel current.",
   },
   {
     time: "After each live event",
     title: "Reconcile the schedule",
-    text: "Confirm the schedule resumed correctly and fix drift before the next hard start.",
+    text: "Confirm the playlist and channel output moved to the next event, then assess the timing impact and adjust the schedule so the next show starts on time.",
   },
   {
     time: "End of shift",
@@ -95,24 +95,23 @@ export const checklists: Checklist[] = [
     description: "Run this before you take responsibility for the channel.",
     items: [
       { id: "ps-1", text: "Read the previous shift log and any open incident threads." },
-      { id: "ps-2", text: "Open Cloudport, select the station channel, confirm status is On Air." },
-      { id: "ps-3", text: "Open the output monitor / player for the channel and confirm picture and audio." },
-      { id: "ps-4", text: "Confirm today's playlist is published through end of day." },
-      { id: "ps-5", text: "Check Live Sources: all station inputs Active." },
-      { id: "ps-6", text: "Note planned live hits and hard-start newscasts for the shift." },
+      { id: "ps-2", text: "In Google Chrome, sign in to Cloudport and open the Playout page for your station." },
+      { id: "ps-3", text: "Confirm the channel is on air and the current event matches the schedule." },
+      { id: "ps-4", text: "Scroll ahead through the shift's schedule and note planned live cut-ins and show start times." },
+      { id: "ps-5", text: "Confirm any live segments already added for the shift have the correct source and duration." },
       { id: "ps-7", text: "Post 'On shift' in your station's troubleshooting channel." },
     ],
   },
   {
     id: "pre-live",
     title: "Before any live cut-in",
-    description: "The short version of the Live Cut-Ins guide.",
+    description: "The short version of the Adding Live Segments guide.",
     items: [
-      { id: "pl-1", text: "Request confirmed: station, source, start, duration, return behaviour.", guide: "live-cut-ins" },
-      { id: "pl-2", text: "Correct channel open, Production environment.", guide: "live-cut-ins" },
-      { id: "pl-3", text: "Live source Active with moving preview and audio meters.", guide: "live-cut-ins" },
-      { id: "pl-4", text: "Next hard start identified.", guide: "live-cut-ins" },
-      { id: "pl-5", text: "Previewed before Take.", guide: "live-cut-ins" },
+      { id: "pl-1", text: "Method chosen: Adding Live Segments (preferred) or Immediate Live if it has to go now.", guide: "live-cut-ins" },
+      { id: "pl-2", text: "Playout page open and scrolled to the planned cut-in time.", guide: "live-cut-in-add-live-segment" },
+      { id: "pl-3", text: "Prior event identified, with adequate time left before the next event starts.", guide: "live-cut-in-add-live-segment" },
+      { id: "pl-4", text: "Live source confirmed with the orange Preview button (Custom if the default is wrong).", guide: "live-cut-in-add-live-segment" },
+      { id: "pl-5", text: "Duration set to the estimated cut-in length; event disabled if the start time is unknown.", guide: "live-cut-in-add-live-segment" },
     ],
   },
   {
@@ -120,7 +119,7 @@ export const checklists: Checklist[] = [
     title: "End of shift handoff",
     description: "Leave the next DLP with no surprises.",
     items: [
-      { id: "ho-1", text: "Channel on air, schedule on time (or drift noted)." },
+      { id: "ho-1", text: "Channel on air and the next show set to start on time (or timing issue noted)." },
       { id: "ho-2", text: "Shift log written: live events, issues, resolutions." },
       { id: "ho-3", text: "Open escalations listed with ticket / thread links." },
       { id: "ho-4", text: "Upcoming live hits for the next shift noted." },
@@ -143,7 +142,7 @@ export const communicationNorms = [
     text: "Written in plain language for the next DLP. Times in local station time. Include what you tried, not just what broke.",
   },
   {
-    title: "Changes to the playlist",
-    text: "Removing program content needs Lead DLP sign-off. Skipping promos and filler to recover time does not.",
+    title: "Changes to the schedule",
+    text: "After every cut-in, check the following events for conflicting content and adjust so the next show starts on time. Check with the Lead DLP before removing a show.",
   },
 ];

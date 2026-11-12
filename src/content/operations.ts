@@ -21,7 +21,7 @@ export const stations: Station[] = [
     channelName: "CBS News Baltimore",
     timeZone: "America/New_York",
     status: "live",
-    notes: "POC station. Guides were first written against this channel.",
+    notes: "POC station. The official user guide was written against this channel.",
     escalation: {
       troubleshootingChannel: "Add Baltimore troubleshooting Slack channel",
       leadDlp: "Add Baltimore Lead DLP contact",

@@ -58,7 +58,7 @@ export default function OperationsPage() {
         <SectionHeading
           id="stations"
           title="Stations in scope"
-          description="Three stations run on one Cloudport account. Confirm the channel name before you touch anything on air, and pick your station in the header so escalation paths show your channel."
+          description="Each station's DLPs see only their own schedule, rundown and playout in Cloudport. Pick your station in the header so escalation paths show your channel."
         />
         <div className="overflow-hidden rounded-lg border">
           <Table>

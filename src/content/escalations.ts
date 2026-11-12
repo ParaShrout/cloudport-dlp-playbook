@@ -17,7 +17,7 @@ export const severities: Severity[] = [
     examples: [
       "Channel output is black or frozen for more than 30 seconds.",
       "Live cut-in fails on the second attempt during breaking news.",
-      "Wrong station's content is airing on a channel.",
+      "Wrong content is airing on the channel.",
     ],
     responseTarget: "Immediate. Phone first, then post.",
     firstAction:
@@ -34,7 +34,6 @@ export const severities: Severity[] = [
       "No audio or wrong audio on a live cut-in.",
       "Live source offline 2 minutes before a planned cut-in.",
       "Schedule running late enough to miss a hard-start newscast.",
-      "Cut-in taken on the wrong channel (even if corrected).",
     ],
     responseTarget: "Within 15 minutes.",
     firstAction:

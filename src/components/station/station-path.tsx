@@ -41,7 +41,7 @@ export function StationPathDetails({ station, className }: { station: Station; c
     { icon: MessageSquareIcon, label: "Troubleshooting channel", value: station.escalation.troubleshootingChannel, hint: "First stop for Sev 3-4 and anything a guide does not cover." },
     { icon: UserRoundIcon, label: "Lead DLP on shift", value: station.escalation.leadDlp, hint: "Approves removing program content. Tier 1 escalation." },
     { icon: PhoneIcon, label: "Control room", value: station.escalation.controlRoom, hint: "Live source and cue coordination during cut-ins." },
-    { icon: RadioIcon, label: "Cloudport channel", value: station.channelName, hint: `Confirm this exact name before taking anything to air. Local time zone: ${station.timeZone.replace("_", " ")}.` },
+    { icon: RadioIcon, label: "Cloudport channel", value: station.channelName, hint: `Your station's channel in Cloudport. Local time zone: ${station.timeZone.replace("_", " ")}.` },
   ];
   return (
     <dl className={cn("grid gap-3 sm:grid-cols-2", className)}>

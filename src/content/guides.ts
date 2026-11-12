@@ -25,7 +25,7 @@ export const guides: Guide[] = [
     category: "Live Operations",
     status: "review",
     reviewNote:
-      "Step text was drafted from the Cloudport playbook outline. Compare each step against the SharePoint reference (cloudport_reference.html) and replace the screenshot placeholders before switching this guide to Published.",
+      "PLACEHOLDER DRAFT. These steps were written from general Cloudport knowledge, not from the official Live Cut-Ins procedure on the Google Site. Do not follow them on air. They will be replaced with the official steps and screenshots.",
     estimatedMinutes: 10,
     whenToUse: [
       "Breaking news or weather coverage that needs to go to the stream now.",
@@ -66,20 +66,16 @@ export const guides: Guide[] = [
           },
           {
             id: "open-channel",
-            title: "Open the correct channel in Cloudport",
+            title: "Open your station's channel in Cloudport",
             summary:
-              "From the Cloudport home screen, open Channels and select the station's channel. Double-check the channel name and environment before you touch anything.",
+              "From the Cloudport home screen, open your station's channel. Each station only sees its own schedule, rundown and playout.",
             details: [
-              "Confirm the channel name in the header matches the station you were asked to cut in on.",
+              "Confirm the channel header shows your station's channel name.",
               "Confirm you are in the Production environment, not Staging or a test channel.",
             ],
             expected:
               "The channel's playout dashboard is open, the status indicator shows On Air, and the current item is playing.",
             screenshotCaption: "Channels list. Open the station channel from here.",
-            callout: {
-              kind: "critical",
-              text: "Baltimore, Sacramento and Miami share one Cloudport account. Cutting in on the wrong channel puts another market's live feed on air.",
-            },
           },
           {
             id: "verify-source",
@@ -282,11 +278,6 @@ export const guides: Guide[] = [
         symptom: "After returning, the schedule is running several minutes late.",
         fix: "Follow the 'Fix any schedule drift' step: skip filler and promos ahead of the next hard start.",
         escalate: "Ask the Lead DLP before removing program content.",
-      },
-      {
-        symptom: "Cut-in was taken on the wrong channel.",
-        fix: "Immediately Return to Schedule on the wrong channel, then take the cut-in on the correct channel. Post what happened in your station's troubleshooting channel.",
-        escalate: "Always report this as a Sev 2 so the team can review.",
       },
     ],
     related: ["breaking-news-extended-coverage", "shift-handoff"],

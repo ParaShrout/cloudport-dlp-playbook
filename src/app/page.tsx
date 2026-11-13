@@ -263,7 +263,7 @@ export default function DashboardPage() {
               <QuickLink
                 href="/operations"
                 icon={ListChecksIcon}
-                label="Operations: daily rhythm, stations, norms"
+                label="Operations: what we watch, ops team, stations"
               />
               <QuickLink
                 href="/escalations"

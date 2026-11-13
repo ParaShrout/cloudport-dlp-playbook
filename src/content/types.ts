@@ -203,6 +203,20 @@ export type Role = {
   responsibility: string;
 };
 
+export type MonitoringTool = {
+  tool: string;
+  whatItShows: string;
+  whoUsesIt: string;
+  access: string;
+};
+
+export type OpsContact = {
+  name: string;
+  role: string;
+  /** Email, Slack handle or phone once confirmed. */
+  contact?: string;
+};
+
 export type TimingMode = {
   mode: string;
   behavior: string;

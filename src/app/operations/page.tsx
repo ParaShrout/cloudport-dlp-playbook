@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, EyeIcon, UserRoundIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,7 +23,8 @@ import { ChecklistCard } from "@/components/checklist-card";
 import {
   checklists,
   communicationNorms,
-  dailyRhythm,
+  monitoring,
+  opsTeam,
   stations,
 } from "@/content/operations";
 import type { Station } from "@/content/types";
@@ -51,30 +52,106 @@ export default function OperationsPage() {
     <div className="flex flex-col gap-12">
       <PageHeader
         eyebrow="Operations"
-        title="How a shift runs"
-        description="The daily rhythm, the stations in scope, interactive checklists for the start and end of shift, and the communication norms everyone follows."
+        title="Operations and monitoring"
+        description="How the stream is watched and by whom, the 24/7 Operations team behind the DLPs, the live cut-in checklist, the stations in scope, and the communication norms everyone follows. Each station runs its own schedule under its own news director, so there is no single daily rhythm here."
       />
 
       <section>
         <SectionHeading
-          id="rhythm"
-          title="Daily rhythm"
-          description="What a normal day looks like from handoff to handoff."
+          id="what-we-watch"
+          title="What we watch"
+          description={monitoring.blurb}
         />
-        <ol className="relative flex flex-col gap-6 border-l pl-6">
-          {dailyRhythm.map((item, i) => (
-            <li key={item.title} className="relative">
-              <span className="absolute -left-[31px] flex size-5 items-center justify-center rounded-full border bg-background text-[10px] font-semibold text-muted-foreground">
-                {i + 1}
-              </span>
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                {item.time}
-              </p>
-              <h3 className="mt-0.5 font-medium">{item.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{item.text}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="overflow-hidden rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[18%]">Tool</TableHead>
+                <TableHead className="w-[40%]">What it shows</TableHead>
+                <TableHead className="w-[18%]">Who uses it</TableHead>
+                <TableHead>Access</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {monitoring.tools.map((t) => (
+                <TableRow key={t.tool} className="align-top">
+                  <TableCell className="whitespace-normal font-medium">
+                    {t.tool}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-foreground/90">
+                    {t.whatItShows}
+                  </TableCell>
+                  <TableCell className="whitespace-normal">
+                    {t.whoUsesIt}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-muted-foreground">
+                    {t.access}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          id="ops-team"
+          title="The Operations team"
+          description="Eyes on glass around the clock. You are not expected to manage an issue alone."
+        />
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <EyeIcon className="size-4 text-primary" />
+              <CardTitle>{opsTeam.name}</CardTitle>
+            </div>
+            <CardDescription className="text-foreground/80">
+              {opsTeam.description}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {opsTeam.contacts.map((c) => (
+                <li
+                  key={c.name}
+                  className="flex items-start gap-3 rounded-lg border bg-muted/40 p-3"
+                >
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <UserRoundIcon className="size-4" />
+                  </span>
+                  <span className="flex flex-col">
+                    <span className="font-medium">{c.name}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {c.role}
+                    </span>
+                    <span
+                      className={cn(
+                        "mt-1 text-xs",
+                        c.contact
+                          ? "text-foreground/80"
+                          : "italic text-muted-foreground",
+                      )}
+                    >
+                      {c.contact ?? "Contact details to be added"}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm text-muted-foreground">
+              For anything on air right now, use{" "}
+              <Link
+                href="/escalations#report"
+                className="text-primary underline underline-offset-4"
+              >
+                Report an issue
+              </Link>{" "}
+              so it lands in your station&apos;s troubleshooting channel with
+              the agreed template.
+            </p>
+          </CardContent>
+        </Card>
       </section>
 
       <section>

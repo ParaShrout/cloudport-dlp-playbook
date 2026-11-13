@@ -45,7 +45,7 @@ export const navItems: NavItem[] = [
   {
     href: "/operations",
     label: "Operations",
-    description: "Daily rhythm and checklists",
+    description: "What we watch, the ops team, stations",
     icon: ListChecksIcon,
   },
   {

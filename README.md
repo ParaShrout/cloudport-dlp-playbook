@@ -4,16 +4,16 @@ A self-hosted user guide and operations dashboard for Digital Line Producers (DL
 
 ## What is in it
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Dashboard: what Cloudport is and who uses it, Who does what table, Programming building blocks table, on-air emergency panel, training progress, quick links |
-| `/setup` | Cloudport set-up: interactive initial set-up tasks, start of shift checks and end of shift checks |
-| `/guides` | Index of the User Manual procedures, grouped by category with method guides indented under their parent; each row opens the guide |
-| `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support |
-| `/operations` | Daily rhythm, interactive live cut-in checklist, stations table (Baltimore, Sacramento, Miami), communication norms |
-| `/escalations` | Report an issue form (pick station, fill the agreed template, copy and open the station's Slack channel), your station's path, severity levels (Sev 1-4), shared escalation tiers, contacts |
-| `/training` | Five-module onboarding path with saved progress and a six-question knowledge check |
-| `/glossary` | Filterable definitions of Cloudport and newsroom terms |
+| Route            | Purpose                                                                                                                                                                                     |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`              | Dashboard: what Cloudport is and who uses it, Who does what table, Programming building blocks table, on-air emergency panel, training progress, quick links                                |
+| `/setup`         | Cloudport set-up: interactive initial set-up tasks, start of shift checks and end of shift checks                                                                                           |
+| `/guides`        | Index of the User Manual procedures, grouped by category with method guides indented under their parent; each row opens the guide                                                           |
+| `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support                                                 |
+| `/operations`    | What we watch (monitoring tools and who uses them), the 24/7 Operations team, interactive live cut-in checklist, stations table (Baltimore, Sacramento, Miami), communication norms         |
+| `/escalations`   | Report an issue form (pick station, fill the agreed template, copy and open the station's Slack channel), your station's path, severity levels (Sev 1-4), shared escalation tiers, contacts |
+| `/training`      | Five-module onboarding path with saved progress and a six-question knowledge check                                                                                                          |
+| `/glossary`      | Filterable definitions of Cloudport and newsroom terms                                                                                                                                      |
 
 Global search is available from the header, or press `/` or `Cmd/Ctrl+K` anywhere. It indexes guides, individual steps, troubleshooting entries, severities, checklists, training modules and glossary terms.
 
@@ -21,16 +21,16 @@ Global search is available from the header, or press `/` or `Cmd/Ctrl+K` anywher
 
 All copy lives in plain TypeScript data files under `src/content/`. No component changes are needed to update the guide.
 
-| File | Contents |
-| --- | --- |
-| `src/content/guides.ts` | Step-by-step guides. All User Manual procedures are transferred from the Google Site except Troubleshooting Tips, which is a stub with `status: "coming-soon"`. |
-| `src/content/operations.ts` | Stations and their escalation contacts, daily rhythm, checklists, communication norms |
-| `src/content/overview.ts` | Dashboard copy: about Cloudport, Who does what, Programming building blocks |
-| `src/content/escalations.ts` | Severity definitions, escalation tiers, contacts, incident template |
-| `src/content/training.ts` | Training modules and quiz questions |
-| `src/content/glossary.ts` | Glossary terms |
-| `src/content/site.ts` | Site name, team name, external links |
-| `src/content/types.ts` | The shapes of all of the above |
+| File                         | Contents                                                                                                                                                        |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/content/guides.ts`      | Step-by-step guides. All User Manual procedures are transferred from the Google Site except Troubleshooting Tips, which is a stub with `status: "coming-soon"`. |
+| `src/content/operations.ts`  | Stations and their escalation contacts, monitoring tools, ops team, checklists, communication norms                                                             |
+| `src/content/overview.ts`    | Dashboard copy: about Cloudport, Who does what, Programming building blocks                                                                                     |
+| `src/content/escalations.ts` | Severity definitions, escalation tiers, contacts, incident template                                                                                             |
+| `src/content/training.ts`    | Training modules and quiz questions                                                                                                                             |
+| `src/content/glossary.ts`    | Glossary terms                                                                                                                                                  |
+| `src/content/site.ts`        | Site name, team name, external links                                                                                                                            |
+| `src/content/types.ts`       | The shapes of all of the above                                                                                                                                  |
 
 ### Adding screenshots
 

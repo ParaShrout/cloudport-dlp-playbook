@@ -1,4 +1,4 @@
-import type { Checklist, Station } from "./types";
+import type { MonitoringTool, OpsContact, Checklist, Station } from "./types";
 import { site } from "./site";
 
 /**
@@ -95,33 +95,64 @@ export function stationChannelUrl(
   return `https://slack.com/app_redirect?channel=${encodeURIComponent(troubleshootingChannel.replace(/^#/, ""))}`;
 }
 
-export const dailyRhythm = [
-  {
-    time: "Start of shift",
-    title: "Take the handoff",
-    text: "Read the previous shift's log, confirm your station's channel is on air, confirm today's schedule is published and note any planned live hits.",
-  },
-  {
-    time: "Before first newscast",
-    title: "Pre-air checks",
-    text: "Sign in to Cloudport in Chrome, open the Playout page and confirm the first show of the day is scheduled as expected.",
-  },
-  {
-    time: "Through the day",
-    title: "Monitor and adjust",
-    text: "Run live cut-ins on request (Adding Live Segments preferred), check the events after each cut-in, and keep your station's troubleshooting channel current.",
-  },
-  {
-    time: "After each live event",
-    title: "Reconcile the schedule",
-    text: "Confirm the playlist and channel output moved to the next event, then assess the timing impact and adjust the schedule so the next show starts on time.",
-  },
-  {
-    time: "End of shift",
-    title: "Hand off",
-    text: "Write the shift log: what aired live, issues, open escalations, anything the next DLP needs to watch.",
-  },
-];
+/**
+ * "What we watch": how the stream is monitored and who is responsible.
+ * Blurb and table from the "What We Watch - Responsibilities" sheet.
+ */
+export const monitoring = {
+  blurb:
+    "Monitoring the stream is a shared responsibility across the workflow. From the moment DLPs build rundowns and initiate their streams, through encoding and automated system checks, to our 24/7 Operations team providing eyes-on-glass monitoring, multiple layers of oversight help ensure stream health and content quality. If an issue arises, DLPs are not expected to manage it alone. Follow the defined escalation process and know that dedicated support teams are actively monitoring and ready to assist.",
+  tools: [
+    {
+      tool: "Cloudport Playout page",
+      whatItShows:
+        "Channel output preview, playlist position, warnings/errors counters, segment status (red/green), recording state in the media library, redundant player outputs (dashboard).",
+      whoUsesIt: "DLPs (their channel), Video Ops (all channels)",
+      access:
+        "Cloudport account via Evan's team; invitations expire after 7 days.",
+    },
+    {
+      tool: "Grafana all-news dashboard",
+      whatItShows:
+        "Viewership, A/V health, ad breaks per channel. Open the Starlight group \u2192 station tab (e.g., 'Baltimore Today'). A separate POC dashboard covers test streams.",
+      whoUsesIt: "Video Ops; read-only link for stakeholders",
+      access:
+        "Alex Fernandez administers; request through Video Ops. Link to be pinned in Monitoring folder.",
+    },
+    {
+      tool: "Mux / Conviva",
+      whatItShows:
+        "Player-side QoE: playback success, exit-before-video-start, failures by device; used for the SLT performance reports.",
+      whoUsesIt: "Reporting, Video Ops",
+      access: "Existing analytics accounts.",
+    },
+    {
+      tool: "Video Ops detection",
+      whatItShows:
+        "Silence and missing-ad detection across channels; does not reliably catch rescue loops, so rescue is also audited after the fact.",
+      whoUsesIt: "Video Ops",
+      access: "Internal.",
+    },
+    {
+      tool: "Live monitoring streams",
+      whatItShows:
+        "Direct stream monitors per channel (links in Monitoring folder).",
+      whoUsesIt: "Everyone",
+      access: "Shared site.",
+    },
+  ] satisfies MonitoringTool[],
+};
+
+/** The 24/7 Video Operations team: first line of monitoring and support. */
+export const opsTeam = {
+  name: "Video Operations (L1)",
+  description:
+    "Dave Swietkowski's 24/7 team monitors the three station channels and the health dashboards around the clock. They acknowledge, classify (P1/P2/P3) and mitigate issues within L1 boundaries, open tickets, post updates and closure summaries, and log incidents.",
+  contacts: [
+    { name: "Dave Swietkowski", role: "Video Operations lead" },
+    { name: "Tobias Girazian", role: "Video Operations" },
+  ] as OpsContact[],
+};
 
 export const checklists: Checklist[] = [
   {

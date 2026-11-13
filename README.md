@@ -23,7 +23,7 @@ All copy lives in plain TypeScript data files under `src/content/`. No component
 
 | File | Contents |
 | --- | --- |
-| `src/content/guides.ts` | Step-by-step guides. Live Cut-Ins (overview + Adding Live Segments + Immediate Live), Prepare for Live Cut-in and Enable Live Recording are transferred from the Google Site; the other User Manual pages are stubs with `status: "coming-soon"`. |
+| `src/content/guides.ts` | Step-by-step guides. All User Manual procedures are transferred from the Google Site except Troubleshooting Tips, which is a stub with `status: "coming-soon"`. |
 | `src/content/operations.ts` | Stations and their escalation contacts, daily rhythm, checklists, communication norms |
 | `src/content/escalations.ts` | Severity definitions, escalation tiers, contacts, incident template |
 | `src/content/training.ts` | Training modules and quiz questions |

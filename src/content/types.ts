@@ -109,10 +109,15 @@ export type Priority = {
 export type EscalationTier = {
   tier: string;
   name: string;
-  whoTheyAre: string;
-  useWhen: string;
-  howToReach: string[];
-  expectedResponse: string;
+  who: string;
+  scope: string;
+  escalatesWhen: string;
+};
+
+export type EscalationStep = {
+  step: string;
+  owner: string;
+  whoIsIn: string;
 };
 
 export type Contact = {

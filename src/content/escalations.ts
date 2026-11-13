@@ -1,4 +1,9 @@
-import type { Contact, EscalationTier, Priority } from "./types";
+import type {
+  Contact,
+  EscalationStep,
+  EscalationTier,
+  Priority,
+} from "./types";
 import { site } from "./site";
 
 /**
@@ -74,72 +79,97 @@ export const priorities: Priority[] = [
   },
 ];
 
+/**
+ * What a DLP needs to know. Shown at the top of the escalations page next
+ * to the Report an issue form.
+ */
+export const dlpSteps: string[] = [
+  "Post in your station's troubleshooting channel \u2014 the only place you ever need to go, any hour.",
+  "Lead with timing: LIVE NOW, airs within 2 hours, channel down / in rescue, or 'airs tomorrow'. Then: which stream, what you see, what you tried, screenshot if you have one.",
+  "Ops acknowledges in your thread and owns it. All updates stay in that thread; you never need to contact engineering or Amagi yourself.",
+  "When in doubt, report it. You do not decide severity \u2014 Ops does. A false alarm costs minutes; a missed problem costs air.",
+];
+
+/** Escalation path, from the "Escalation Path and Timing" sheet. */
 export const tiers: EscalationTier[] = [
   {
-    tier: "Tier 0",
-    name: "Self-serve",
-    whoTheyAre:
-      "This playbook: step-by-step guides, troubleshooting tables and the glossary.",
-    useWhen:
-      "You are unsure of a step or something looks off but is not affecting air.",
-    howToReach: [
-      "Search this site (press / or Cmd+K)",
-      "Troubleshooting Tips in the guides list",
-      "Ask other DLPs in #amagi-poc-producing-chat",
-    ],
-    expectedResponse: "Instant.",
+    tier: "Level 1",
+    name: "Video Ops (24/7)",
+    who: "Dave Swietkowski's team",
+    scope:
+      "First response on everything. Classifies; runs the mitigation playbook (Section 9): take national, re-trigger break, re-upload, restart session, swap live source, insert alternate assets.",
+    escalatesWhen:
+      "P1 not mitigated in 15 minutes, or the fix is outside L1 boundaries (configuration, ingest path, platform fault).",
   },
   {
-    tier: "Tier 1",
-    name: "Lead DLP on shift",
-    whoTheyAre:
-      "The senior DLP covering the shift. Knows the day's schedule and can approve removing content.",
-    useWhen:
-      "Any decision about what airs, a cut-in that will make the next show start late, or when a guide does not cover your situation.",
-    howToReach: [
-      "Your station's troubleshooting channel (see Your station, above)",
-      "Lead DLP contact for your station",
-    ],
-    expectedResponse: "Minutes.",
+    tier: "Level 2",
+    name: "Internal Engineering",
+    who: "Markel (ingest / Cloudport UI / EPG); Dave's team for encoders, cloud encoding, CDN, distribution",
+    scope:
+      "Deeper diagnosis; owns distribution and encoder changes; decides vendor vs. downstream.",
+    escalatesWhen:
+      "Root cause sits on the Amagi platform, or Amagi must make the change.",
   },
   {
-    tier: "Tier 2",
-    name: "Stream Planning & Ops",
-    whoTheyAre:
-      "The CBS Digital Stream Planning & Ops team that owns the Cloudport rollout, configuration, accounts and the vendor relationship.",
-    useWhen:
-      "Cloudport is not behaving as documented, access or configuration problems, anything P2 or higher.",
-    howToReach: [
-      "Incident channel: Add Slack channel name",
-      "On-call phone: Add on-call number",
-      "Email: Add team distribution list",
-    ],
-    expectedResponse:
-      "P1: 15 minutes. P2: within 1 business hour. P3: next business day.",
+    tier: "Level 3",
+    name: "Amagi",
+    who: "Freshdesk \u2192 Evan Thomas \u2192 Paco Lancaster. Business hours 8\u20135 ET domestic team; after hours Bangalore (24/7/365). Phone number in Cloudport UI / escalation matrix.",
+    scope:
+      "Platform faults, hotfixes, player/pod restarts, resource/config corrections, log pulls for RCA.",
+    escalatesWhen:
+      "Response not received within 15\u201320 minutes on a P1 \u2192 next contact in the matrix. One CBS escalation owner per incident (avoid many-to-one calls).",
+  },
+];
+
+/** Who owns each step and who is in the conversation, from the "Who Classifies and Who to Include" sheet. */
+export const escalationSteps: EscalationStep[] = [
+  {
+    step: "Intake in station channel",
+    owner: "DLP posts; Video Ops acknowledges within the thread",
+    whoIsIn:
+      "DLP + Ops. Station engineers are not on Slack \u2014 Ops emails them when the cause is on-prem.",
   },
   {
-    tier: "Tier 3",
-    name: "Amagi support (NOC)",
-    whoTheyAre: "Amagi's 24/7 network operations centre for Cloudport.",
-    useWhen:
-      "Platform outage, channel off air for platform reasons, live source ingest failures on Amagi's side. DLPs contact Amagi directly only for a P1; otherwise go through Stream Ops.",
-    howToReach: [
-      "NOC phone (P1 only): Add Amagi NOC number",
-      "Support portal / email: Add Amagi support address",
-    ],
-    expectedResponse: "Per vendor SLA (P1 acknowledged within 15 minutes).",
+    step: "Classification (P1/P2/P3)",
+    owner: "Video Ops L1 on duty",
+    whoIsIn:
+      "Ops only. P-levels are for the team's handling, not something stations are asked to set.",
+  },
+  {
+    step: "P1 working thread",
+    owner: "Video Ops opens the thread in #i-news-missioncontr",
+    whoIsIn:
+      "Video Ops, Markel/engineering on-call, Evan (Amagi), Clinton; stakeholders (Sherra, Andrea, Fred) read the opened/resolved posts. DLPs are not members.",
+  },
+  {
+    step: "Vendor engagement",
+    owner: "Video Ops (or engineering) opens Freshdesk",
+    whoIsIn:
+      "Amagi support desk; Evan as single CBS-facing contact; Paco Lancaster if unanswered.",
+  },
+  {
+    step: "Station communication",
+    owner: "Video Ops posts status/ETA/closure in the station channel",
+    whoIsIn:
+      "Station channel members. Andrea approves any standing message templates.",
+  },
+  {
+    step: "Record",
+    owner:
+      "Video Ops creates the Airtable incident + Vid Ops Incident Report; Clinton reconciles weekly",
+    whoIsIn: "Everyone reads the tracker; leadership reads Progress Overview.",
   },
 ];
 
 /** Contacts shared by every station. Station-specific channels live in operations.ts. */
 export const contacts: Contact[] = [
   {
-    name: "Incident channel",
-    role: "P1 and P2 incidents",
-    channel: "Add Slack channel name",
+    name: "Video Operations (L1)",
+    role: "First response on every issue, any hour. Acknowledges in your station channel thread and owns it from there.",
+    channel: "Your station's troubleshooting channel",
     hours: "24/7",
     notes:
-      "Post here even if you also called. The thread becomes the incident record.",
+      "Dave Swietkowski (lead), Tobias Girazian. You never need to contact engineering or Amagi yourself.",
   },
   {
     name: "DLP producing chat",
@@ -151,18 +181,12 @@ export const contacts: Contact[] = [
       "Not for on-air issues. Those go to your station's troubleshooting channel using the issue template.",
   },
   {
-    name: "Stream Ops on-call",
-    role: "Tier 2 escalation",
-    channel: "Add on-call phone number",
-    hours: "24/7",
-  },
-  {
-    name: "Amagi NOC",
-    role: "Tier 3 vendor support",
-    channel: "Add Amagi NOC phone and support email",
+    name: "Mission Control",
+    role: "Ops working thread for P1 incidents",
+    channel: "#i-news-missioncontr",
     hours: "24/7",
     notes:
-      "Have the channel name, time of issue and what you observed ready before you call.",
+      "Opened by Video Ops. DLPs are not members; status, ETA and closure come back to your station channel.",
   },
 ];
 

@@ -108,8 +108,10 @@ export function IssueReporter() {
           </CardTitle>
         </div>
         <CardDescription className="text-red-900/80">
-          {p1.definition} That is a <strong>{p1.level}</strong>:{" "}
-          {p1.response[0]} {p1.response[1]}
+          Post in your station&apos;s troubleshooting channel, lead with timing,
+          and Ops takes it from there. If the channel is down or in rescue, that
+          is a <strong>{p1.level}</strong>: Ops acknowledges immediately, any
+          hour.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
@@ -301,7 +303,7 @@ export function IssueReporter() {
                     ? "Clipboard was blocked. Select the text above and copy it by hand."
                     : !channelUrl
                       ? "Add this station's Slack channel in operations.ts to enable the button."
-                      : "Slack opens in a new tab with the message on your clipboard. Paste it, attach a screenshot of the error, and send. For a P1, phone first."}
+                      : "Slack opens in a new tab with the message on your clipboard. Paste it, attach a screenshot of the error, and send."}
                 </p>
               </div>
             </div>
@@ -312,10 +314,10 @@ export function IssueReporter() {
           <Button
             variant="outline"
             className="bg-background"
-            render={<Link href="#priority" />}
+            render={<Link href="#path" />}
           >
             <PhoneCallIcon data-icon="inline-start" />
-            Priority levels and who to call
+            How escalation works
           </Button>
           <Button
             variant="outline"

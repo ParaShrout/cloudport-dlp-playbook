@@ -268,7 +268,7 @@ export default function DashboardPage() {
               <QuickLink
                 href="/escalations"
                 icon={SirenIcon}
-                label="Escalation tiers and contacts"
+                label="Escalations: how to report, who owns what"
               />
               <QuickLink
                 href="/training"

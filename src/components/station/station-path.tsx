@@ -106,7 +106,7 @@ export function StationPathDetails({
       icon: UserRoundIcon,
       label: "Lead DLP on shift",
       value: station.escalation.leadDlp,
-      hint: "Approves removing program content. Tier 1 escalation.",
+      hint: "Approves removing program content and other judgement calls about what airs.",
     },
     {
       icon: PhoneIcon,
@@ -188,7 +188,7 @@ export function YourStationSection() {
         <CardDescription>
           {hydrated && !station
             ? "Pick your station so the dashboard and guides point you to the right channel and Lead DLP."
-            : "Tier 1 is station-specific. Everything below this card is shared by all three stations."}
+            : "Your channel, Lead DLP and control room are station-specific. The escalation path below is shared by all three stations."}
         </CardDescription>
       </CardHeader>
       <CardContent>

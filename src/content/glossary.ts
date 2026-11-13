@@ -124,12 +124,12 @@ export const glossary: GlossaryTerm[] = [
   {
     term: "NOC",
     definition:
-      "Amagi's 24/7 Network Operations Centre. Tier 3 support; DLPs call directly only for a P1.",
+      "Amagi's 24/7 Network Operations Centre. Level 3 in the escalation path; Video Ops or engineering engage them through Freshdesk. DLPs never contact Amagi directly.",
   },
   {
     term: "Stream Planning & Ops",
     aka: ["Stream Ops"],
     definition:
-      "The CBS Digital team that owns the Cloudport rollout, configuration and vendor relationship. Tier 2 support.",
+      "The CBS Digital team that owns the Cloudport rollout, configuration and vendor relationship.",
   },
 ];

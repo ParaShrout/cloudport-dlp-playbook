@@ -215,8 +215,8 @@ export const communicationNorms = [
     text: "Each station has its own channel. Every live cut-in gets two posts there: 'Live on stream at HH:MM' and 'Back to schedule at HH:MM'. Questions and P2-P3 issues go there first. Keep it short; details go in the shift log.",
   },
   {
-    title: "Incident channel",
-    text: "One thread per incident. First post uses the incident template. Update the thread when the state changes and when it is resolved.",
+    title: "One thread per issue",
+    text: "Your first post uses the issue template. Ops acknowledges in the thread and every update, including 'back to normal', stays there. Don't open a second thread for the same problem.",
   },
   {
     title: "Shift log",

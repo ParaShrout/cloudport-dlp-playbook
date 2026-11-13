@@ -22,6 +22,8 @@ import { IssueReporter } from "@/components/station/issue-reporter";
 import { stationChannelUrl, stations } from "@/content/operations";
 import {
   contacts,
+  dlpSteps,
+  escalationSteps,
   incidentTemplate,
   priorities,
   tiers,
@@ -57,12 +59,51 @@ export default function EscalationsPage() {
     <div className="flex flex-col gap-12">
       <PageHeader
         eyebrow="Escalations & support"
-        title="Who to contact, and how fast"
-        description="Report the issue in your station's troubleshooting channel using the template so the ops team can triage and escalate fast. Then decide the priority: it tells you who else to contact, in what order, and how quickly to expect a response. Tier 1 contacts differ by station; everything else is shared."
+        title="Something wrong? Post it in your station channel"
+        description="You report; Ops owns everything after that. Lead with timing, say what you see and what you tried, and the 24/7 Video Operations team acknowledges in your thread, classifies the priority and escalates to engineering or Amagi if needed. You never have to."
       />
+
+      <section id="how" className="scroll-mt-24">
+        <SectionHeading
+          title="Four things every DLP should know"
+          description="This is the whole escalation procedure from your side."
+        />
+        <ol className="grid gap-3 sm:grid-cols-2">
+          {dlpSteps.map((text, i) => (
+            <li
+              key={text}
+              className="flex gap-3 rounded-lg border bg-card p-4 text-sm leading-relaxed"
+            >
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                {i + 1}
+              </span>
+              <span className="text-foreground/90">{text}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <section id="report" className="scroll-mt-24">
         <IssueReporter />
+      </section>
+
+      <section>
+        <SectionHeading
+          id="template"
+          title="Issue post template"
+          description="The agreed format for every post in a station troubleshooting channel. The form above fills it in for you; copy it here if you would rather write it by hand."
+        />
+        <Card>
+          <CardHeader className="flex-row items-center justify-between">
+            <CardTitle className="text-base">Template</CardTitle>
+            <CopyButton text={incidentTemplate} label="Copy template" />
+          </CardHeader>
+          <CardContent>
+            <pre className="overflow-x-auto rounded-lg bg-muted p-4 font-mono text-xs leading-relaxed">
+              {incidentTemplate}
+            </pre>
+          </CardContent>
+        </Card>
       </section>
 
       <section id="station" className="scroll-mt-24">
@@ -71,9 +112,82 @@ export default function EscalationsPage() {
 
       <section>
         <SectionHeading
+          id="path"
+          title="Escalation path"
+          description="What happens after you post. Video Ops is first response on everything and decides when to bring in engineering or Amagi. You do not need to work this ladder yourself."
+        />
+        <ol className="grid gap-4 lg:grid-cols-3">
+          {tiers.map((t) => (
+            <li key={t.tier}>
+              <Card className="h-full">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <Badge>{t.tier}</Badge>
+                    <CardTitle className="text-base">{t.name}</CardTitle>
+                  </div>
+                  <CardDescription className="text-foreground/80">
+                    {t.who}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-3 text-sm">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      Scope
+                    </p>
+                    <p className="mt-1 text-foreground/90">{t.scope}</p>
+                  </div>
+                  <div className="rounded-lg bg-muted/60 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      Escalates when
+                    </p>
+                    <p className="mt-1 text-foreground/90">{t.escalatesWhen}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section>
+        <SectionHeading
+          id="who"
+          title="Who classifies, and who is in the conversation"
+          description="Each step of an incident, who owns it, and who is in the room. DLPs are in the first and fifth rows; the rest is handled for you."
+        />
+        <div className="overflow-hidden rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[22%]">Step</TableHead>
+                <TableHead className="w-[33%]">Owner</TableHead>
+                <TableHead>Who is in the conversation</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {escalationSteps.map((e) => (
+                <TableRow key={e.step} className="align-top">
+                  <TableCell className="whitespace-normal font-medium">
+                    {e.step}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-foreground/90">
+                    {e.owner}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-muted-foreground">
+                    {e.whoIsIn}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           id="priority"
           title="Priority levels"
-          description="When in doubt, pick the higher priority. Nobody will be upset that you raised a P1 that turned out to be a P2."
+          description="Ops sets the priority after you post; stations are not asked to pick one. This is how each level is handled, so you know what to expect in your thread."
         />
         <div className="grid gap-4 lg:grid-cols-3">
           {priorities.map((p) => {
@@ -122,60 +236,9 @@ export default function EscalationsPage() {
 
       <section>
         <SectionHeading
-          id="tiers"
-          title="Escalation path"
-          description="Work up the tiers. Skip straight to Tier 3 only for a P1."
-        />
-        <ol className="grid gap-4 lg:grid-cols-2">
-          {tiers.map((t) => (
-            <li key={t.tier}>
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <Badge>{t.tier}</Badge>
-                    <CardTitle>{t.name}</CardTitle>
-                  </div>
-                  <CardDescription className="text-foreground/80">
-                    {t.whoTheyAre}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-3 text-sm">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Use when
-                    </p>
-                    <p className="mt-1 text-foreground/90">{t.useWhen}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      How to reach
-                    </p>
-                    <ul className="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-foreground/90">
-                      {t.howToReach.map((h) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      Expected response
-                    </p>
-                    <p className="mt-1 text-foreground/90">
-                      {t.expectedResponse}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section>
-        <SectionHeading
           id="contacts"
           title="Contacts"
-          description="Station channels first, then the contacts shared by all stations. Placeholders read 'Add ...'."
+          description="Station channels first, then the shared ones. Placeholders read 'Add ...'."
         />
         <div className="mb-4 overflow-hidden rounded-lg border">
           <Table>
@@ -225,7 +288,9 @@ export default function EscalationsPage() {
             <TableBody>
               {contacts.map((c) => (
                 <TableRow key={c.name} className="align-top">
-                  <TableCell className="font-medium">{c.name}</TableCell>
+                  <TableCell className="whitespace-normal font-medium">
+                    {c.name}
+                  </TableCell>
                   <TableCell className="whitespace-normal">{c.role}</TableCell>
                   <PlaceholderCell value={c.channel} href={c.href} />
                   <TableCell>{c.hours}</TableCell>
@@ -237,25 +302,6 @@ export default function EscalationsPage() {
             </TableBody>
           </Table>
         </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          id="template"
-          title="Issue post template"
-          description="The agreed format for every post in a station troubleshooting channel. The form at the top of this page fills it in for you; copy it here if you would rather write it by hand."
-        />
-        <Card>
-          <CardHeader className="flex-row items-center justify-between">
-            <CardTitle className="text-base">Template</CardTitle>
-            <CopyButton text={incidentTemplate} label="Copy template" />
-          </CardHeader>
-          <CardContent>
-            <pre className="overflow-x-auto rounded-lg bg-muted p-4 font-mono text-xs leading-relaxed">
-              {incidentTemplate}
-            </pre>
-          </CardContent>
-        </Card>
       </section>
     </div>
   );

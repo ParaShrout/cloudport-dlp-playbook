@@ -80,7 +80,7 @@ export const trainingModules: TrainingModule[] = [
       },
       {
         id: "or-2",
-        text: "Read the Escalations page and know the three priority levels.",
+        text: "Read the Escalations page: how to report, and what Ops does after you post.",
         href: "/escalations",
         hrefLabel: "Escalations",
       },
@@ -92,7 +92,7 @@ export const trainingModules: TrainingModule[] = [
       },
       {
         id: "or-4",
-        text: "Join your station's troubleshooting channel, the incident channel and the DLP support channel.",
+        text: "Join your station's troubleshooting channel and the DLP producing chat.",
         href: "/escalations#contacts",
         hrefLabel: "Contacts",
       },
@@ -277,11 +277,15 @@ export const quiz: QuizQuestion[] = [
   },
   {
     id: "q7",
-    question:
-      "The stream has been black for 45 seconds. What priority is this?",
-    options: ["P3", "P2", "P1"],
-    answerIndex: 2,
+    question: "The stream has been black for 45 seconds. What do you do?",
+    options: [
+      "Phone Amagi support",
+      "Post in your station's troubleshooting channel, leading with 'channel down'",
+      "Wait a minute to see if it recovers",
+      "Message the Lead DLP privately",
+    ],
+    answerIndex: 1,
     explanation:
-      "A channel down or in rescue slate is always P1: acknowledge immediately, mitigate first, and post in your station channel using the template.",
+      "Your station channel is the only place you need to go, any hour. Lead with timing (channel down), then what you see and what you tried. Ops acknowledges in the thread, classifies it (a channel down is always P1) and owns it from there.",
   },
 ];

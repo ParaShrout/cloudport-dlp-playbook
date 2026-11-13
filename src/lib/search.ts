@@ -83,8 +83,8 @@ export function buildSearchIndex(): SearchItem[] {
       id: `tier-${t.tier}`,
       group: "Escalations",
       title: `${t.tier}: ${t.name}`,
-      subtitle: t.useWhen,
-      href: "/escalations#tiers",
+      subtitle: t.scope,
+      href: "/escalations#path",
     });
   }
 

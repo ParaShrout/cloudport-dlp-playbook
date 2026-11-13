@@ -21,7 +21,7 @@ import type { Guide } from "./types";
  */
 
 const OWNER = "CBS Digital Stream Planning & Ops";
-const UPDATED = "2026-11-12";
+const UPDATED = "2026-11-13";
 
 export const guides: Guide[] = [
   {
@@ -236,8 +236,114 @@ export const guides: Guide[] = [
   ...comingSoon("simulcast-hours", "Simulcast Hours", "Programming Hours"),
   ...comingSoon("replay-hours", "Replay Hours", "Programming Hours"),
   ...comingSoon("wheel-hours", "Wheel Hours", "Programming Hours"),
-  ...comingSoon("prepare-file-shows-for-live-cut-in", "All File Shows - Prepare for Live Cut-in", "Live Operations"),
-  ...comingSoon("enable-live-recording", "All Live Shows - Enable Live Recording", "Live Operations"),
+  {
+    slug: "prepare-file-shows-for-live-cut-in",
+    title: "All File Shows - Prepare for Live Cut-in",
+    shortTitle: "Prepare for Live Cut-in",
+    summary:
+      "In order to support easy insertion of live segments during file playback programming, we need to perform certain steps on each file playback show so it is ready to support this.",
+    category: "Live Operations",
+    status: "review",
+    reviewNote:
+      "Steps 1-7 transferred word for word from the Google Site page 'All File Shows - Prepare for Live Cutin'. Add screenshots, read through once, then switch to Published.",
+    estimatedMinutes: 3,
+    whenToUse: ["Every time a new file playback show has been created in the schedule grid."],
+    prerequisites: ["The file show has already been created in the schedule grid."],
+    phases: [
+      {
+        id: "steps",
+        title: "Steps",
+        steps: [
+          {
+            id: "right-click-show",
+            title: "Right click the show in the schedule grid",
+            summary: "After initial creation of file show, right click on the show in the schedule grid.",
+          },
+          {
+            id: "open-property-window",
+            title: "Select 'Open Property Window'",
+            summary: "Select 'Open Property Window'.",
+          },
+          {
+            id: "ingest-point-tab",
+            title: "Select the Ingest Point tab",
+            summary: "Select the Ingest Point Tab.",
+          },
+          {
+            id: "add-live-sources",
+            title: "Add the live sources",
+            summary: "Add the following live sources:",
+            details: ["cbsn_ingest_001", "cbsn_ingest_002", "cbsn_24x7"],
+          },
+          {
+            id: "add-default-source",
+            title: "Add a default source",
+            summary:
+              "Add a default source. Typically this will be cbsn_24x7. This selection will be the initial source selected when a live segment is inserted.",
+          },
+          { id: "save", title: "Click Save", summary: "Click Save." },
+          {
+            id: "done",
+            title: "The show is ready for live segments",
+            summary: "This show will now allow a user to insert a live segment into a file playback show.",
+            wantsScreenshot: false,
+          },
+        ],
+      },
+    ],
+    troubleshooting: [],
+    related: ["live-cut-ins", "live-cut-in-add-live-segment"],
+    lastUpdated: UPDATED,
+    owner: OWNER,
+  },
+  {
+    slug: "enable-live-recording",
+    title: "All Live Shows - Enable Live Recording",
+    shortTitle: "Enable Live Recording",
+    summary:
+      "In order to have each show available in the media library, the decision has been taken to record each show regardless of whether it is scheduled for replay. Follow these steps on each live show created in order to capture the recording.",
+    category: "Live Operations",
+    status: "review",
+    reviewNote:
+      "Steps 1-5 transferred word for word from the Google Site. Add screenshots, read through once, then switch to Published.",
+    estimatedMinutes: 2,
+    whenToUse: ["While creating any new live show."],
+    prerequisites: [],
+    phases: [
+      {
+        id: "steps",
+        title: "Steps",
+        steps: [
+          {
+            id: "recordings-tab",
+            title: "Navigate to the Recordings tab",
+            summary: "While performing the initial creation of each live show, navigate to the Recordings tab.",
+          },
+          {
+            id: "enable-input-recording",
+            title: "Enable the Input Recording switch",
+            summary: "Enable the Input Recording switch.",
+          },
+          {
+            id: "record-mode",
+            title: "Set the record mode",
+            summary: "Set the 'Select record mode' drop down to 'All Record Segmented'.",
+          },
+          { id: "save", title: "Click Save", summary: "Click Save." },
+          {
+            id: "done",
+            title: "Cloudport records the show",
+            summary:
+              "This will cause Cloudport to record the show and create a hard parted file for each segment of the live show. The show name value from the 'Show Details' tab will be used for the file name for each show.",
+            wantsScreenshot: false,
+          },
+        ],
+      },
+    ],
+    troubleshooting: [],
+    lastUpdated: UPDATED,
+    owner: OWNER,
+  },
   ...comingSoon("create-new-show-on-the-fly", "Create a New Show on the Fly", "Live Operations"),
   ...comingSoon("troubleshooting-tips", "Troubleshooting Tips", "Troubleshooting"),
 ];

@@ -163,8 +163,8 @@ export type Station = {
   market: string;
   /** Channel name exactly as it appears in Cloudport. */
   channelName: string;
-  /** Public DAI stream (HLS master playlist) for monitoring the channel output. */
-  streamUrl?: string;
+  /** Viewer-facing places to watch the channel output (same feed viewers see). */
+  watchLinks?: { label: string; href: string }[];
   /** Local time zone, used when writing times in the shift log. */
   timeZone: string;
   status: "live" | "onboarding" | "planned";

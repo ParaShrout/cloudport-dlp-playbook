@@ -92,6 +92,7 @@ export function StationPathDetails({
     label: string;
     value: string;
     href?: string;
+    links?: { label: string; href: string }[];
     hint: string;
   }[] = [
     {
@@ -119,14 +120,14 @@ export function StationPathDetails({
       value: station.channelName,
       hint: `Your station's channel in Cloudport. Local time zone: ${station.timeZone.replace("_", " ")}.`,
     },
-    ...(station.streamUrl
+    ...(station.watchLinks?.length
       ? [
           {
             icon: PlayIcon,
-            label: "Stream output",
-            value: station.streamUrl,
-            href: station.streamUrl,
-            hint: "What viewers see. Open in Safari or VLC to check channel output.",
+            label: "Watch the channel",
+            value: station.watchLinks.map((l) => l.label).join(" / "),
+            links: station.watchLinks,
+            hint: "The public live stream, exactly as viewers see it.",
           },
         ]
       : []),
@@ -139,7 +140,23 @@ export function StationPathDetails({
             <r.icon className="size-3.5" /> {r.label}
           </dt>
           <dd className="mt-1 text-sm">
-            <Value value={r.value} href={r.href} />
+            {r.links ? (
+              <span className="flex flex-wrap gap-x-3 gap-y-1">
+                {r.links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-primary underline underline-offset-4"
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </span>
+            ) : (
+              <Value value={r.value} href={r.href} />
+            )}
           </dd>
           <dd className="mt-1 text-xs text-muted-foreground">{r.hint}</dd>
         </div>

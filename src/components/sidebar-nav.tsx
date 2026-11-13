@@ -23,14 +23,14 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             className={cn(
               "group flex items-start gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
               active
-                ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                : "text-sidebar-foreground hover:bg-sidebar-accent",
+                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-[inset_3px_0_0_0_var(--cbs-blue)]"
+                : "text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
             )}
           >
             <Icon
               className={cn(
                 "mt-0.5 size-4 shrink-0",
-                active ? "" : "text-muted-foreground",
+                active ? "text-white" : "text-sidebar-foreground/60",
               )}
             />
             <span className="flex flex-col">
@@ -39,8 +39,8 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                 className={cn(
                   "text-xs leading-tight",
                   active
-                    ? "text-sidebar-primary-foreground/80"
-                    : "text-muted-foreground",
+                    ? "text-sidebar-primary-foreground/75"
+                    : "text-sidebar-foreground/55",
                 )}
               >
                 {item.description}

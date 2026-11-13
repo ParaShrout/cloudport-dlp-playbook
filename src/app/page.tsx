@@ -35,45 +35,59 @@ import {
   rolesAsOf,
 } from "@/content/overview";
 import { getGuide, guideHref } from "@/content/guides";
+import { CbsNewsLogo } from "@/components/cbs-news-logo";
 
 export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-10">
-      <section className="rounded-2xl border bg-gradient-to-br from-primary/10 via-background to-background p-6 sm:p-10">
-        <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-          {site.program}
-        </p>
-        <h1 className="mt-2 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-          Running the station streams in {site.toolName}
-        </h1>
-        <div className="mt-4 flex max-w-3xl flex-col gap-3 text-muted-foreground">
-          {aboutCloudport.paragraphs.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
-        </div>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <SearchTrigger className="h-10 w-full justify-start sm:w-96" />
-          <Button variant="default" size="lg" render={<Link href="/setup" />}>
-            <ClipboardCheckIcon data-icon="inline-start" />
-            Set-up and shift checks
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            render={<a href={site.toolUrl} target="_blank" rel="noreferrer" />}
-          >
-            Open Cloudport
-            <ExternalLinkIcon data-icon="inline-end" />
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-red-200 bg-red-50/60 text-red-900 hover:bg-red-100 hover:text-red-900"
-            render={<Link href="/escalations#report" />}
-          >
-            <SirenIcon data-icon="inline-start" />
-            Something is wrong on air
-          </Button>
+      <section className="relative overflow-hidden rounded-2xl bg-cbs-navy p-6 text-white sm:p-10">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-cbs-blue/25 to-transparent"
+        />
+        <div className="relative">
+          <CbsNewsLogo onDark className="h-5 sm:h-6" />
+          <p className="mt-5 text-xs font-semibold uppercase tracking-wider text-white/60">
+            {site.program}
+          </p>
+          <h1 className="mt-2 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            Running the station streams in {site.toolName}
+          </h1>
+          <div className="mt-4 flex max-w-3xl flex-col gap-3 text-white/75">
+            {aboutCloudport.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <SearchTrigger className="h-10 w-full justify-start border-white/20 bg-white/10 text-white hover:bg-white/15 hover:text-white sm:w-96 [&>span]:text-white/80 [&_kbd]:border-white/20 [&_kbd]:bg-white/10 [&_kbd]:text-white/70" />
+            <Button
+              size="lg"
+              className="bg-white text-cbs-navy hover:bg-white/90"
+              render={<Link href="/setup" />}
+            >
+              <ClipboardCheckIcon data-icon="inline-start" />
+              Set-up and shift checks
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+              render={
+                <a href={site.toolUrl} target="_blank" rel="noreferrer" />
+              }
+            >
+              Open Cloudport
+              <ExternalLinkIcon data-icon="inline-end" />
+            </Button>
+            <Button
+              size="lg"
+              className="bg-cbs-red text-white hover:bg-cbs-red/90"
+              render={<Link href="/escalations#report" />}
+            >
+              <SirenIcon data-icon="inline-start" />
+              Something is wrong on air
+            </Button>
+          </div>
         </div>
       </section>
 

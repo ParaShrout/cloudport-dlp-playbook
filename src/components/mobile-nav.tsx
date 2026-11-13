@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { site } from "@/content/site";
+import { CbsNewsLogo } from "./cbs-news-logo";
 import { SidebarNav } from "./sidebar-nav";
 
 export function MobileNav() {
@@ -30,10 +31,16 @@ export function MobileNav() {
       >
         <MenuIcon />
       </SheetTrigger>
-      <SheetContent side="left" className="w-80 p-0">
-        <SheetHeader className="border-b">
-          <SheetTitle>{site.name}</SheetTitle>
-          <SheetDescription>{site.tagline}</SheetDescription>
+      <SheetContent
+        side="left"
+        className="w-80 border-sidebar-border bg-sidebar p-0 text-sidebar-foreground"
+      >
+        <SheetHeader className="border-b border-sidebar-border">
+          <CbsNewsLogo onDark className="h-4" />
+          <SheetTitle className="text-white">{site.name}</SheetTitle>
+          <SheetDescription className="text-sidebar-foreground/60">
+            {site.tagline}
+          </SheetDescription>
         </SheetHeader>
         <div className="px-3">
           <SidebarNav onNavigate={() => setOpen(false)} />

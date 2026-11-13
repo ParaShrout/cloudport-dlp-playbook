@@ -23,7 +23,7 @@ import type { Guide } from "./types";
 const OWNER = "CBS Digital Stream Planning & Ops";
 const UPDATED = "2026-11-13";
 
-export const guides: Guide[] = [
+const unordered: Guide[] = [
   {
     slug: "live-cut-ins",
     title: "Live Cut-Ins",
@@ -1168,10 +1168,36 @@ export function countSteps(guide: Guide): number {
 }
 
 export const CATEGORY_ORDER: Guide["category"][] = [
-  "Live Operations",
   "Programming Hours",
+  "Live Operations",
   "Troubleshooting",
 ];
+
+/**
+ * Display order within each category. Guides not listed here keep their
+ * position in the source array, after the listed ones.
+ */
+const GUIDE_ORDER: string[] = [
+  "simulcast-hours",
+  "replay-hours",
+  "wheel-hours",
+  "enable-live-recording",
+  "prepare-file-shows-for-live-cut-in",
+  "live-cut-ins",
+  "live-cut-in-add-live-segment",
+  "live-cut-in-immediate-live",
+  "create-new-show-on-the-fly",
+];
+
+function rank(slug: string): number {
+  const i = GUIDE_ORDER.indexOf(slug);
+  return i === -1 ? GUIDE_ORDER.length : i;
+}
+
+export const guides: Guide[] = unordered
+  .map((g, i) => ({ g, i }))
+  .sort((a, b) => rank(a.g.slug) - rank(b.g.slug) || a.i - b.i)
+  .map(({ g }) => g);
 
 export type GuideRow = { guide: Guide; parent?: Guide };
 

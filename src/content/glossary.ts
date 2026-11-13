@@ -18,7 +18,8 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: "Lead DLP",
-    definition: "Senior DLP on shift for a station. First escalation point for judgement calls.",
+    definition:
+      "Senior DLP on shift for a station. First escalation point for judgement calls.",
   },
   {
     term: "Channel",
@@ -38,7 +39,8 @@ export const glossary: GlossaryTerm[] = [
   {
     term: "File playback programming",
     aka: ["File show"],
-    definition: "Scheduled programming played from files rather than a live source. Live cut-ins interrupt file playback.",
+    definition:
+      "Scheduled programming played from files rather than a live source. Live cut-ins interrupt file playback.",
   },
   {
     term: "Live cut-in",
@@ -79,7 +81,8 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: "Live template",
-    definition: "A preset selected during Immediate Live that defines the live source. Confirm the correct source is present before proceeding.",
+    definition:
+      "A preset selected during Immediate Live that defines the live source. Confirm the correct source is present before proceeding.",
   },
   {
     term: "Preview column",
@@ -98,7 +101,8 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: "Rundown",
-    definition: "The newsroom's running order for a newscast. The stream's schedule is built from, and kept in sync with, the station rundown.",
+    definition:
+      "The newsroom's running order for a newscast. The stream's schedule is built from, and kept in sync with, the station rundown.",
   },
   {
     term: "Troubleshooting channel",
@@ -119,7 +123,8 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: "NOC",
-    definition: "Amagi's 24/7 Network Operations Centre. Tier 3 support; DLPs call directly only for Sev 1.",
+    definition:
+      "Amagi's 24/7 Network Operations Centre. Tier 3 support; DLPs call directly only for Sev 1.",
   },
   {
     term: "Stream Planning & Ops",

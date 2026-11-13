@@ -1,4 +1,5 @@
 import type { Checklist, Station } from "./types";
+import { site } from "./site";
 
 /**
  * Day-to-day operations reference. Edit freely; station rows and checklist
@@ -11,7 +12,8 @@ import type { Checklist, Station } from "./types";
  * dashboard, escalations page and guides show that station's path.
  *
  * Values beginning with "Add " are placeholders. Replace them with the real
- * Slack channel names and phone numbers.
+ * contact details. Add each station's `slackChannelId` so the Report an issue
+ * button opens the channel directly.
  */
 export const stations: Station[] = [
   {
@@ -24,7 +26,7 @@ export const stations: Station[] = [
     notes:
       "POC station. The official user guide was written against this channel.",
     escalation: {
-      troubleshootingChannel: "Add Baltimore troubleshooting Slack channel",
+      troubleshootingChannel: "#cbsnews-baltimore-trouble-shooting",
       leadDlp: "Add Baltimore Lead DLP contact",
       controlRoom: "Add WJZ control room phone / intercom",
     },
@@ -37,7 +39,7 @@ export const stations: Station[] = [
     timeZone: "America/Los_Angeles",
     status: "live",
     escalation: {
-      troubleshootingChannel: "Add Sacramento troubleshooting Slack channel",
+      troubleshootingChannel: "#cbsnews-sac-troubleshooting",
       leadDlp: "Add Sacramento Lead DLP contact",
       controlRoom: "Add KOVR control room phone / intercom",
     },
@@ -50,7 +52,7 @@ export const stations: Station[] = [
     timeZone: "America/New_York",
     status: "live",
     escalation: {
-      troubleshootingChannel: "Add Miami troubleshooting Slack channel",
+      troubleshootingChannel: "#cbsnews-miami-trouble-shooting",
       leadDlp: "Add Miami Lead DLP contact",
       controlRoom: "Add WFOR control room phone / intercom",
     },
@@ -59,6 +61,17 @@ export const stations: Station[] = [
 
 export function getStation(id: string | null | undefined): Station | undefined {
   return stations.find((s) => s.id === id);
+}
+
+/** Slack link for a station's troubleshooting channel, or undefined while it is a placeholder. */
+export function stationChannelUrl(
+  station: Pick<Station, "escalation">,
+): string | undefined {
+  const { troubleshootingChannel, slackChannelId } = station.escalation;
+  if (slackChannelId)
+    return `${site.slack.workspaceUrl}/archives/${slackChannelId}`;
+  if (troubleshootingChannel.startsWith("Add ")) return undefined;
+  return `https://slack.com/app_redirect?channel=${encodeURIComponent(troubleshootingChannel.replace(/^#/, ""))}`;
 }
 
 export const dailyRhythm = [

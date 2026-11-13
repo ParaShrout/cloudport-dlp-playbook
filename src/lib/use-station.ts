@@ -8,10 +8,22 @@ export const STATION_STORAGE_KEY = "dlp-playbook:station";
 
 /** The station this DLP operates. Persisted in the browser. */
 export function useStation() {
-  const [stationId, setStationId, hydrated] = useLocalStorage<string | null>(STATION_STORAGE_KEY, null);
+  const [stationId, setStationId, hydrated] = useLocalStorage<string | null>(
+    STATION_STORAGE_KEY,
+    null,
+  );
   const station = hydrated ? getStation(stationId) : undefined;
-  const select = useCallback((id: string | null) => setStationId(id), [setStationId]);
-  return { station, stationId: hydrated ? stationId : null, select, hydrated, stations };
+  const select = useCallback(
+    (id: string | null) => setStationId(id),
+    [setStationId],
+  );
+  return {
+    station,
+    stationId: hydrated ? stationId : null,
+    select,
+    hydrated,
+    stations,
+  };
 }
 
 export function isPlaceholder(value: string) {

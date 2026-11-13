@@ -51,7 +51,8 @@ export type Troubleshooting = {
   escalate?: string;
 };
 
-export type GuideCategory = "Live Operations" | "Programming Hours" | "Troubleshooting";
+export type GuideCategory =
+  "Live Operations" | "Programming Hours" | "Troubleshooting";
 
 export type GuideMethod = {
   /** Slug of the guide that documents this method. */
@@ -117,6 +118,8 @@ export type Contact = {
   name: string;
   role: string;
   channel: string;
+  /** Link to open the channel, if it is a Slack channel. */
+  href?: string;
   hours: string;
   notes?: string;
 };
@@ -137,6 +140,12 @@ export type Checklist = {
 export type StationEscalation = {
   /** Station-specific troubleshooting / support channel. First stop for anything not covered by a guide. */
   troubleshootingChannel: string;
+  /**
+   * Slack channel id (starts with "C"). Copy it from the channel's link in
+   * Slack. When set, the Report an issue button opens the channel directly;
+   * otherwise Slack is asked to find it by name.
+   */
+  slackChannelId?: string;
   /** How to reach the Lead DLP covering this station's shift. */
   leadDlp: string;
   /** Control room / master control contact for live source and cue coordination. */

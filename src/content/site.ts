@@ -5,13 +5,23 @@ export const site = {
   toolUrl: "https://cbsnews.east-cloudport.amagi.tv/",
   vendorName: "Amagi",
   program: "Streaming Rundown POC",
+  slack: {
+    workspaceUrl: "https://paramountglobal.enterprise.slack.com",
+    /** Open channel for all DLPs: how-to and programming questions. */
+    producingChat: {
+      name: "#amagi-poc-producing-chat",
+      id: "C0A80SKPE8K",
+      url: "https://paramountglobal.enterprise.slack.com/archives/C0A80SKPE8K",
+    },
+  },
   team: "CBS Digital Stream Planning & Ops",
   /** Shown in the footer and on the dashboard so DLPs can find the originals. */
   externalLinks: [
     {
       label: "Google Site (original user guide)",
       href: "https://sites.google.com/paramount.com/baltimorepoc/home",
-      description: "Source of truth for procedures. Being migrated into this dashboard page by page.",
+      description:
+        "Source of truth for procedures. Being migrated into this dashboard page by page.",
     },
     {
       label: "SharePoint: Cloudport playbook & screenshots",

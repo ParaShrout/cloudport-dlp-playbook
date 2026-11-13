@@ -12,7 +12,7 @@ A self-hosted user guide and operations dashboard for Digital Line Producers (DL
 | `/guides/live-cut-ins` | Overview page: the Note on Usage and a chooser between the two cut-in methods |
 | `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support |
 | `/operations` | Daily rhythm, interactive live cut-in checklist, stations table (Baltimore, Sacramento, Miami), communication norms |
-| `/escalations` | Your station's path (per-station troubleshooting channel, Lead DLP, control room), severity levels (Sev 1-4), shared escalation tiers, contacts, copyable incident template |
+| `/escalations` | Report an issue form (pick station, fill the agreed template, copy and open the station's Slack channel), your station's path, severity levels (Sev 1-4), shared escalation tiers, contacts |
 | `/training` | Five-module onboarding path with saved progress and a six-question knowledge check |
 | `/glossary` | Filterable definitions of Cloudport and newsroom terms |
 

@@ -6,7 +6,6 @@ import {
   ExternalLinkIcon,
   GraduationCapIcon,
   ListChecksIcon,
-  PhoneCallIcon,
   SirenIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,9 +27,7 @@ import {
 import { SectionHeading } from "@/components/page-header";
 import { SearchTrigger } from "@/components/search-command";
 import { TrainingProgressCard } from "@/components/training-progress-card";
-import { StationStrip } from "@/components/station/station-path";
 import { site } from "@/content/site";
-import { severities } from "@/content/escalations";
 import {
   aboutCloudport,
   buildingBlocks,
@@ -40,8 +37,6 @@ import {
 import { getGuide } from "@/content/guides";
 
 export default function DashboardPage() {
-  const sev1 = severities[0];
-
   return (
     <div className="flex flex-col gap-10">
       <section className="rounded-2xl border bg-gradient-to-br from-primary/10 via-background to-background p-6 sm:p-10">
@@ -69,6 +64,15 @@ export default function DashboardPage() {
           >
             Open Cloudport
             <ExternalLinkIcon data-icon="inline-end" />
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-red-200 bg-red-50/60 text-red-900 hover:bg-red-100 hover:text-red-900"
+            render={<Link href="/escalations#report" />}
+          >
+            <SirenIcon data-icon="inline-start" />
+            Something is wrong on air
           </Button>
         </div>
       </section>
@@ -170,90 +174,57 @@ export default function DashboardPage() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
-        <Card className="border-red-200 bg-red-50/60 lg:col-span-2">
+        <TrainingProgressCard />
+        <Card className="lg:col-span-2">
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <SirenIcon className="size-4 text-red-600" />
-              <CardTitle className="text-red-900">
-                Something is wrong on air?
-              </CardTitle>
-            </div>
-            <CardDescription className="text-red-900/80">
-              {sev1.definition} That is a <strong>{sev1.level}</strong>:{" "}
-              {sev1.firstAction}
+            <CardTitle>Quick links</CardTitle>
+            <CardDescription>
+              Everything else you might need during a shift.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-3">
-            <StationStrip />
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant="destructive"
-                render={<Link href="/escalations#severity" />}
-              >
-                <PhoneCallIcon data-icon="inline-start" />
-                Severity levels and who to call
-              </Button>
-              <Button
-                variant="outline"
-                render={<Link href="/guides/live-cut-ins#troubleshooting" />}
-              >
-                Live cut-in troubleshooting
-              </Button>
+          <CardContent className="grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2">
+            <div className="flex flex-col gap-1">
+              <QuickLink
+                href="/guides"
+                icon={BookOpenIcon}
+                label="Step-by-step guides"
+              />
+              <QuickLink
+                href="/operations"
+                icon={ListChecksIcon}
+                label="Operations: daily rhythm, stations, norms"
+              />
+              <QuickLink
+                href="/escalations"
+                icon={SirenIcon}
+                label="Escalation tiers and contacts"
+              />
+              <QuickLink
+                href="/training"
+                icon={GraduationCapIcon}
+                label="New DLP training path"
+              />
+            </div>
+            <div className="flex flex-col gap-1 border-t pt-3 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
+              {site.externalLinks.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-start gap-2 rounded-md px-2 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  <ExternalLinkIcon className="mt-0.5 size-4 shrink-0" />
+                  <span>
+                    <span className="block text-foreground/90">{l.label}</span>
+                    <span className="block text-xs">{l.description}</span>
+                  </span>
+                </a>
+              ))}
             </div>
           </CardContent>
         </Card>
-        <TrainingProgressCard />
       </section>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Quick links</CardTitle>
-          <CardDescription>
-            Everything else you might need during a shift.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2">
-          <div className="flex flex-col gap-1">
-            <QuickLink
-              href="/guides"
-              icon={BookOpenIcon}
-              label="Step-by-step guides"
-            />
-            <QuickLink
-              href="/operations"
-              icon={ListChecksIcon}
-              label="Operations: daily rhythm, stations, norms"
-            />
-            <QuickLink
-              href="/escalations"
-              icon={SirenIcon}
-              label="Escalation tiers and contacts"
-            />
-            <QuickLink
-              href="/training"
-              icon={GraduationCapIcon}
-              label="New DLP training path"
-            />
-          </div>
-          <div className="flex flex-col gap-1 border-t pt-3 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
-            {site.externalLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-start gap-2 rounded-md px-2 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-              >
-                <ExternalLinkIcon className="mt-0.5 size-4 shrink-0" />
-                <span>
-                  <span className="block text-foreground/90">{l.label}</span>
-                  <span className="block text-xs">{l.description}</span>
-                </span>
-              </a>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

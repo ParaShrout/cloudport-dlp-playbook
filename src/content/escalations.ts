@@ -1,4 +1,5 @@
 import type { Contact, EscalationTier, Severity } from "./types";
+import { site } from "./site";
 
 /**
  * Escalation paths and support contacts.
@@ -22,7 +23,12 @@ export const severities: Severity[] = [
     responseTarget: "Immediate. Phone first, then post.",
     firstAction:
       "Call the Amagi NOC and the on-call Stream Ops lead at the same time. Post in the incident channel with station, time, what you see and what you tried.",
-    notify: ["Amagi NOC (phone)", "Stream Ops on-call (phone)", "Your station's Lead DLP", "Incident channel"],
+    notify: [
+      "Amagi NOC (phone)",
+      "Stream Ops on-call (phone)",
+      "Your station's Lead DLP",
+      "Incident channel",
+    ],
   },
   {
     level: "Sev 2",
@@ -38,7 +44,12 @@ export const severities: Severity[] = [
     responseTarget: "Within 15 minutes.",
     firstAction:
       "Check the Troubleshooting Tips page. If not fixed in 2 minutes, post in the incident channel and page Stream Ops.",
-    notify: ["Stream Ops on-call", "Your station's Lead DLP", "Incident channel", "Your station's troubleshooting channel"],
+    notify: [
+      "Stream Ops on-call",
+      "Your station's Lead DLP",
+      "Incident channel",
+      "Your station's troubleshooting channel",
+    ],
   },
   {
     level: "Sev 3",
@@ -52,22 +63,31 @@ export const severities: Severity[] = [
       "A Cloudport feature is misbehaving but there is a workaround.",
     ],
     responseTarget: "Same shift.",
-    firstAction: "Post in your station's troubleshooting channel with the Cloudport channel name, the item and a screenshot. Tag the Lead DLP.",
-    notify: ["Your station's troubleshooting channel", "Your station's Lead DLP"],
+    firstAction:
+      "Post in your station's troubleshooting channel with the Cloudport channel name, the item and a screenshot. Tag the Lead DLP.",
+    notify: [
+      "Your station's troubleshooting channel",
+      "Your station's Lead DLP",
+    ],
   },
   {
     level: "Sev 4",
     label: "Question or request",
     color: "slate",
-    definition: "Access requests, how-to questions, documentation gaps, feature ideas.",
+    definition:
+      "Access requests, how-to questions, documentation gaps, feature ideas.",
     examples: [
       "Need a Cloudport login for a new DLP.",
       "A step in a guide does not match what the UI shows.",
       "Request for a new report or template.",
     ],
     responseTarget: "Next business day.",
-    firstAction: "Check this playbook first, then post in your station's troubleshooting channel. Access requests and documentation fixes go to the DLP support channel.",
-    notify: ["Your station's troubleshooting channel", "DLP support channel"],
+    firstAction:
+      "Check this playbook first. How-to and programming questions go to #amagi-poc-producing-chat; anything about your channel goes to your station's troubleshooting channel.",
+    notify: [
+      "#amagi-poc-producing-chat",
+      "Your station's troubleshooting channel",
+    ],
   },
 ];
 
@@ -75,9 +95,15 @@ export const tiers: EscalationTier[] = [
   {
     tier: "Tier 0",
     name: "Self-serve",
-    whoTheyAre: "This playbook: step-by-step guides, troubleshooting tables and the glossary.",
-    useWhen: "You are unsure of a step or something looks off but is not affecting air.",
-    howToReach: ["Search this site (press / or Cmd+K)", "Troubleshooting Tips in the guides list"],
+    whoTheyAre:
+      "This playbook: step-by-step guides, troubleshooting tables and the glossary.",
+    useWhen:
+      "You are unsure of a step or something looks off but is not affecting air.",
+    howToReach: [
+      "Search this site (press / or Cmd+K)",
+      "Troubleshooting Tips in the guides list",
+      "Ask other DLPs in #amagi-poc-producing-chat",
+    ],
     expectedResponse: "Instant.",
   },
   {
@@ -87,7 +113,10 @@ export const tiers: EscalationTier[] = [
       "The senior DLP covering the shift. Knows the day's schedule and can approve removing content.",
     useWhen:
       "Any decision about what airs, a cut-in that will make the next show start late, or when a guide does not cover your situation.",
-    howToReach: ["Your station's troubleshooting channel (see Your station, above)", "Lead DLP contact for your station"],
+    howToReach: [
+      "Your station's troubleshooting channel (see Your station, above)",
+      "Lead DLP contact for your station",
+    ],
     expectedResponse: "Minutes.",
   },
   {
@@ -102,7 +131,8 @@ export const tiers: EscalationTier[] = [
       "On-call phone: Add on-call number",
       "Email: Add team distribution list",
     ],
-    expectedResponse: "Sev 1-2: 15 minutes. Sev 3-4: same shift / next business day.",
+    expectedResponse:
+      "Sev 1-2: 15 minutes. Sev 3-4: same shift / next business day.",
   },
   {
     tier: "Tier 3",
@@ -125,13 +155,17 @@ export const contacts: Contact[] = [
     role: "Sev 1 and Sev 2 incidents",
     channel: "Add Slack channel name",
     hours: "24/7",
-    notes: "Post here even if you also called. The thread becomes the incident record.",
+    notes:
+      "Post here even if you also called. The thread becomes the incident record.",
   },
   {
-    name: "DLP support channel",
-    role: "Sev 3 and Sev 4 questions, access requests, documentation feedback",
-    channel: "Add Slack channel name",
+    name: "DLP producing chat",
+    role: "Open office: how-to and programming questions from any station",
+    channel: site.slack.producingChat.name,
+    href: site.slack.producingChat.url,
     hours: "Business hours",
+    notes:
+      "Not for on-air issues. Those go to your station's troubleshooting channel using the issue template.",
   },
   {
     name: "Stream Ops on-call",
@@ -144,16 +178,15 @@ export const contacts: Contact[] = [
     role: "Tier 3 vendor support",
     channel: "Add Amagi NOC phone and support email",
     hours: "24/7",
-    notes: "Have the channel name, time of issue and what you observed ready before you call.",
+    notes:
+      "Have the channel name, time of issue and what you observed ready before you call.",
   },
 ];
 
-export const incidentTemplate = `Station (Baltimore / Sacramento / Miami) and Cloudport channel:
-Time noticed (local):
-Severity (Sev 1-4):
-What viewers see:
-What you were doing in Cloudport:
-Live source involved (if any):
-What you have tried:
-Current state (on air / off air / degraded):
-Your name and contact:`;
+/**
+ * Agreed with the programming manager. The Report an issue form on the
+ * escalations page fills this in; keep the three lines in this order.
+ */
+export const incidentTemplate = `[Timing]: LIVE NOW / airs at 6:00 PM (within 2 hrs) / airs tomorrow
+[What's happening]: e.g., assets won't ingest into the 7 PM wheel; error attached
+[What you tried]: e.g., re-uploaded twice, same result`;

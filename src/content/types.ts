@@ -203,6 +203,12 @@ export type Role = {
   responsibility: string;
 };
 
+export type TimingMode = {
+  mode: string;
+  behavior: string;
+  typicalUse: string;
+};
+
 export type BuildingBlock = {
   block: string;
   whatItIs: string;

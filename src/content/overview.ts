@@ -1,4 +1,4 @@
-import type { BuildingBlock, Role } from "./types";
+import type { BuildingBlock, Role, TimingMode } from "./types";
 
 /**
  * Dashboard overview content: what Cloudport is, who does what, and the
@@ -102,3 +102,53 @@ export const buildingBlocks: BuildingBlock[] = [
     guide: "live-cut-ins",
   },
 ];
+
+/**
+ * Start time and duration modes. Every show in the schedule has one of
+ * each; together with the time values entered, they decide when a show
+ * starts and ends. Table from the "Start Time and Duration Modes - Mode
+ * Definitions" sheet.
+ */
+export const timingModes = {
+  background:
+    "Each show in the Cloudport schedule has a start time mode and duration mode. These modes, along with the time values entered when the mode is set, determine when a show will start and end.",
+  docsIntro:
+    "The following pages in the Cloudport reference documentation contain full details on each mode:",
+  docs: [
+    {
+      label: "Start Time Modes",
+      href: "https://helpdocs.amagi.tv/docs/cloudport415-start-time-fixed-and-flexible?highlight=true%20start",
+    },
+    {
+      label: "Duration Modes",
+      href: "https://helpdocs.amagi.tv/docs/cloudport415-duration-fixed-flexible",
+    },
+  ],
+  modes: [
+    {
+      mode: "Flexible start",
+      behavior: "Waits for the previous show to end before starting.",
+      typicalUse:
+        "Default for most shows, including the first afternoon wheel (≈ 13:00).",
+    },
+    {
+      mode: "Fixed start",
+      behavior:
+        "If the current show is live, the next show starts in the background and joins in progress when the live show ends. If the current show is a file show, the next show cuts in at its scheduled time.",
+      typicalUse: "Top-of-hour replays and simulcasts that must hit the clock.",
+    },
+    {
+      mode: "True start",
+      behavior:
+        "Cuts in at the scheduled time and ends the current show immediately.",
+      typicalUse:
+        "Hard junctions only. Note: 'Fixed True Start' misbehaviour is an open P0 (Section 10).",
+    },
+    {
+      mode: "Locked vs. unlocked duration",
+      behavior:
+        "Changing a show's duration or start time will re-flow dependent items; check neighbours after any edit.",
+      typicalUse: "Always review the show before and after an edit.",
+    },
+  ] satisfies TimingMode[],
+};

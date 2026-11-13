@@ -33,6 +33,7 @@ import {
   buildingBlocks,
   roles,
   rolesAsOf,
+  timingModes,
 } from "@/content/overview";
 import { getGuide, guideHref } from "@/content/guides";
 import { CbsNewsLogo } from "@/components/cbs-news-logo";
@@ -185,6 +186,62 @@ export default function DashboardPage() {
           </Link>
           .
         </p>
+      </section>
+
+      <section>
+        <SectionHeading
+          id="timing-modes"
+          title="Understanding start time and duration modes"
+          description={timingModes.background}
+        />
+        <div className="overflow-hidden rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[22%]">Mode</TableHead>
+                <TableHead className="w-[45%]">Behavior</TableHead>
+                <TableHead>Typical use</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {timingModes.modes.map((m) => (
+                <TableRow key={m.mode} className="align-top">
+                  <TableCell className="whitespace-normal font-medium">
+                    {m.mode}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-foreground/90">
+                    {m.behavior}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-muted-foreground">
+                    {m.typicalUse}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="mt-4 rounded-lg border bg-muted/40 p-4 text-sm">
+          <p className="font-medium">Product documentation reference</p>
+          <p className="mt-1 text-muted-foreground">{timingModes.docsIntro}</p>
+          <ul className="mt-2 flex flex-col gap-1.5">
+            {timingModes.docs.map((d) => (
+              <li key={d.href}>
+                <a
+                  href={d.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 font-medium text-primary underline underline-offset-4"
+                >
+                  {d.label}
+                  <ExternalLinkIcon className="size-3.5" />
+                </a>
+                <span className="ml-2 text-xs text-muted-foreground">
+                  Cloudport help docs (Amagi)
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">

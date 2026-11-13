@@ -42,7 +42,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span>
               {site.name} · {site.toolName} by {site.vendorName}
             </span>
-            <span>Found something wrong? Post it in the DLP support channel as a Sev 4.</span>
+            <span>
+              Found something wrong? Post it in the DLP support channel as a Sev
+              4.
+            </span>
           </div>
         </footer>
       </div>
@@ -59,7 +62,11 @@ function Brand({ compact = false }: { compact?: boolean }) {
       </span>
       <span className="flex flex-col leading-tight whitespace-nowrap">
         <span className="text-sm font-semibold">{site.name}</span>
-        {!compact ? <span className="text-xs text-muted-foreground">{site.toolName} user guide</span> : null}
+        {!compact ? (
+          <span className="text-xs text-muted-foreground">
+            {site.toolName} user guide
+          </span>
+        ) : null}
       </span>
     </Link>
   );

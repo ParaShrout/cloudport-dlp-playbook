@@ -3,7 +3,13 @@
 import * as React from "react";
 import { CheckCircle2Icon, RotateCcwIcon, XCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { quiz } from "@/content/training";
 import { cn } from "cn";
 
@@ -15,7 +21,15 @@ export function KnowledgeCheck() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Card className={cn(finished ? (correct === quiz.length ? "border-emerald-200 bg-emerald-50/40" : "border-amber-200 bg-amber-50/40") : "")}>
+      <Card
+        className={cn(
+          finished
+            ? correct === quiz.length
+              ? "border-emerald-200 bg-emerald-50/40"
+              : "border-amber-200 bg-amber-50/40"
+            : "",
+        )}
+      >
         <CardContent className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm">
             {finished
@@ -24,7 +38,12 @@ export function KnowledgeCheck() {
                 : `${correct} of ${quiz.length} correct. Re-read the explanations below, then reset and try again.`
               : `${answered} of ${quiz.length} answered. Pick an answer to see the explanation straight away.`}
           </p>
-          <Button variant="ghost" size="sm" onClick={() => setAnswers({})} disabled={answered === 0}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setAnswers({})}
+            disabled={answered === 0}
+          >
             <RotateCcwIcon data-icon="inline-start" />
             Reset quiz
           </Button>
@@ -40,8 +59,12 @@ export function KnowledgeCheck() {
             <li key={q.id}>
               <Card>
                 <CardHeader>
-                  <CardDescription className="text-xs uppercase tracking-wide">Question {qi + 1}</CardDescription>
-                  <CardTitle className="text-base leading-snug">{q.question}</CardTitle>
+                  <CardDescription className="text-xs uppercase tracking-wide">
+                    Question {qi + 1}
+                  </CardDescription>
+                  <CardTitle className="text-base leading-snug">
+                    {q.question}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-2">
                   {q.options.map((opt, oi) => {
@@ -53,21 +76,32 @@ export function KnowledgeCheck() {
                         key={opt}
                         type="button"
                         disabled={isAnswered}
-                        onClick={() => setAnswers((a) => ({ ...a, [q.id]: oi }))}
+                        onClick={() =>
+                          setAnswers((a) => ({ ...a, [q.id]: oi }))
+                        }
                         className={cn(
                           "flex w-full items-center gap-3 rounded-lg border px-3 py-2 text-left text-sm transition-colors",
-                          !isAnswered && "hover:border-primary/60 hover:bg-muted",
-                          showCorrect && "border-emerald-300 bg-emerald-50 text-emerald-950",
+                          !isAnswered &&
+                            "hover:border-primary/60 hover:bg-muted",
+                          showCorrect &&
+                            "border-emerald-300 bg-emerald-50 text-emerald-950",
                           showWrong && "border-red-300 bg-red-50 text-red-950",
-                          isAnswered && !showCorrect && !showWrong && "opacity-60",
+                          isAnswered &&
+                            !showCorrect &&
+                            !showWrong &&
+                            "opacity-60",
                         )}
                       >
                         <span className="flex size-5 shrink-0 items-center justify-center rounded-full border text-[11px] font-medium">
                           {String.fromCharCode(65 + oi)}
                         </span>
                         <span className="flex-1">{opt}</span>
-                        {showCorrect ? <CheckCircle2Icon className="size-4 text-emerald-600" /> : null}
-                        {showWrong ? <XCircleIcon className="size-4 text-red-600" /> : null}
+                        {showCorrect ? (
+                          <CheckCircle2Icon className="size-4 text-emerald-600" />
+                        ) : null}
+                        {showWrong ? (
+                          <XCircleIcon className="size-4 text-red-600" />
+                        ) : null}
                       </button>
                     );
                   })}
@@ -75,10 +109,14 @@ export function KnowledgeCheck() {
                     <p
                       className={cn(
                         "mt-1 rounded-lg px-3 py-2 text-sm",
-                        isCorrect ? "bg-emerald-50 text-emerald-950" : "bg-amber-50 text-amber-950",
+                        isCorrect
+                          ? "bg-emerald-50 text-emerald-950"
+                          : "bg-amber-50 text-amber-950",
                       )}
                     >
-                      <span className="font-medium">{isCorrect ? "Correct. " : "Not quite. "}</span>
+                      <span className="font-medium">
+                        {isCorrect ? "Correct. " : "Not quite. "}
+                      </span>
                       {q.explanation}
                     </p>
                   ) : null}

@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { ArrowRightIcon, GraduationCapIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { trainingModules } from "@/content/training";
 import { useCompletedSet } from "@/lib/use-local-storage";
@@ -15,7 +21,9 @@ export function TrainingProgressCard() {
   const total = trainingModules.reduce((n, m) => n + m.items.length, 0);
   const done = hydrated ? ids.length : 0;
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);
-  const nextModule = trainingModules.find((m) => m.items.some((i) => !ids.includes(i.id)));
+  const nextModule = trainingModules.find((m) =>
+    m.items.some((i) => !ids.includes(i.id)),
+  );
 
   return (
     <Card>
@@ -35,7 +43,9 @@ export function TrainingProgressCard() {
       <CardContent className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <Progress value={pct} className="flex-1" />
-          <span className="w-10 text-right text-xs tabular-nums text-muted-foreground">{pct}%</span>
+          <span className="w-10 text-right text-xs tabular-nums text-muted-foreground">
+            {pct}%
+          </span>
         </div>
         <Button variant="outline" render={<Link href="/training" />}>
           {done === 0 ? "Start training" : "Continue training"}

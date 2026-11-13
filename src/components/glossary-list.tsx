@@ -38,25 +38,36 @@ export function GlossaryList() {
       </div>
       {terms.length === 0 ? (
         <p className="text-sm text-muted-foreground">
-          No terms match &ldquo;{query}&rdquo;. If it is a term DLPs use, ask for it to be added (Sev 4).
+          No terms match &ldquo;{query}&rdquo;. If it is a term DLPs use, ask
+          for it to be added (Sev 4).
         </p>
       ) : (
         <dl className="divide-y rounded-lg border bg-card">
           {terms.map((t) => (
-            <div key={t.term} id={slugify(t.term)} className="scroll-mt-24 grid gap-1 px-4 py-3 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-6">
+            <div
+              key={t.term}
+              id={slugify(t.term)}
+              className="scroll-mt-24 grid gap-1 px-4 py-3 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-6"
+            >
               <dt>
                 <span className="font-medium">{t.term}</span>
                 {t.aka && t.aka.length > 0 ? (
                   <span className="mt-1 flex flex-wrap gap-1">
                     {t.aka.map((a) => (
-                      <Badge key={a} variant="outline" className="font-normal text-muted-foreground">
+                      <Badge
+                        key={a}
+                        variant="outline"
+                        className="font-normal text-muted-foreground"
+                      >
                         {a}
                       </Badge>
                     ))}
                   </span>
                 ) : null}
               </dt>
-              <dd className="text-sm leading-relaxed text-foreground/85">{t.definition}</dd>
+              <dd className="text-sm leading-relaxed text-foreground/85">
+                {t.definition}
+              </dd>
             </div>
           ))}
         </dl>

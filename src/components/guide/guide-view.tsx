@@ -36,7 +36,7 @@ import { StationStreams } from "@/components/station/station-streams";
 import type { StepScreenshots as StepScreenshotMap } from "@/lib/screenshots";
 import { StatusBadge } from "@/components/status-badge";
 import { SectionHeading } from "@/components/page-header";
-import { countSteps, getGuide } from "@/content/guides";
+import { countSteps, getGuide, guideHref } from "@/content/guides";
 import type { Guide, Screenshot, Step } from "@/content/types";
 import { useCompletedSet } from "@/lib/use-local-storage";
 import { cn } from "cn";
@@ -237,7 +237,7 @@ export function GuideView({
                 <Button
                   key={r.slug}
                   variant="outline"
-                  render={<Link href={`/guides/${r.slug}`} />}
+                  render={<Link href={guideHref(r.slug)} />}
                 >
                   {r.title}
                   <StatusBadge status={r.status} className="ml-1" />

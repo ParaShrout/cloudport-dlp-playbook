@@ -11,7 +11,8 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav aria-label="Main" className="flex flex-col gap-1">
       {navItems.map((item) => {
-        const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+        const active =
+          item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
         const Icon = item.icon;
         return (
           <Link
@@ -26,13 +27,20 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                 : "text-sidebar-foreground hover:bg-sidebar-accent",
             )}
           >
-            <Icon className={cn("mt-0.5 size-4 shrink-0", active ? "" : "text-muted-foreground")} />
+            <Icon
+              className={cn(
+                "mt-0.5 size-4 shrink-0",
+                active ? "" : "text-muted-foreground",
+              )}
+            />
             <span className="flex flex-col">
               <span className="font-medium leading-tight">{item.label}</span>
               <span
                 className={cn(
                   "text-xs leading-tight",
-                  active ? "text-sidebar-primary-foreground/80" : "text-muted-foreground",
+                  active
+                    ? "text-sidebar-primary-foreground/80"
+                    : "text-muted-foreground",
                 )}
               >
                 {item.description}

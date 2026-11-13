@@ -29,6 +29,18 @@ export function GuideNav({
               </p>
               <ul className="flex flex-col">
                 {guideTree(list).map(({ guide: g, parent }) => {
+                  if (g.kind === "overview") {
+                    return (
+                      <li key={g.slug}>
+                        <Link
+                          href={`/guides#${g.slug}`}
+                          className="block rounded px-2 py-1 text-sm font-medium leading-snug text-foreground/85 hover:bg-muted"
+                        >
+                          {g.title}
+                        </Link>
+                      </li>
+                    );
+                  }
                   const current = g.slug === currentSlug;
                   return (
                     <li key={g.slug}>

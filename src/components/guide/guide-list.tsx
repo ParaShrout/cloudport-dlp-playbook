@@ -12,17 +12,52 @@ import type { Guide } from "@/content/types";
 import { cn } from "cn";
 
 /**
- * Index of guides. Each row is a link to the guide page, which holds the
- * steps, screenshots, checklist and troubleshooting table. Method guides are
- * indented under their parent overview.
+ * Index of guides. Each procedure row links to its guide page. An overview
+ * (e.g. Live Cut-Ins) is not a page of its own: it renders as a section
+ * header carrying its usage notes, with its method guides indented beneath.
  */
 export function GuideList({ guides }: { guides: Guide[] }) {
   return (
     <ul className="divide-y rounded-lg border bg-card">
       {guideTree(guides).map(({ guide: g, parent }) => {
+        if (g.kind === "overview") {
+          return (
+            <li
+              key={g.slug}
+              id={g.slug}
+              className="scroll-mt-24 px-4 py-4 sm:px-5"
+            >
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-base font-semibold leading-snug tracking-tight">
+                  {g.title}
+                </span>
+                <StatusBadge status={g.status} />
+              </div>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                {g.summary}
+              </p>
+              {g.intro && g.intro.length > 0 ? (
+                <div className="mt-3 rounded-lg border bg-muted/40 p-3.5">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Note on usage
+                  </p>
+                  <div className="mt-1.5 flex flex-col gap-2 text-sm leading-relaxed text-foreground/90">
+                    {g.intro.map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              <p className="mt-2.5 text-xs text-muted-foreground">
+                {g.methods?.length ?? 0} methods, below.
+              </p>
+            </li>
+          );
+        }
+
         const comingSoon = g.status === "coming-soon";
-        const shots =
-          comingSoon || g.kind === "overview" ? 0 : countScreenshots(g);
+        const shots = comingSoon ? 0 : countScreenshots(g);
+        const note = parent?.methods?.find((m) => m.slug === g.slug)?.note;
         return (
           <li key={g.slug}>
             <Link
@@ -44,31 +79,30 @@ export function GuideList({ guides }: { guides: Guide[] }) {
                   </span>
                   <StatusBadge status={g.status} />
                 </div>
+                {note ? (
+                  <p className="mt-1 text-sm font-medium leading-relaxed text-foreground/85">
+                    {note}
+                  </p>
+                ) : null}
                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                   {g.summary}
                 </p>
                 {!comingSoon ? (
                   <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                    {g.kind === "overview" ? (
-                      <span>{g.methods?.length ?? 0} methods</span>
-                    ) : (
-                      <>
-                        <span className="inline-flex items-center gap-1">
-                          <ListChecksIcon className="size-3.5" />{" "}
-                          {countSteps(g)} steps
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          <ClockIcon className="size-3.5" /> ~
-                          {g.estimatedMinutes} min
-                        </span>
-                        {shots > 0 ? (
-                          <span className="inline-flex items-center gap-1">
-                            <ImageIcon className="size-3.5" /> {shots}{" "}
-                            screenshot{shots === 1 ? "" : "s"}
-                          </span>
-                        ) : null}
-                      </>
-                    )}
+                    <span className="inline-flex items-center gap-1">
+                      <ListChecksIcon className="size-3.5" /> {countSteps(g)}{" "}
+                      steps
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <ClockIcon className="size-3.5" /> ~{g.estimatedMinutes}{" "}
+                      min
+                    </span>
+                    {shots > 0 ? (
+                      <span className="inline-flex items-center gap-1">
+                        <ImageIcon className="size-3.5" /> {shots} screenshot
+                        {shots === 1 ? "" : "s"}
+                      </span>
+                    ) : null}
                   </p>
                 ) : null}
               </div>

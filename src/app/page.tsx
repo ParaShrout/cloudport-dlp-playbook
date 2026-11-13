@@ -34,7 +34,7 @@ import {
   roles,
   rolesAsOf,
 } from "@/content/overview";
-import { getGuide } from "@/content/guides";
+import { getGuide, guideHref } from "@/content/guides";
 
 export default function DashboardPage() {
   return (
@@ -144,7 +144,7 @@ export default function DashboardPage() {
                     <TableCell className="whitespace-normal">
                       {guide ? (
                         <Link
-                          href={`/guides/${guide.slug}`}
+                          href={guideHref(guide.slug)}
                           className="text-primary underline underline-offset-4"
                         >
                           {guide.shortTitle ?? guide.title}

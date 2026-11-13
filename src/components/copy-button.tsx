@@ -4,7 +4,13 @@ import * as React from "react";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) {
+export function CopyButton({
+  text,
+  label = "Copy",
+}: {
+  text: string;
+  label?: string;
+}) {
   const [copied, setCopied] = React.useState(false);
 
   const copy = async () => {
@@ -19,7 +25,11 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
 
   return (
     <Button variant="outline" size="sm" onClick={copy}>
-      {copied ? <CheckIcon data-icon="inline-start" /> : <CopyIcon data-icon="inline-start" />}
+      {copied ? (
+        <CheckIcon data-icon="inline-start" />
+      ) : (
+        <CopyIcon data-icon="inline-start" />
+      )}
       {copied ? "Copied" : label}
     </Button>
   );

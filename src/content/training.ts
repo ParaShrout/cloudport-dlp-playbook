@@ -87,7 +87,7 @@ export const trainingModules: TrainingModule[] = [
       {
         id: "fu-4",
         text: "Explain the difference between Adding Live Segments and Immediate Live, and which one is preferred.",
-        href: "/guides/live-cut-ins",
+        href: "/guides#live-cut-ins",
         hrefLabel: "Live Cut-Ins",
       },
     ],

@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 import { getGuide, guides } from "@/content/guides";
 import { GuideView } from "@/components/guide/guide-view";
 import { ComingSoonGuide } from "@/components/guide/coming-soon-guide";
-import { OverviewGuide } from "@/components/guide/overview-guide";
 import { GuideNav } from "@/components/guide/guide-nav";
 import { discoverScreenshots } from "@/lib/screenshots";
 
 export function generateStaticParams() {
-  return guides.map((g) => ({ slug: g.slug }));
+  return guides
+    .filter((g) => g.kind !== "overview")
+    .map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata({
@@ -20,7 +21,8 @@ export async function generateMetadata({
 }: PageProps<"/guides/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const guide = getGuide(slug);
-  return { title: guide?.title ?? "Guide", description: guide?.summary };
+  if (!guide || guide.kind === "overview") return { title: "Guide not found" };
+  return { title: guide.title, description: guide.summary };
 }
 
 export default function GuidePage({ params }: PageProps<"/guides/[slug]">) {
@@ -49,17 +51,13 @@ async function GuideContent({
 }) {
   const { slug } = await params;
   const guide = getGuide(slug);
-  if (!guide) notFound();
+  if (!guide || guide.kind === "overview") notFound();
   const nav = <GuideNav currentSlug={guide.slug} />;
-  if (guide.status === "coming-soon" || guide.kind === "overview") {
+  if (guide.status === "coming-soon") {
     return (
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="min-w-0">
-          {guide.status === "coming-soon" ? (
-            <ComingSoonGuide guide={guide} />
-          ) : (
-            <OverviewGuide guide={guide} />
-          )}
+          <ComingSoonGuide guide={guide} />
         </div>
         <aside className="no-print lg:sticky lg:top-24 lg:self-start">
           {nav}

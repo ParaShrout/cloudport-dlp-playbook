@@ -175,7 +175,7 @@ export type Station = {
 export type TrainingItem = {
   id: string;
   text: string;
-  /** Link to an internal route (e.g. "/guides/live-cut-ins") or external URL. */
+  /** Link to an internal route (e.g. "/guides/live-cut-in-add-live-segment") or external URL. */
   href?: string;
   hrefLabel?: string;
 };

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
-import { getGuide } from "@/content/guides";
+import { getGuide, guideHref } from "@/content/guides";
 import type { Guide } from "@/content/types";
 
 export function ComingSoonGuide({ guide }: { guide: Guide }) {
@@ -68,7 +68,7 @@ export function ComingSoonGuide({ guide }: { guide: Guide }) {
                     key={r.slug}
                     variant="outline"
                     size="sm"
-                    render={<Link href={`/guides/${r.slug}`} />}
+                    render={<Link href={guideHref(r.slug)} />}
                   >
                     {r.title}
                   </Button>

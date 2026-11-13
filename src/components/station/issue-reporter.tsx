@@ -320,9 +320,9 @@ export function IssueReporter() {
           <Button
             variant="outline"
             className="bg-background"
-            render={<Link href="/guides/live-cut-ins#troubleshooting" />}
+            render={<Link href="/guides#live-cut-ins" />}
           >
-            Live cut-in troubleshooting
+            Live cut-in guides
           </Button>
         </div>
       </CardContent>

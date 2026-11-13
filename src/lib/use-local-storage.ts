@@ -72,7 +72,8 @@ export function useLocalStorage<T>(key: string, initial: T) {
           return initial;
         }
       })();
-      const resolved = typeof next === "function" ? (next as (p: T) => T)(current) : next;
+      const resolved =
+        typeof next === "function" ? (next as (p: T) => T)(current) : next;
       writeRaw(key, JSON.stringify(resolved));
     },
     [key, initial],
@@ -88,7 +89,9 @@ export function useCompletedSet(key: string) {
   const [ids, setIds, hydrated] = useLocalStorage<string[]>(key, EMPTY);
   const toggle = useCallback(
     (id: string) =>
-      setIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])),
+      setIds((prev) =>
+        prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+      ),
     [setIds],
   );
   const reset = useCallback(() => setIds([]), [setIds]);

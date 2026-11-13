@@ -49,10 +49,22 @@ function useSearchOpen() {
   );
 }
 
-export function SearchTrigger({ className, iconOnly = false }: { className?: string; iconOnly?: boolean }) {
+export function SearchTrigger({
+  className,
+  iconOnly = false,
+}: {
+  className?: string;
+  iconOnly?: boolean;
+}) {
   if (iconOnly) {
     return (
-      <Button variant="outline" size="icon" className={className} onClick={() => setOpen(true)} aria-label="Search the playbook">
+      <Button
+        variant="outline"
+        size="icon"
+        className={className}
+        onClick={() => setOpen(true)}
+        aria-label="Search the playbook"
+      >
         <SearchIcon />
       </Button>
     );
@@ -65,7 +77,9 @@ export function SearchTrigger({ className, iconOnly = false }: { className?: str
       aria-label="Search the playbook"
     >
       <SearchIcon data-icon="inline-start" />
-      <span className="text-muted-foreground">Search steps, terms, escalations…</span>
+      <span className="text-muted-foreground">
+        Search steps, terms, escalations…
+      </span>
       <kbd className="ml-auto hidden rounded border bg-muted px-1.5 font-mono text-[10px] text-muted-foreground md:inline-block">
         /
       </kbd>
@@ -73,7 +87,11 @@ export function SearchTrigger({ className, iconOnly = false }: { className?: str
   );
 }
 
-function matchScore(value: string, search: string, keywords?: string[]): number {
+function matchScore(
+  value: string,
+  search: string,
+  keywords?: string[],
+): number {
   const terms = search.toLowerCase().split(/\s+/).filter(Boolean);
   if (terms.length === 0) return 1;
   const title = value.toLowerCase();
@@ -94,8 +112,13 @@ export function SearchDialog() {
       const target = e.target as HTMLElement | null;
       const typing =
         target &&
-        (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
-      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "/" && !typing)) {
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable);
+      if (
+        (e.key === "k" && (e.metaKey || e.ctrlKey)) ||
+        (e.key === "/" && !typing)
+      ) {
         e.preventDefault();
         setOpen(!isOpen);
       }
@@ -120,7 +143,9 @@ export function SearchDialog() {
       <Command filter={matchScore}>
         <CommandInput placeholder="Type what you are trying to do…" autoFocus />
         <CommandList className="max-h-[60vh]">
-          <CommandEmpty>No matches. Try a different word, or check the Glossary.</CommandEmpty>
+          <CommandEmpty>
+            No matches. Try a different word, or check the Glossary.
+          </CommandEmpty>
           {GROUP_ORDER.map((group) => {
             const items = index.filter((i) => i.group === group);
             if (items.length === 0) return null;
@@ -136,7 +161,9 @@ export function SearchDialog() {
                   >
                     <span className="font-medium">{item.title}</span>
                     {item.subtitle ? (
-                      <span className="line-clamp-1 text-xs text-muted-foreground">{item.subtitle}</span>
+                      <span className="line-clamp-1 text-xs text-muted-foreground">
+                        {item.subtitle}
+                      </span>
                     ) : null}
                   </CommandItem>
                 ))}

@@ -207,7 +207,7 @@ export const guides: Guide[] = [
       },
     ],
     troubleshooting: [],
-    related: ["live-cut-ins", "live-cut-in-immediate-live"],
+    related: ["live-cut-in-immediate-live"],
     lastUpdated: UPDATED,
     owner: OWNER,
   },
@@ -235,56 +235,70 @@ export const guides: Guide[] = [
             id: "open-chrome",
             title: "Open Google Chrome Browser",
             summary: "Open Google Chrome Browser.",
+            wantsScreenshot: false,
           },
           {
             id: "navigate",
             title: "Navigate to Cloudport",
             summary: "Navigate to https://cbsnews.east-cloudport.amagi.tv/",
+            wantsScreenshot: false,
           },
           {
             id: "sign-in",
             title: "Sign-in to Cloudport",
             summary: "Sign-in to Cloudport.",
+            screenshotCaption:
+              "The Amagi sign-in screen. Enter your email and password, then Continue.",
           },
           {
             id: "playout-page",
             title: "Navigate to Playout page",
             summary: "Navigate to Playout page.",
+            screenshotCaption: "Playout is in the top navigation bar.",
           },
           {
             id: "take-live",
             title: "Click Take Live",
             summary: "Click the Take Live button (upper right of screen).",
+            screenshotCaption:
+              "Take Live is the red button in the upper right, next to Play Graphic.",
           },
           {
             id: "set-start-time",
             title: "Set the start time",
             summary:
               "Set the start time. To go now, select the 'Next 10 seconds' option. If you know the future time you want the event to start, enter that time.",
+            screenshotCaption:
+              "The Immediate Live panel opens on the right. Start Time is at the top: Next 10 seconds, or a specific date and time.",
           },
           {
             id: "select-template",
             title: "Select a live template",
             summary:
               "Select a live template. Confirm the correct source is present.",
+            screenshotCaption:
+              "Pick the template under Live Templates and check the ingest point marked Default is the source you want. Cancel and Proceed are at the bottom.",
           },
           {
             id: "proceed",
             title: "Click Proceed",
             summary:
               "Click proceed. Cloudport will insert an immediate live show into the schedule below the on-air show (or at the selected time).",
+            wantsScreenshot: false,
           },
           {
             id: "live-off",
             title: "Click Live Off to end the cut-in",
             summary:
               "At the conclusion of the cut-in, click the Live Off button in the upper right to terminate the live cut-in. Cloudport will join the originally scheduled programming in progress.",
+            screenshotCaption:
+              "While live, the upper-right button reads Turn Live Off. The live segment sits in the playlist with overlap warnings above and below it.",
           },
         ],
       },
     ],
     troubleshooting: [],
-    related: ["live-cut-ins", "live-cut-in-add-live-segment"],
+    related: ["live-cut-in-add-live-segment"],
     lastUpdated: UPDATED,
     owner: OWNER,
   },
@@ -1050,7 +1064,7 @@ export const guides: Guide[] = [
       },
     ],
     troubleshooting: [],
-    related: ["live-cut-ins", "live-cut-in-add-live-segment"],
+    related: ["live-cut-in-add-live-segment"],
     lastUpdated: UPDATED,
     owner: OWNER,
   },
@@ -1133,6 +1147,16 @@ function comingSoon(
       owner: OWNER,
     },
   ];
+}
+
+/**
+ * Where a guide link should go. Overview guides have no page of their own;
+ * they are a section on the guides index, so link to that anchor.
+ */
+export function guideHref(slug: string, hash?: string): string {
+  const g = getGuide(slug);
+  if (g?.kind === "overview") return `/guides#${slug}`;
+  return `/guides/${slug}${hash ? `#${hash}` : ""}`;
 }
 
 export function getGuide(slug: string): Guide | undefined {

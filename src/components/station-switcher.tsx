@@ -47,20 +47,33 @@ export function StationSwitcher({ className }: { className?: string }) {
         <ChevronDownIcon data-icon="inline-end" className="opacity-60" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
-        <DropdownMenuRadioGroup value={stationId ?? ""} onValueChange={(v) => select(v ? String(v) : null)}>
+        <DropdownMenuRadioGroup
+          value={stationId ?? ""}
+          onValueChange={(v) => select(v ? String(v) : null)}
+        >
           <DropdownMenuLabel>Your station</DropdownMenuLabel>
           {stations.map((s) => (
-            <DropdownMenuRadioItem key={s.id} value={s.id} className="flex-col items-start gap-0 py-1.5">
+            <DropdownMenuRadioItem
+              key={s.id}
+              value={s.id}
+              className="flex-col items-start gap-0 py-1.5"
+            >
               <span className="font-medium">
-                {s.market} <span className="font-normal text-muted-foreground">· {s.callSign}</span>
+                {s.market}{" "}
+                <span className="font-normal text-muted-foreground">
+                  · {s.callSign}
+                </span>
               </span>
-              <span className="text-xs text-muted-foreground">{s.channelName}</span>
+              <span className="text-xs text-muted-foreground">
+                {s.channelName}
+              </span>
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
         <p className="px-2 py-1.5 text-xs text-muted-foreground">
-          Sets which troubleshooting channel and Lead DLP the escalation paths point to.
+          Sets which troubleshooting channel and Lead DLP the escalation paths
+          point to.
         </p>
       </DropdownMenuContent>
     </DropdownMenu>

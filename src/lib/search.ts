@@ -1,4 +1,4 @@
-import { guides } from "@/content/guides";
+import { guideHref, guides } from "@/content/guides";
 import { glossary } from "@/content/glossary";
 import { severities, tiers } from "@/content/escalations";
 import { checklists, stations } from "@/content/operations";
@@ -6,7 +6,15 @@ import { trainingModules } from "@/content/training";
 
 export type SearchItem = {
   id: string;
-  group: "Guides" | "Steps" | "Troubleshooting" | "Stations" | "Escalations" | "Operations" | "Training" | "Glossary";
+  group:
+    | "Guides"
+    | "Steps"
+    | "Troubleshooting"
+    | "Stations"
+    | "Escalations"
+    | "Operations"
+    | "Training"
+    | "Glossary";
   title: string;
   subtitle?: string;
   href: string;
@@ -22,7 +30,7 @@ export function buildSearchIndex(): SearchItem[] {
       group: "Guides",
       title: g.title,
       subtitle: g.summary,
-      href: `/guides/${g.slug}`,
+      href: guideHref(g.slug),
       keywords: g.category,
     });
     for (const phase of g.phases) {
@@ -32,7 +40,7 @@ export function buildSearchIndex(): SearchItem[] {
           group: "Steps",
           title: step.title,
           subtitle: `${g.title} · ${phase.title}`,
-          href: `/guides/${g.slug}#${step.id}`,
+          href: guideHref(g.slug, step.id),
           keywords: step.summary,
         });
       }
@@ -43,7 +51,7 @@ export function buildSearchIndex(): SearchItem[] {
         group: "Troubleshooting",
         title: t.symptom,
         subtitle: g.title,
-        href: `/guides/${g.slug}#troubleshooting`,
+        href: guideHref(g.slug, "troubleshooting"),
         keywords: t.fix,
       });
     });

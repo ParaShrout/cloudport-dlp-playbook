@@ -17,7 +17,13 @@ const config: Record<GuideStatus, { label: string; className: string }> = {
   },
 };
 
-export function StatusBadge({ status, className }: { status: GuideStatus; className?: string }) {
+export function StatusBadge({
+  status,
+  className,
+}: {
+  status: GuideStatus;
+  className?: string;
+}) {
   const c = config[status];
   return (
     <Badge variant="outline" className={cn(c.className, className)}>

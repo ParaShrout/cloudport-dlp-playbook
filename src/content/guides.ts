@@ -91,18 +91,24 @@ export const guides: Guide[] = [
             id: "sign-in",
             title: "Sign-in to Cloudport",
             summary: "Sign-in to Cloudport.",
+            screenshotCaption:
+              "The Amagi login screen. Enter your email address and password, then click Continue.",
           },
           {
             id: "playout-page",
             title: "Navigate to Playout page",
             summary:
               "Navigate to Playout page, scroll to the time for planned cut-in.",
+            screenshotCaption:
+              "Playout is in the top navigation bar. The schedule grid for your channel is on the right.",
           },
           {
             id: "identify-prior-event",
             title: "Identify the event prior to the cut-in",
             summary:
               "Identify the event prior to where you would like the cut-in to be placed. Confirm there is adequate time left before the start of the next event.",
+            screenshotCaption:
+              "The 'Ends in' countdown on the playing event shows how long is left before the next event starts.",
             callout: {
               kind: "critical",
               title: "Caution",

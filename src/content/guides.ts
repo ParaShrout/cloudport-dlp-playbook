@@ -1119,3 +1119,35 @@ export function getGuide(slug: string): Guide | undefined {
 export function countSteps(guide: Guide): number {
   return guide.phases.reduce((n, p) => n + p.steps.length, 0);
 }
+
+export const CATEGORY_ORDER: Guide["category"][] = [
+  "Live Operations",
+  "Programming Hours",
+  "Troubleshooting",
+];
+
+export type GuideRow = { guide: Guide; parent?: Guide };
+
+/**
+ * Order guides for display: a guide listed as a method of an overview guide
+ * sits directly beneath that parent (indented) instead of as its own row.
+ */
+export function guideTree(list: Guide[]): GuideRow[] {
+  const parentOf = new Map<string, Guide>();
+  list.forEach((g) =>
+    g.methods?.forEach((m) => {
+      if (!parentOf.has(m.slug)) parentOf.set(m.slug, g);
+    }),
+  );
+  const rows: GuideRow[] = [];
+  list.forEach((g) => {
+    if (parentOf.has(g.slug)) return;
+    rows.push({ guide: g });
+    g.methods?.forEach((m) => {
+      const child = list.find((c) => c.slug === m.slug);
+      if (child && parentOf.get(m.slug) === g)
+        rows.push({ guide: child, parent: g });
+    });
+  });
+  return rows;
+}

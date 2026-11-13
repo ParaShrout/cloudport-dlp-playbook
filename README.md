@@ -8,7 +8,7 @@ A self-hosted user guide and operations dashboard for Digital Line Producers (DL
 | --- | --- |
 | `/` | Dashboard: what Cloudport is and who uses it, Who does what table, Programming building blocks table, on-air emergency panel, training progress, quick links |
 | `/setup` | Cloudport set-up: interactive initial set-up tasks, start of shift checks and end of shift checks |
-| `/guides` | The User Manual procedures from the Streaming Google Site, grouped by category, with status badges (Published / Needs review / Coming soon) |
+| `/guides` | Index of the User Manual procedures, grouped by category with method guides indented under their parent; each row opens the guide |
 | `/guides/live-cut-ins` | Overview page: the Note on Usage and a chooser between the two cut-in methods |
 | `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support |
 | `/operations` | Daily rhythm, interactive live cut-in checklist, stations table (Baltimore, Sacramento, Miami), communication norms |

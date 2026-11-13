@@ -2,14 +2,33 @@
 
 import type * as React from "react";
 import Link from "next/link";
-import { CheckCircle2Icon, ClockIcon, ListChecksIcon, PrinterIcon, RotateCcwIcon } from "lucide-react";
+import {
+  CheckCircle2Icon,
+  ClockIcon,
+  ListChecksIcon,
+  PrinterIcon,
+  RotateCcwIcon,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Callout } from "@/components/callout";
 import { StepScreenshots } from "@/components/screenshot";
 import { StationStrip } from "@/components/station/station-path";
@@ -21,14 +40,29 @@ import type { Guide, Screenshot, Step } from "@/content/types";
 import { useCompletedSet } from "@/lib/use-local-storage";
 import { cn } from "cn";
 
-export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: StepScreenshotMap }) {
-  const { ids, toggle, reset, has, hydrated } = useCompletedSet(`dlp-playbook:guide:${guide.slug}`);
+export function GuideView({
+  guide,
+  screenshots,
+  aside,
+}: {
+  guide: Guide;
+  screenshots: StepScreenshotMap;
+  /** Extra content for the sidebar, e.g. the list of all guides. */
+  aside?: React.ReactNode;
+}) {
+  const { ids, toggle, reset, has, hydrated } = useCompletedSet(
+    `dlp-playbook:guide:${guide.slug}`,
+  );
   const total = countSteps(guide);
   const done = hydrated ? ids.length : 0;
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);
-  const related = (guide.related ?? []).map(getGuide).filter((g): g is Guide => Boolean(g));
+  const related = (guide.related ?? [])
+    .map(getGuide)
+    .filter((g): g is Guide => Boolean(g));
   const stepNumbers = new Map<string, number>();
-  guide.phases.forEach((p) => p.steps.forEach((s) => stepNumbers.set(s.id, stepNumbers.size + 1)));
+  guide.phases.forEach((p) =>
+    p.steps.forEach((s) => stepNumbers.set(s.id, stepNumbers.size + 1)),
+  );
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
@@ -38,8 +72,12 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
             <Badge variant="secondary">{guide.category}</Badge>
             <StatusBadge status={guide.status} />
           </div>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight">{guide.title}</h1>
-          <p className="mt-2 max-w-3xl text-muted-foreground">{guide.summary}</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight">
+            {guide.title}
+          </h1>
+          <p className="mt-2 max-w-3xl text-muted-foreground">
+            {guide.summary}
+          </p>
           <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
             <div className="inline-flex items-center gap-1.5">
               <ListChecksIcon className="size-3.5" />
@@ -63,7 +101,9 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
           {guide.status === "review" && guide.reviewNote ? (
             <Alert className="mt-5 border-amber-200 bg-amber-50 text-amber-950">
               <AlertTitle>Pending review</AlertTitle>
-              <AlertDescription className="text-amber-900/90">{guide.reviewNote}</AlertDescription>
+              <AlertDescription className="text-amber-900/90">
+                {guide.reviewNote}
+              </AlertDescription>
             </Alert>
           ) : null}
         </header>
@@ -90,7 +130,9 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">Before you start</CardTitle>
-                  <CardDescription>All of these should be true.</CardDescription>
+                  <CardDescription>
+                    All of these should be true.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="flex flex-col gap-1.5 text-sm text-foreground/90">
@@ -112,8 +154,14 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
             <section key={phase.id} id={phase.id} className="scroll-mt-24">
               {guide.phases.length > 1 || phase.description ? (
                 <div className="mb-5 border-b pb-3">
-                  <h2 className="text-xl font-semibold tracking-tight">{phase.title}</h2>
-                  {phase.description ? <p className="mt-1 text-sm text-muted-foreground">{phase.description}</p> : null}
+                  <h2 className="text-xl font-semibold tracking-tight">
+                    {phase.title}
+                  </h2>
+                  {phase.description ? (
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {phase.description}
+                    </p>
+                  ) : null}
                 </div>
               ) : null}
               <ol className="flex flex-col gap-6">
@@ -153,8 +201,12 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
                 <TableBody>
                   {guide.troubleshooting.map((t) => (
                     <TableRow key={t.symptom} className="align-top">
-                      <TableCell className="whitespace-normal font-medium">{t.symptom}</TableCell>
-                      <TableCell className="whitespace-normal text-foreground/90">{t.fix}</TableCell>
+                      <TableCell className="whitespace-normal font-medium">
+                        {t.symptom}
+                      </TableCell>
+                      <TableCell className="whitespace-normal text-foreground/90">
+                        {t.fix}
+                      </TableCell>
                       <TableCell className="whitespace-normal text-muted-foreground">
                         {t.escalate ?? "Not usually needed."}
                       </TableCell>
@@ -165,7 +217,10 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
               Not listed here?{" "}
-              <Link href="/escalations" className="text-primary underline underline-offset-4">
+              <Link
+                href="/escalations"
+                className="text-primary underline underline-offset-4"
+              >
                 Use the escalation path
               </Link>
               .
@@ -178,7 +233,11 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
             <SectionHeading title="Related guides" />
             <div className="flex flex-wrap gap-2">
               {related.map((r) => (
-                <Button key={r.slug} variant="outline" render={<Link href={`/guides/${r.slug}`} />}>
+                <Button
+                  key={r.slug}
+                  variant="outline"
+                  render={<Link href={`/guides/${r.slug}`} />}
+                >
                   {r.title}
                   <StatusBadge status={r.status} className="ml-1" />
                 </Button>
@@ -188,7 +247,7 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
         ) : null}
       </div>
 
-      <aside className="no-print lg:sticky lg:top-24 lg:self-start">
+      <aside className="no-print flex flex-col gap-4 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Your progress</CardTitle>
@@ -201,12 +260,17 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
           <CardContent className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <Progress value={pct} className="flex-1" />
-              <span className="w-10 text-right text-xs tabular-nums text-muted-foreground">{pct}%</span>
+              <span className="w-10 text-right text-xs tabular-nums text-muted-foreground">
+                {pct}%
+              </span>
             </div>
             <nav aria-label="Steps" className="flex flex-col gap-3">
               {guide.phases.map((phase) => (
                 <div key={phase.id}>
-                  <a href={`#${phase.id}`} className="text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground">
+                  <a
+                    href={`#${phase.id}`}
+                    className="text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground"
+                  >
                     {guide.phases.length > 1 ? phase.title : "Steps"}
                   </a>
                   <ul className="mt-1 flex flex-col">
@@ -218,7 +282,9 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
                             href={`#${s.id}`}
                             className={cn(
                               "flex items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-muted",
-                              isDone ? "text-muted-foreground line-through" : "text-foreground/90",
+                              isDone
+                                ? "text-muted-foreground line-through"
+                                : "text-foreground/90",
                             )}
                           >
                             <span
@@ -236,13 +302,21 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
                 </div>
               ))}
               {guide.troubleshooting.length > 0 ? (
-                <a href="#troubleshooting" className="text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground">
+                <a
+                  href="#troubleshooting"
+                  className="text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground"
+                >
                   Troubleshooting
                 </a>
               ) : null}
             </nav>
             <div className="flex flex-col gap-2 border-t pt-4">
-              <Button variant="outline" size="sm" onClick={reset} disabled={done === 0}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={reset}
+                disabled={done === 0}
+              >
                 <RotateCcwIcon data-icon="inline-start" />
                 Reset checklist
               </Button>
@@ -253,6 +327,7 @@ export function GuideView({ guide, screenshots }: { guide: Guide; screenshots: S
             </div>
           </CardContent>
         </Card>
+        {aside}
       </aside>
     </div>
   );
@@ -275,7 +350,9 @@ function StepCard({
 }) {
   const checkboxId = `done-${step.id}`;
   const slotPath =
-    step.wantsScreenshot === false ? undefined : `public/screenshots/${guideSlug}/${String(number).padStart(2, "0")}.png`;
+    step.wantsScreenshot === false
+      ? undefined
+      : `public/screenshots/${guideSlug}/${String(number).padStart(2, "0")}.png`;
   return (
     <li id={step.id} className="scroll-mt-24">
       <article
@@ -288,7 +365,9 @@ function StepCard({
           <span
             className={cn(
               "flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold",
-              done ? "bg-emerald-600 text-white" : "bg-primary text-primary-foreground",
+              done
+                ? "bg-emerald-600 text-white"
+                : "bg-primary text-primary-foreground",
             )}
             aria-hidden
           >
@@ -296,15 +375,26 @@ function StepCard({
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-start justify-between gap-3">
-              <h3 className="text-lg font-semibold leading-tight">{step.title}</h3>
+              <h3 className="text-lg font-semibold leading-tight">
+                {step.title}
+              </h3>
               <div className="no-print inline-flex items-center gap-2 rounded-md border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground hover:bg-muted">
-                <Checkbox id={checkboxId} checked={done} onCheckedChange={onToggle} />
-                <label htmlFor={checkboxId} className="cursor-pointer select-none">
+                <Checkbox
+                  id={checkboxId}
+                  checked={done}
+                  onCheckedChange={onToggle}
+                />
+                <label
+                  htmlFor={checkboxId}
+                  className="cursor-pointer select-none"
+                >
                   Done
                 </label>
               </div>
             </div>
-            <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">{linkify(step.summary)}</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
+              {linkify(step.summary)}
+            </p>
             {step.details && step.details.length > 0 ? (
               <ul className="mt-3 flex list-disc flex-col gap-1 pl-5 text-sm text-foreground/85">
                 {step.details.map((d) => (
@@ -318,8 +408,14 @@ function StepCard({
                 {step.expected}
               </div>
             ) : null}
-            {step.callout ? <Callout callout={step.callout} className="mt-4" /> : null}
-            <StepScreenshots shots={shots} slotPath={slotPath} className="mt-4" />
+            {step.callout ? (
+              <Callout callout={step.callout} className="mt-4" />
+            ) : null}
+            <StepScreenshots
+              shots={shots}
+              slotPath={slotPath}
+              className="mt-4"
+            />
           </div>
         </div>
       </article>
@@ -336,7 +432,13 @@ function linkify(text: string): React.ReactNode {
   if (parts.length === 1) return text;
   return parts.map((part, i) =>
     URL_TEST.test(part) ? (
-      <a key={i} href={part} target="_blank" rel="noreferrer" className="break-all text-primary underline underline-offset-4">
+      <a
+        key={i}
+        href={part}
+        target="_blank"
+        rel="noreferrer"
+        className="break-all text-primary underline underline-offset-4"
+      >
         {part}
       </a>
     ) : (

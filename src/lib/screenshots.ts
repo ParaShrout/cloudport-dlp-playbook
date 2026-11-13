@@ -2,7 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Guide, Screenshot, Step } from "@/content/types";
 
-export const SCREENSHOT_ROOT = path.join(process.cwd(), "public", "screenshots");
+export const SCREENSHOT_ROOT = path.join(
+  process.cwd(),
+  "public",
+  "screenshots",
+);
 export const IMAGE_EXTENSIONS = ["png", "jpg", "jpeg", "gif", "webp"];
 
 const IMAGE_RE = new RegExp(`\\.(${IMAGE_EXTENSIONS.join("|")})$`, "i");
@@ -52,7 +56,10 @@ export function discoverScreenshots(guide: Guide): StepScreenshots {
     if (numbered) {
       step = byNumber.get(Number(numbered[1]));
     } else {
-      const idMatch = [...byId.keys()].find((id) => base === id || base.startsWith(`${id}-`) || base.startsWith(`${id}_`));
+      const idMatch = [...byId.keys()].find(
+        (id) =>
+          base === id || base.startsWith(`${id}-`) || base.startsWith(`${id}_`),
+      );
       if (idMatch) step = byId.get(idMatch);
     }
     if (!step) continue;
@@ -74,6 +81,14 @@ export function discoverScreenshots(guide: Guide): StepScreenshots {
   }
 
   return result;
+}
+
+/** Number of screenshots on disk that match a step of this guide. */
+export function countScreenshots(guide: Guide): number {
+  return Object.values(discoverScreenshots(guide)).reduce(
+    (n, list) => n + list.length,
+    0,
+  );
 }
 
 export function naturalCompare(a: string, b: string) {

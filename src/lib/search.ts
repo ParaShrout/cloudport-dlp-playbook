@@ -86,7 +86,7 @@ export function buildSearchIndex(): SearchItem[] {
       group: "Operations",
       title: `${c.title} checklist`,
       subtitle: c.description,
-      href: `/operations#${c.id}`,
+      href: c.id === "pre-live" ? `/operations#${c.id}` : `/setup#${c.id}`,
       keywords: c.items.map((i) => i.text).join(" "),
     });
   }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   BookOpenIcon,
+  ClipboardCheckIcon,
   ExternalLinkIcon,
   GraduationCapIcon,
   ListChecksIcon,
@@ -16,22 +17,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { SectionHeading } from "@/components/page-header";
 import { SearchTrigger } from "@/components/search-command";
-import { ChecklistCard } from "@/components/checklist-card";
 import { TrainingProgressCard } from "@/components/training-progress-card";
 import { StationStrip } from "@/components/station/station-path";
 import { site } from "@/content/site";
 import { severities } from "@/content/escalations";
-import { checklists } from "@/content/operations";
-
-const DASHBOARD_CHECKLISTS = ["initial-setup", "pre-shift", "handoff"];
+import {
+  aboutCloudport,
+  buildingBlocks,
+  roles,
+  rolesAsOf,
+} from "@/content/overview";
+import { getGuide } from "@/content/guides";
 
 export default function DashboardPage() {
   const sev1 = severities[0];
-  const setupChecklists = DASHBOARD_CHECKLISTS.map((id) =>
-    checklists.find((c) => c.id === id),
-  ).filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   return (
     <div className="flex flex-col gap-10">
@@ -40,42 +49,124 @@ export default function DashboardPage() {
           {site.program}
         </p>
         <h1 className="mt-2 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-          Get set up in {site.toolName} and run your shift
+          Running the station streams in {site.toolName}
         </h1>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          The set-up tasks for your first sign-in, the checks to run at the
-          start and end of every shift, and the escalation path when something
-          is wrong on air. Step-by-step procedures live under Step-by-step
-          guides in the sidebar.
-        </p>
+        <div className="mt-4 flex max-w-3xl flex-col gap-3 text-muted-foreground">
+          {aboutCloudport.paragraphs.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <SearchTrigger className="h-10 w-full justify-start sm:w-96" />
+          <Button variant="default" size="lg" render={<Link href="/setup" />}>
+            <ClipboardCheckIcon data-icon="inline-start" />
+            Set-up and shift checks
+          </Button>
           <Button
-            variant="default"
+            variant="outline"
             size="lg"
             render={<a href={site.toolUrl} target="_blank" rel="noreferrer" />}
           >
             Open Cloudport
             <ExternalLinkIcon data-icon="inline-end" />
           </Button>
-          <Button variant="outline" size="lg" render={<Link href="/guides" />}>
-            Step-by-step guides
-            <ArrowRightIcon data-icon="inline-end" />
-          </Button>
         </div>
       </section>
 
       <section>
         <SectionHeading
-          id="checklists"
-          title="Cloudport set-up and shift checks"
-          description="Tick items off as you go. Progress is saved in this browser; reset the shift checks at the start of each shift."
+          id="who-does-what"
+          title="Who does what"
+          description={`The teams around Cloudport and what each one owns. Names as of ${rolesAsOf}.`}
         />
-        <div className="grid gap-4 lg:grid-cols-3">
-          {setupChecklists.map((c) => (
-            <ChecklistCard key={c.id} checklist={c} />
-          ))}
+        <div className="overflow-hidden rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[22%]">Role</TableHead>
+                <TableHead className="w-[30%]">Who</TableHead>
+                <TableHead>Responsibility in BAU</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {roles.map((r) => (
+                <TableRow key={r.role} className="align-top">
+                  <TableCell className="whitespace-normal font-medium">
+                    {r.role}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-foreground/90">
+                    {r.who}
+                  </TableCell>
+                  <TableCell className="whitespace-normal text-muted-foreground">
+                    {r.responsibility}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          id="building-blocks"
+          title="Programming building blocks"
+          description="The kinds of hours that make up a day on the stream, and how each one is built in Cloudport. Know these before opening a guide."
+        />
+        <div className="overflow-hidden rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[20%]">Block</TableHead>
+                <TableHead className="w-[32%]">What it is</TableHead>
+                <TableHead>How it is built</TableHead>
+                <TableHead className="w-[12%]">Guide</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {buildingBlocks.map((b) => {
+                const guide = b.guide ? getGuide(b.guide) : undefined;
+                return (
+                  <TableRow key={b.block} className="align-top">
+                    <TableCell className="whitespace-normal font-medium">
+                      {b.block}
+                    </TableCell>
+                    <TableCell className="whitespace-normal text-foreground/90">
+                      {b.whatItIs}
+                    </TableCell>
+                    <TableCell className="whitespace-normal text-muted-foreground">
+                      {b.howItIsBuilt}
+                    </TableCell>
+                    <TableCell className="whitespace-normal">
+                      {guide ? (
+                        <Link
+                          href={`/guides/${guide.slug}`}
+                          className="text-primary underline underline-offset-4"
+                        >
+                          {guide.shortTitle ?? guide.title}
+                        </Link>
+                      ) : (
+                        <span className="text-muted-foreground">
+                          Coming soon
+                        </span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
+        <p className="mt-3 text-sm text-muted-foreground">
+          More terms in the{" "}
+          <Link
+            href="/glossary"
+            className="text-primary underline underline-offset-4"
+          >
+            glossary
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
@@ -124,6 +215,11 @@ export default function DashboardPage() {
         <CardContent className="grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2">
           <div className="flex flex-col gap-1">
             <QuickLink
+              href="/guides"
+              icon={BookOpenIcon}
+              label="Step-by-step guides"
+            />
+            <QuickLink
               href="/operations"
               icon={ListChecksIcon}
               label="Operations: daily rhythm, stations, norms"
@@ -137,11 +233,6 @@ export default function DashboardPage() {
               href="/training"
               icon={GraduationCapIcon}
               label="New DLP training path"
-            />
-            <QuickLink
-              href="/glossary"
-              icon={BookOpenIcon}
-              label="Glossary of terms"
             />
           </div>
           <div className="flex flex-col gap-1 border-t pt-3 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0">
@@ -172,7 +263,7 @@ function QuickLink({
   icon: Icon,
   label,
 }: {
-  href: "/operations" | "/escalations" | "/training" | "/glossary";
+  href: "/guides" | "/operations" | "/escalations" | "/training";
   icon: typeof ListChecksIcon;
   label: string;
 }) {
@@ -183,6 +274,7 @@ function QuickLink({
     >
       <Icon className="size-4 text-muted-foreground" />
       <span>{label}</span>
+      <ArrowRightIcon className="ml-auto size-3.5 text-muted-foreground" />
     </Link>
   );
 }

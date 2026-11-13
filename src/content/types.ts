@@ -182,3 +182,18 @@ export type QuizQuestion = {
   answerIndex: number;
   explanation: string;
 };
+
+export type Role = {
+  role: string;
+  /** Named people or teams. Dated in the heading so it is clear when it was last confirmed. */
+  who: string;
+  responsibility: string;
+};
+
+export type BuildingBlock = {
+  block: string;
+  whatItIs: string;
+  howItIsBuilt: string;
+  /** Slug of the guide that documents this block, if transferred. */
+  guide?: string;
+};

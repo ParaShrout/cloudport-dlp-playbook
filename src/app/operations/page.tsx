@@ -1,18 +1,48 @@
 import type { Metadata } from "next";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
 import { ChecklistCard } from "@/components/checklist-card";
-import { checklists, communicationNorms, dailyRhythm, stations } from "@/content/operations";
+import {
+  checklists,
+  communicationNorms,
+  dailyRhythm,
+  stations,
+} from "@/content/operations";
 import type { Station } from "@/content/types";
 import { cn } from "cn";
 
 export const metadata: Metadata = { title: "Operations" };
 
-const stationStatus: Record<Station["status"], { label: string; className: string }> = {
-  live: { label: "Live on Cloudport", className: "border-emerald-200 bg-emerald-50 text-emerald-700" },
-  onboarding: { label: "Onboarding", className: "border-amber-200 bg-amber-50 text-amber-800" },
+const stationStatus: Record<
+  Station["status"],
+  { label: string; className: string }
+> = {
+  live: {
+    label: "Live on Cloudport",
+    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  },
+  onboarding: {
+    label: "Onboarding",
+    className: "border-amber-200 bg-amber-50 text-amber-800",
+  },
   planned: { label: "Planned", className: "text-muted-foreground" },
 };
 
@@ -26,14 +56,20 @@ export default function OperationsPage() {
       />
 
       <section>
-        <SectionHeading id="rhythm" title="Daily rhythm" description="What a normal day looks like from handoff to handoff." />
+        <SectionHeading
+          id="rhythm"
+          title="Daily rhythm"
+          description="What a normal day looks like from handoff to handoff."
+        />
         <ol className="relative flex flex-col gap-6 border-l pl-6">
           {dailyRhythm.map((item, i) => (
             <li key={item.title} className="relative">
               <span className="absolute -left-[31px] flex size-5 items-center justify-center rounded-full border bg-background text-[10px] font-semibold text-muted-foreground">
                 {i + 1}
               </span>
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary">{item.time}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                {item.time}
+              </p>
               <h3 className="mt-0.5 font-medium">{item.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{item.text}</p>
             </li>
@@ -44,13 +80,32 @@ export default function OperationsPage() {
       <section>
         <SectionHeading
           id="checklists"
-          title="Checklists"
-          description="Tick items off as you go. Progress is saved in this browser; reset at the start of each shift."
+          title="Live cut-in checklist"
+          description="Tick items off as you go. Progress is saved in this browser. The initial set-up, start of shift and end of shift checks are on the Cloudport set-up page."
         />
         <div className="grid gap-4 lg:grid-cols-2">
-          {checklists.map((c) => (
-            <ChecklistCard key={c.id} checklist={c} />
-          ))}
+          {checklists
+            .filter((c) => c.id === "pre-live")
+            .map((c) => (
+              <ChecklistCard key={c.id} checklist={c} />
+            ))}
+          <Card className="border-dashed">
+            <CardHeader>
+              <CardTitle className="text-base">
+                Set-up and shift checks
+              </CardTitle>
+              <CardDescription>
+                Initial set-up tasks, start of shift checks and end of shift
+                checks have moved to their own page.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" render={<Link href="/setup" />}>
+                Open Cloudport set-up
+                <ArrowRightIcon data-icon="inline-end" />
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -81,11 +136,15 @@ export default function OperationsPage() {
                     <TableCell className="font-medium">{s.callSign}</TableCell>
                     <TableCell>{s.market}</TableCell>
                     <TableCell>{s.channelName}</TableCell>
-                    <TableCell className="text-muted-foreground">{s.timeZone.replace("_", " ")}</TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {s.timeZone.replace("_", " ")}
+                    </TableCell>
                     <TableCell
                       className={cn(
                         "whitespace-normal",
-                        s.escalation.troubleshootingChannel.startsWith("Add ") ? "italic text-muted-foreground" : "",
+                        s.escalation.troubleshootingChannel.startsWith("Add ")
+                          ? "italic text-muted-foreground"
+                          : "",
                       )}
                     >
                       {s.escalation.troubleshootingChannel}
@@ -95,7 +154,9 @@ export default function OperationsPage() {
                         {st.label}
                       </Badge>
                     </TableCell>
-                    <TableCell className="whitespace-normal text-muted-foreground">{s.notes}</TableCell>
+                    <TableCell className="whitespace-normal text-muted-foreground">
+                      {s.notes}
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -105,13 +166,19 @@ export default function OperationsPage() {
       </section>
 
       <section>
-        <SectionHeading id="norms" title="Communication norms" description="Short, consistent, and written for the next person." />
+        <SectionHeading
+          id="norms"
+          title="Communication norms"
+          description="Short, consistent, and written for the next person."
+        />
         <div className="grid gap-4 sm:grid-cols-2">
           {communicationNorms.map((n) => (
             <Card key={n.title}>
               <CardHeader>
                 <CardTitle className="text-base">{n.title}</CardTitle>
-                <CardDescription className="text-foreground/80">{n.text}</CardDescription>
+                <CardDescription className="text-foreground/80">
+                  {n.text}
+                </CardDescription>
               </CardHeader>
               <CardContent className="hidden" />
             </Card>

@@ -6,11 +6,12 @@ A self-hosted user guide and operations dashboard for Digital Line Producers (DL
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Dashboard: search, interactive Cloudport initial set-up / start of shift / end of shift checklists, on-air emergency panel, training progress, links to the original Google Site and SharePoint playbook |
+| `/` | Dashboard: what Cloudport is and who uses it, Who does what table, Programming building blocks table, on-air emergency panel, training progress, quick links |
+| `/setup` | Cloudport set-up: interactive initial set-up tasks, start of shift checks and end of shift checks |
 | `/guides` | The User Manual procedures from the Streaming Google Site, grouped by category, with status badges (Published / Needs review / Coming soon) |
 | `/guides/live-cut-ins` | Overview page: the Note on Usage and a chooser between the two cut-in methods |
 | `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support |
-| `/operations` | Daily rhythm, interactive initial set-up / start of shift / end of shift / pre-live checklists, stations table (Baltimore, Sacramento, Miami), communication norms |
+| `/operations` | Daily rhythm, interactive live cut-in checklist, stations table (Baltimore, Sacramento, Miami), communication norms |
 | `/escalations` | Your station's path (per-station troubleshooting channel, Lead DLP, control room), severity levels (Sev 1-4), shared escalation tiers, contacts, copyable incident template |
 | `/training` | Five-module onboarding path with saved progress and a six-question knowledge check |
 | `/glossary` | Filterable definitions of Cloudport and newsroom terms |
@@ -25,6 +26,7 @@ All copy lives in plain TypeScript data files under `src/content/`. No component
 | --- | --- |
 | `src/content/guides.ts` | Step-by-step guides. All User Manual procedures are transferred from the Google Site except Troubleshooting Tips, which is a stub with `status: "coming-soon"`. |
 | `src/content/operations.ts` | Stations and their escalation contacts, daily rhythm, checklists, communication norms |
+| `src/content/overview.ts` | Dashboard copy: about Cloudport, Who does what, Programming building blocks |
 | `src/content/escalations.ts` | Severity definitions, escalation tiers, contacts, incident template |
 | `src/content/training.ts` | Training modules and quiz questions |
 | `src/content/glossary.ts` | Glossary terms |

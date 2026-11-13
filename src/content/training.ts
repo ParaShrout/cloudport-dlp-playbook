@@ -39,7 +39,7 @@ export const trainingModules: TrainingModule[] = [
     goal: "Navigate the Playout page and read the schedule without help.",
     duration: "1-2 hours shadowing",
     items: [
-      { id: "fu-1", text: "Shadow a DLP for a full start-of-shift checklist.", href: "/operations#checklists", hrefLabel: "Start of shift checklist" },
+      { id: "fu-1", text: "Shadow a DLP for a full start-of-shift checklist.", href: "/setup#pre-shift", hrefLabel: "Start of shift checks" },
       { id: "fu-2", text: "On the Playout page, scroll to a future time and identify an event and the event that follows it." },
       { id: "fu-3", text: "Find the Take Next button (lower left) and the Take Live / Live Off buttons (upper right)." },
       { id: "fu-4", text: "Explain the difference between Adding Live Segments and Immediate Live, and which one is preferred.", href: "/guides/live-cut-ins", hrefLabel: "Live Cut-Ins" },

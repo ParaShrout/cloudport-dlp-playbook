@@ -1,5 +1,6 @@
 import {
   BookOpenIcon,
+  ClipboardCheckIcon,
   GraduationCapIcon,
   LayoutDashboardIcon,
   ListChecksIcon,
@@ -9,17 +10,60 @@ import {
 } from "lucide-react";
 
 export type NavItem = {
-  href: "/" | "/guides" | "/operations" | "/escalations" | "/training" | "/glossary";
+  href:
+    | "/"
+    | "/setup"
+    | "/guides"
+    | "/operations"
+    | "/escalations"
+    | "/training"
+    | "/glossary";
   label: string;
   description: string;
   icon: LucideIcon;
 };
 
 export const navItems: NavItem[] = [
-  { href: "/", label: "Dashboard", description: "Start here", icon: LayoutDashboardIcon },
-  { href: "/guides", label: "Step-by-step guides", description: "Procedures with screenshots", icon: BookOpenIcon },
-  { href: "/operations", label: "Operations", description: "Daily rhythm and checklists", icon: ListChecksIcon },
-  { href: "/escalations", label: "Escalations & support", description: "Who to call, how fast", icon: SirenIcon },
-  { href: "/training", label: "New DLP training", description: "Self-serve onboarding path", icon: GraduationCapIcon },
-  { href: "/glossary", label: "Glossary", description: "Cloudport and newsroom terms", icon: SpellCheckIcon },
+  {
+    href: "/",
+    label: "Dashboard",
+    description: "Start here",
+    icon: LayoutDashboardIcon,
+  },
+  {
+    href: "/setup",
+    label: "Cloudport set-up",
+    description: "First sign-in and shift checks",
+    icon: ClipboardCheckIcon,
+  },
+  {
+    href: "/guides",
+    label: "Step-by-step guides",
+    description: "Procedures with screenshots",
+    icon: BookOpenIcon,
+  },
+  {
+    href: "/operations",
+    label: "Operations",
+    description: "Daily rhythm and checklists",
+    icon: ListChecksIcon,
+  },
+  {
+    href: "/escalations",
+    label: "Escalations & support",
+    description: "Who to call, how fast",
+    icon: SirenIcon,
+  },
+  {
+    href: "/training",
+    label: "New DLP training",
+    description: "Self-serve onboarding path",
+    icon: GraduationCapIcon,
+  },
+  {
+    href: "/glossary",
+    label: "Glossary",
+    description: "Cloudport and newsroom terms",
+    icon: SpellCheckIcon,
+  },
 ];

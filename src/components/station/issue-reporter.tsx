@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { StationPicker } from "@/components/station/station-path";
-import { severities } from "@/content/escalations";
+import { priorities } from "@/content/escalations";
 import { isPlaceholder, useStation } from "@/lib/use-station";
 import { stationChannelUrl } from "@/content/operations";
 import { cn } from "cn";
@@ -52,7 +52,7 @@ function formatTime(value: string) {
  */
 export function IssueReporter() {
   const { station, hydrated, select } = useStation();
-  const sev1 = severities[0];
+  const p1 = priorities[0];
 
   const [timing, setTiming] = React.useState<Timing>("now");
   const [airTime, setAirTime] = React.useState("");
@@ -108,8 +108,8 @@ export function IssueReporter() {
           </CardTitle>
         </div>
         <CardDescription className="text-red-900/80">
-          {sev1.definition} That is a <strong>{sev1.level}</strong>:{" "}
-          {sev1.firstAction}
+          {p1.definition} That is a <strong>{p1.level}</strong>:{" "}
+          {p1.response[0]} {p1.response[1]}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
@@ -301,7 +301,7 @@ export function IssueReporter() {
                     ? "Clipboard was blocked. Select the text above and copy it by hand."
                     : !channelUrl
                       ? "Add this station's Slack channel in operations.ts to enable the button."
-                      : "Slack opens in a new tab with the message on your clipboard. Paste it, attach a screenshot of the error, and send. For a Sev 1, phone first."}
+                      : "Slack opens in a new tab with the message on your clipboard. Paste it, attach a screenshot of the error, and send. For a P1, phone first."}
                 </p>
               </div>
             </div>
@@ -312,10 +312,10 @@ export function IssueReporter() {
           <Button
             variant="outline"
             className="bg-background"
-            render={<Link href="#severity" />}
+            render={<Link href="#priority" />}
           >
             <PhoneCallIcon data-icon="inline-start" />
-            Severity levels and who to call
+            Priority levels and who to call
           </Button>
           <Button
             variant="outline"

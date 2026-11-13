@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRightIcon, EyeIcon, UserRoundIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { EyeIcon, UserRoundIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -19,9 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
-import { ChecklistCard } from "@/components/checklist-card";
 import {
-  checklists,
   communicationNorms,
   monitoring,
   opsTeam,
@@ -53,7 +50,7 @@ export default function OperationsPage() {
       <PageHeader
         eyebrow="Operations"
         title="Operations and monitoring"
-        description="How the stream is watched and by whom, the 24/7 Operations team behind the DLPs, the live cut-in checklist, the stations in scope, and the communication norms everyone follows. Each station runs its own schedule under its own news director, so there is no single daily rhythm here."
+        description="How the stream is watched and by whom, the 24/7 Operations team behind the DLPs, the stations in scope, and the communication norms everyone follows. Each station runs its own schedule under its own news director, so there is no single daily rhythm here."
       />
 
       <section>
@@ -152,38 +149,6 @@ export default function OperationsPage() {
             </p>
           </CardContent>
         </Card>
-      </section>
-
-      <section>
-        <SectionHeading
-          id="checklists"
-          title="Live cut-in checklist"
-          description="Tick items off as you go. Progress is saved in this browser. The initial set-up, start of shift and end of shift checks are on the Cloudport set-up page."
-        />
-        <div className="grid gap-4 lg:grid-cols-2">
-          {checklists
-            .filter((c) => c.id === "pre-live")
-            .map((c) => (
-              <ChecklistCard key={c.id} checklist={c} />
-            ))}
-          <Card className="border-dashed">
-            <CardHeader>
-              <CardTitle className="text-base">
-                Set-up and shift checks
-              </CardTitle>
-              <CardDescription>
-                Initial set-up tasks, start of shift checks and end of shift
-                checks have moved to their own page.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button variant="outline" render={<Link href="/setup" />}>
-                Open Cloudport set-up
-                <ArrowRightIcon data-icon="inline-end" />
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </section>
 
       <section>

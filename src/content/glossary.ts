@@ -108,7 +108,7 @@ export const glossary: GlossaryTerm[] = [
     term: "Troubleshooting channel",
     aka: ["Station channel"],
     definition:
-      "Each station's own Slack channel for its DLPs. Where cut-ins are announced, Sev 3-4 issues are raised and the Lead DLP is reached. Pick your station in the header to see yours.",
+      "Each station's own Slack channel for its DLPs. Where cut-ins are announced, P2 and P3 issues are raised and the Lead DLP is reached. Pick your station in the header to see yours.",
   },
   {
     term: "Shift log",
@@ -116,15 +116,15 @@ export const glossary: GlossaryTerm[] = [
       "Written record of each shift: live events with times, issues, fixes and open escalations. Read at the start of the next shift.",
   },
   {
-    term: "Sev 1-4",
-    aka: ["Severity"],
+    term: "P1 / P2 / P3",
+    aka: ["Priority levels", "Priority"],
     definition:
-      "How urgent an issue is. Sev 1 is off air, Sev 2 degraded on air, Sev 3 not yet on air, Sev 4 a question or request. Drives who you contact and how fast.",
+      "How urgent an issue is. P1 is an outage or on-air impact (now or within 2 hours), P2 is degraded or affects something airing today, P3 is a non-blocking bug, question or feature request. Drives who you contact and how fast.",
   },
   {
     term: "NOC",
     definition:
-      "Amagi's 24/7 Network Operations Centre. Tier 3 support; DLPs call directly only for Sev 1.",
+      "Amagi's 24/7 Network Operations Centre. Tier 3 support; DLPs call directly only for a P1.",
   },
   {
     term: "Stream Planning & Ops",

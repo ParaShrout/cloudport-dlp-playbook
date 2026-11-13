@@ -39,7 +39,7 @@ export function GlossaryList() {
       {terms.length === 0 ? (
         <p className="text-sm text-muted-foreground">
           No terms match &ldquo;{query}&rdquo;. If it is a term DLPs use, ask
-          for it to be added (Sev 4).
+          for it to be added (P3).
         </p>
       ) : (
         <dl className="divide-y rounded-lg border bg-card">

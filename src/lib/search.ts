@@ -1,6 +1,6 @@
 import { guideHref, guides } from "@/content/guides";
 import { glossary } from "@/content/glossary";
-import { severities, tiers } from "@/content/escalations";
+import { priorities, tiers } from "@/content/escalations";
 import { checklists, stations } from "@/content/operations";
 import { trainingModules } from "@/content/training";
 
@@ -68,14 +68,14 @@ export function buildSearchIndex(): SearchItem[] {
     });
   }
 
-  for (const s of severities) {
+  for (const p of priorities) {
     items.push({
-      id: `sev-${s.level}`,
+      id: `priority-${p.level}`,
       group: "Escalations",
-      title: `${s.level}: ${s.label}`,
-      subtitle: s.definition,
-      href: "/escalations#severity",
-      keywords: s.examples.join(" "),
+      title: `${p.level}: ${p.label}`,
+      subtitle: p.definition,
+      href: "/escalations#priority",
+      keywords: p.examples.join(" "),
     });
   }
   for (const t of tiers) {
@@ -94,7 +94,7 @@ export function buildSearchIndex(): SearchItem[] {
       group: "Operations",
       title: `${c.title} checklist`,
       subtitle: c.description,
-      href: c.id === "pre-live" ? `/operations#${c.id}` : `/setup#${c.id}`,
+      href: `/setup#${c.id}`,
       keywords: c.items.map((i) => i.text).join(" "),
     });
   }

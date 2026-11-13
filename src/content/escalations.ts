@@ -1,4 +1,4 @@
-import type { Contact, EscalationTier, Severity } from "./types";
+import type { Contact, EscalationTier, Priority } from "./types";
 import { site } from "./site";
 
 /**
@@ -8,85 +8,68 @@ import { site } from "./site";
  * Slack channel, phone number, email or ticket queue for your team.
  */
 
-export const severities: Severity[] = [
+/** Priority levels from the "Priority Levels" sheet. Text kept as written. */
+export const priorities: Priority[] = [
   {
-    level: "Sev 1",
-    label: "Off air",
+    level: "P1",
+    label: "Outage / on-air impact",
     color: "red",
     definition:
-      "A station's stream is black, frozen, silent or showing the wrong content, or a breaking-news cut-in cannot be taken.",
+      "The stream is down or degraded now, or a show airing within the next 2 hours is at risk. Channel down or in rescue slate is always P1.",
     examples: [
-      "Channel output is black or frozen for more than 30 seconds.",
-      "A live cut-in cannot be taken to air during breaking news.",
-      "Wrong content is airing on the channel.",
+      "Live stream black/frozen",
+      "Recording not appearing during a newscast",
+      "Encoder/ingest failure",
+      "Playout stuck in looper",
+      "Wheel cannot be built for a slot inside 2 hours",
+      "Sustained rescue \u2265 5\u20137 min",
     ],
-    responseTarget: "Immediate. Phone first, then post.",
-    firstAction:
-      "Call the Amagi NOC and the on-call Stream Ops lead at the same time. Post in the incident channel with station, time, what you see and what you tried.",
-    notify: [
-      "Amagi NOC (phone)",
-      "Stream Ops on-call (phone)",
-      "Your station's Lead DLP",
-      "Incident channel",
+    response: [
+      "Acknowledge: immediately, any hour (on-call ping).",
+      "Mitigate first (Section 9). If L1 cannot restore within 15 minutes, open a Freshdesk ticket to Amagi (or phone escalation if Freshdesk is not responding) and create/link the internal Jira.",
+      "Updates: every 15 minutes in the #i-news-missioncontr thread until mitigated; station channel gets status, ETA and 'back to normal' \u2014 no triage chatter.",
+      "Close: closure summary in the station channel + outage duration summary in Mission Control + Airtable incident record the same day.",
     ],
   },
   {
-    level: "Sev 2",
-    label: "Degraded on air",
+    level: "P2",
+    label: "Degraded / airing today",
     color: "orange",
     definition:
-      "The stream is on air but something is wrong for viewers, or an on-air problem is likely within the next 15 minutes.",
+      "Real functional impact for something airing today or within 24 hours, but the stream is stable right now and a workaround may exist.",
     examples: [
-      "No audio or wrong audio on a live cut-in.",
-      "Live source preview shows the wrong source or no signal shortly before a planned cut-in.",
-      "A cut-in has pushed the schedule late enough that the next show will miss its start time.",
+      "Replay segments arriving late for tonight's replay",
+      "Intermittent artifacts",
+      "One encoder down with backup active",
+      "Captions/graphics issue on a non-live asset",
+      "Mini playlist timing wrong for a later show",
     ],
-    responseTarget: "Within 15 minutes.",
-    firstAction:
-      "Check the Troubleshooting Tips page. If not fixed in 2 minutes, post in the incident channel and page Stream Ops.",
-    notify: [
-      "Stream Ops on-call",
-      "Your station's Lead DLP",
-      "Incident channel",
-      "Your station's troubleshooting channel",
+    response: [
+      "Acknowledge: within 1 business hour (sooner if the airing is close).",
+      "Ticket: Airtable record at intake; Freshdesk if Amagi action is needed; Jira if internal/distribution.",
+      "Updates: at each material change and at least once per shift until resolved or until the airing is safely past; resolution posted in the station channel.",
+      "Reviewed at the Monday standup.",
     ],
   },
   {
-    level: "Sev 3",
-    label: "Not yet on air",
-    color: "amber",
-    definition:
-      "A problem that will affect air later today if not fixed, but nothing is wrong for viewers right now.",
-    examples: [
-      "A show or live segment scheduled later today has the wrong source or duration.",
-      "A scheduling conflict spotted ahead of air.",
-      "A Cloudport feature is misbehaving but there is a workaround.",
-    ],
-    responseTarget: "Same shift.",
-    firstAction:
-      "Post in your station's troubleshooting channel with the Cloudport channel name, the item and a screenshot. Tag the Lead DLP.",
-    notify: [
-      "Your station's troubleshooting channel",
-      "Your station's Lead DLP",
-    ],
-  },
-  {
-    level: "Sev 4",
-    label: "Question or request",
+    level: "P3",
+    label: "Bug not affecting workflows / feature request",
     color: "slate",
     definition:
-      "Access requests, how-to questions, documentation gaps, feature ideas.",
+      "Cosmetic or non-blocking bugs, questions, access requests, enhancements, known/expected conditions.",
     examples: [
-      "Need a Cloudport login for a new DLP.",
-      "A step in a guide does not match what the UI shows.",
-      "Request for a new report or template.",
+      "UI display bug",
+      "Hotkey request",
+      "Favorites list",
+      "EPG metadata noise",
+      "Expected scheduling holes",
+      "Documentation questions",
     ],
-    responseTarget: "Next business day.",
-    firstAction:
-      "Check this playbook first. How-to and programming questions go to #amagi-poc-producing-chat; anything about your channel goes to your station's troubleshooting channel.",
-    notify: [
-      "#amagi-poc-producing-chat",
-      "Your station's troubleshooting channel",
+    response: [
+      "Acknowledge: next business day.",
+      "Ticket: Airtable (Type = Bug/Enhancement) \u2014 batched into the Tuesday product call with Amagi; Freshdesk/CRP only when Amagi accepts the work.",
+      "Updates: via Airtable status; no stakeholder alerting.",
+      "Requester is told the Airtable item and target release.",
     ],
   },
 ];
@@ -125,26 +108,26 @@ export const tiers: EscalationTier[] = [
     whoTheyAre:
       "The CBS Digital Stream Planning & Ops team that owns the Cloudport rollout, configuration, accounts and the vendor relationship.",
     useWhen:
-      "Cloudport is not behaving as documented, access or configuration problems, anything Sev 2 or higher.",
+      "Cloudport is not behaving as documented, access or configuration problems, anything P2 or higher.",
     howToReach: [
       "Incident channel: Add Slack channel name",
       "On-call phone: Add on-call number",
       "Email: Add team distribution list",
     ],
     expectedResponse:
-      "Sev 1-2: 15 minutes. Sev 3-4: same shift / next business day.",
+      "P1: 15 minutes. P2: within 1 business hour. P3: next business day.",
   },
   {
     tier: "Tier 3",
     name: "Amagi support (NOC)",
     whoTheyAre: "Amagi's 24/7 network operations centre for Cloudport.",
     useWhen:
-      "Platform outage, channel off air for platform reasons, live source ingest failures on Amagi's side. DLPs contact Amagi directly only for Sev 1; otherwise go through Stream Ops.",
+      "Platform outage, channel off air for platform reasons, live source ingest failures on Amagi's side. DLPs contact Amagi directly only for a P1; otherwise go through Stream Ops.",
     howToReach: [
-      "NOC phone (Sev 1 only): Add Amagi NOC number",
+      "NOC phone (P1 only): Add Amagi NOC number",
       "Support portal / email: Add Amagi support address",
     ],
-    expectedResponse: "Per vendor SLA (Sev 1 acknowledged within 15 minutes).",
+    expectedResponse: "Per vendor SLA (P1 acknowledged within 15 minutes).",
   },
 ];
 
@@ -152,7 +135,7 @@ export const tiers: EscalationTier[] = [
 export const contacts: Contact[] = [
   {
     name: "Incident channel",
-    role: "Sev 1 and Sev 2 incidents",
+    role: "P1 and P2 incidents",
     channel: "Add Slack channel name",
     hours: "24/7",
     notes:

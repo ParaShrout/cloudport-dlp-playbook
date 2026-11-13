@@ -1,4 +1,4 @@
-import type { QuizQuestion, TrainingModule } from "./types";
+import type { QuizQuestion, RhythmPhase, TrainingModule } from "./types";
 
 /**
  * Onboarding path for new DLPs. Progress is stored in the browser so a new
@@ -8,6 +8,59 @@ import type { QuizQuestion, TrainingModule } from "./types";
  * The Google Site also has a TRAINING MATERIAL section; link items to it
  * (or transfer it) when that content is available.
  */
+/**
+ * What a DLP's day looks like, from the "Daily Rhythm" sheet. Stations run
+ * their own schedules, so the phases are relative, not clock times.
+ */
+export const dailyRhythm: RhythmPhase[] = [
+  {
+    phase: "Start of shift",
+    text: "Log in \u2192 Playout page. Confirm channel output video is present, playlist is in the right position for the time, current and next shows look right, review warnings/errors under the counters, check the streaming output, confirm closed captions are present and at least one break has aired with ads.",
+    see: [{ label: "Start of Shift Checks", href: "/setup#pre-shift" }],
+  },
+  {
+    phase: "Pre-build (morning, before the day's wheels/replays)",
+    text: "Build or clone the day from templates: simulcast mini playlists, replay placeholders, wheel templates. Work in 'day' mode so autosave is on. Name shows and assets per the agreed naming format. Live lines left as placeholders must be in hold mode.",
+    see: [
+      { label: "Simulcast Hours", href: "/guides/simulcast-hours" },
+      { label: "Replay Hours", href: "/guides/replay-hours" },
+      { label: "Wheel Hours", href: "/guides/wheel-hours" },
+      { label: "File and Show Naming" },
+    ],
+  },
+  {
+    phase: "Before each show (\u2248 15\u201330 min out)",
+    text: "Check for holes before/after the show; check every segment's status, SOM and duration; clear warnings/errors; confirm start time and start mode; confirm media has downloaded to the players; adjust bumpers so the hour fills.",
+    see: [{ label: "Operations and Monitoring steps in each hour type" }],
+  },
+  {
+    phase: "At show start",
+    text: "Verify audio and video; confirm the first break plays; confirm segment recordings begin appearing in the media library (\u2248 7 minutes after start) and adjust timing details.",
+    see: [
+      {
+        label: "Simulcast Hours \u2192 Operations and Monitoring",
+        href: "/guides/simulcast-hours#operations",
+      },
+    ],
+  },
+  {
+    phase: "During live shows",
+    text: "Watch for the recording file/HLS preview in the media library. If no file appears \u2248 7 minutes after start, treat it as a recording failure and report it in your station channel immediately.",
+    see: [
+      {
+        label: "Simulcast Hours \u2192 Operations and Monitoring",
+        href: "/guides/simulcast-hours#operations",
+      },
+      { label: "Troubleshooting", href: "/guides/troubleshooting-tips" },
+    ],
+  },
+  {
+    phase: "End of shift",
+    text: "Confirm output and playlist position; check current and next shows; exit edit mode on every open Schedule tab; log out of Cloudport and Windows.",
+    see: [{ label: "End of Shift Checks", href: "/setup#handoff" }],
+  },
+];
+
 export const trainingModules: TrainingModule[] = [
   {
     id: "orientation",
@@ -27,7 +80,7 @@ export const trainingModules: TrainingModule[] = [
       },
       {
         id: "or-2",
-        text: "Read the Escalations page and know the four severity levels.",
+        text: "Read the Escalations page and know the three priority levels.",
         href: "/escalations",
         hrefLabel: "Escalations",
       },
@@ -53,7 +106,7 @@ export const trainingModules: TrainingModule[] = [
     items: [
       {
         id: "ac-1",
-        text: "Request a Cloudport account for your station (Sev 4 request in the DLP support channel).",
+        text: "Request a Cloudport account for your station (a P3 request in the DLP support channel).",
       },
       {
         id: "ac-2",
@@ -225,10 +278,10 @@ export const quiz: QuizQuestion[] = [
   {
     id: "q7",
     question:
-      "The stream has been black for 45 seconds. What severity is this?",
-    options: ["Sev 4", "Sev 3", "Sev 2", "Sev 1"],
-    answerIndex: 3,
+      "The stream has been black for 45 seconds. What priority is this?",
+    options: ["P3", "P2", "P1"],
+    answerIndex: 2,
     explanation:
-      "Off air for more than 30 seconds is Sev 1: call the Amagi NOC and Stream Ops on-call, then post in the incident channel.",
+      "A channel down or in rescue slate is always P1: acknowledge immediately, mitigate first, and post in your station channel using the template.",
   },
 ];

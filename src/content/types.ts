@@ -96,15 +96,14 @@ export type GlossaryTerm = {
   aka?: string[];
 };
 
-export type Severity = {
-  level: "Sev 1" | "Sev 2" | "Sev 3" | "Sev 4";
+export type Priority = {
+  level: "P1" | "P2" | "P3";
   label: string;
-  color: "red" | "orange" | "amber" | "slate";
+  color: "red" | "orange" | "slate";
   definition: string;
   examples: string[];
-  responseTarget: string;
-  firstAction: string;
-  notify: string[];
+  /** Response, ticketing and communication, one line per rule. */
+  response: string[];
 };
 
 export type EscalationTier = {
@@ -178,6 +177,15 @@ export type TrainingItem = {
   /** Link to an internal route (e.g. "/guides/live-cut-in-add-live-segment") or external URL. */
   href?: string;
   hrefLabel?: string;
+};
+
+export type RhythmLink = { label: string; href?: string };
+
+export type RhythmPhase = {
+  phase: string;
+  text: string;
+  /** Where in the playbook this phase is covered. */
+  see: RhythmLink[];
 };
 
 export type TrainingModule = {

@@ -207,44 +207,12 @@ export const checklists: Checklist[] = [
       { id: "es-5", text: "Logout of Cloudport and Windows." },
     ],
   },
-  {
-    id: "pre-live",
-    title: "Before any live cut-in",
-    description: "The short version of the Adding Live Segments guide.",
-    items: [
-      {
-        id: "pl-1",
-        text: "Method chosen: Adding Live Segments (preferred) or Immediate Live if it has to go now.",
-        guide: "live-cut-ins",
-      },
-      {
-        id: "pl-2",
-        text: "Playout page open and scrolled to the planned cut-in time.",
-        guide: "live-cut-in-add-live-segment",
-      },
-      {
-        id: "pl-3",
-        text: "Prior event identified, with adequate time left before the next event starts.",
-        guide: "live-cut-in-add-live-segment",
-      },
-      {
-        id: "pl-4",
-        text: "Live source confirmed with the orange Preview button (Custom if the default is wrong).",
-        guide: "live-cut-in-add-live-segment",
-      },
-      {
-        id: "pl-5",
-        text: "Duration set to the estimated cut-in length; event disabled if the start time is unknown.",
-        guide: "live-cut-in-add-live-segment",
-      },
-    ],
-  },
 ];
 
 export const communicationNorms = [
   {
     title: "Station troubleshooting channel",
-    text: "Each station has its own channel. Every live cut-in gets two posts there: 'Live on stream at HH:MM' and 'Back to schedule at HH:MM'. Questions and Sev 3-4 issues go there first. Keep it short; details go in the shift log.",
+    text: "Each station has its own channel. Every live cut-in gets two posts there: 'Live on stream at HH:MM' and 'Back to schedule at HH:MM'. Questions and P2-P3 issues go there first. Keep it short; details go in the shift log.",
   },
   {
     title: "Incident channel",

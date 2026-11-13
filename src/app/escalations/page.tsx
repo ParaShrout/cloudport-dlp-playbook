@@ -23,16 +23,16 @@ import { stationChannelUrl, stations } from "@/content/operations";
 import {
   contacts,
   incidentTemplate,
-  severities,
+  priorities,
   tiers,
 } from "@/content/escalations";
-import type { Severity } from "@/content/types";
+import type { Priority } from "@/content/types";
 import { cn } from "cn";
 
 export const metadata: Metadata = { title: "Escalations & support" };
 
-const sevStyles: Record<
-  Severity["color"],
+const priorityStyles: Record<
+  Priority["color"],
   { card: string; badge: string; dot: string }
 > = {
   red: {
@@ -44,11 +44,6 @@ const sevStyles: Record<
     card: "border-orange-200",
     badge: "border-orange-200 bg-orange-50 text-orange-700",
     dot: "bg-orange-500",
-  },
-  amber: {
-    card: "border-amber-200",
-    badge: "border-amber-200 bg-amber-50 text-amber-800",
-    dot: "bg-amber-400",
   },
   slate: {
     card: "",
@@ -63,7 +58,7 @@ export default function EscalationsPage() {
       <PageHeader
         eyebrow="Escalations & support"
         title="Who to contact, and how fast"
-        description="Report the issue in your station's troubleshooting channel using the template so the ops team can triage and escalate fast. Then decide the severity: it tells you who else to contact, in what order, and how quickly to expect a response. Tier 1 contacts differ by station; everything else is shared."
+        description="Report the issue in your station's troubleshooting channel using the template so the ops team can triage and escalate fast. Then decide the priority: it tells you who else to contact, in what order, and how quickly to expect a response. Tier 1 contacts differ by station; everything else is shared."
       />
 
       <section id="report" className="scroll-mt-24">
@@ -76,25 +71,25 @@ export default function EscalationsPage() {
 
       <section>
         <SectionHeading
-          id="severity"
-          title="Severity levels"
-          description="When in doubt, pick the higher severity. Nobody will be upset that you called about a Sev 1 that turned out to be a Sev 2."
+          id="priority"
+          title="Priority levels"
+          description="When in doubt, pick the higher priority. Nobody will be upset that you raised a P1 that turned out to be a P2."
         />
-        <div className="grid gap-4 md:grid-cols-2">
-          {severities.map((s) => {
-            const st = sevStyles[s.color];
+        <div className="grid gap-4 lg:grid-cols-3">
+          {priorities.map((p) => {
+            const st = priorityStyles[p.color];
             return (
-              <Card key={s.level} className={cn(st.card)}>
+              <Card key={p.level} className={cn(st.card)}>
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <span className={cn("size-2.5 rounded-full", st.dot)} />
                     <Badge variant="outline" className={st.badge}>
-                      {s.level}
+                      {p.level}
                     </Badge>
-                    <CardTitle>{s.label}</CardTitle>
+                    <CardTitle className="text-base">{p.label}</CardTitle>
                   </div>
                   <CardDescription className="text-foreground/85">
-                    {s.definition}
+                    {p.definition}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-4 text-sm">
@@ -103,30 +98,20 @@ export default function EscalationsPage() {
                       Examples
                     </p>
                     <ul className="flex list-disc flex-col gap-1 pl-4 text-foreground/85">
-                      {s.examples.map((e) => (
+                      {p.examples.map((e) => (
                         <li key={e}>{e}</li>
                       ))}
                     </ul>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-lg bg-muted/60 p-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                        Response target
-                      </p>
-                      <p className="mt-1 font-medium">{s.responseTarget}</p>
-                    </div>
-                    <div className="rounded-lg bg-muted/60 p-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                        Notify
-                      </p>
-                      <p className="mt-1">{s.notify.join(", ")}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      First action
+                  <div className="rounded-lg bg-muted/60 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      Response, ticketing and communication
                     </p>
-                    <p className="text-foreground/90">{s.firstAction}</p>
+                    <ul className="mt-2 flex flex-col gap-2 text-foreground/90">
+                      {p.response.map((r) => (
+                        <li key={r}>{r}</li>
+                      ))}
+                    </ul>
                   </div>
                 </CardContent>
               </Card>
@@ -139,7 +124,7 @@ export default function EscalationsPage() {
         <SectionHeading
           id="tiers"
           title="Escalation path"
-          description="Work up the tiers. Skip straight to Tier 3 only for a Sev 1."
+          description="Work up the tiers. Skip straight to Tier 3 only for a P1."
         />
         <ol className="grid gap-4 lg:grid-cols-2">
           {tiers.map((t) => (

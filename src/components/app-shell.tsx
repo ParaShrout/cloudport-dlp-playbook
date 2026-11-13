@@ -44,8 +44,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               {site.name} · {site.toolName} by {site.vendorName}
             </span>
             <span>
-              Found something wrong? Post it in the DLP support channel as a Sev
-              4.
+              Found something wrong? Post it in the DLP support channel as a P3.
             </span>
           </div>
         </footer>

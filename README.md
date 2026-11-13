@@ -6,11 +6,11 @@ A self-hosted user guide and operations dashboard for Digital Line Producers (DL
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Dashboard: search, on-air emergency panel, guide cards, start-of-shift checklist, training progress, links to the original Google Site and SharePoint playbook |
+| `/` | Dashboard: search, interactive Cloudport initial set-up / start of shift / end of shift checklists, on-air emergency panel, training progress, links to the original Google Site and SharePoint playbook |
 | `/guides` | The User Manual procedures from the Streaming Google Site, grouped by category, with status badges (Published / Needs review / Coming soon) |
 | `/guides/live-cut-ins` | Overview page: the Note on Usage and a chooser between the two cut-in methods |
 | `/guides/[slug]` | A single procedure: numbered steps copied from the site, screenshots, callouts, a tick-off checklist saved in the browser and print support |
-| `/operations` | Daily rhythm, interactive start-of-shift / pre-live / handoff checklists, stations table (Baltimore, Sacramento, Miami), communication norms |
+| `/operations` | Daily rhythm, interactive initial set-up / start of shift / end of shift / pre-live checklists, stations table (Baltimore, Sacramento, Miami), communication norms |
 | `/escalations` | Your station's path (per-station troubleshooting channel, Lead DLP, control room), severity levels (Sev 1-4), shared escalation tiers, contacts, copyable incident template |
 | `/training` | Five-module onboarding path with saved progress and a six-question knowledge check |
 | `/glossary` | Filterable definitions of Cloudport and newsroom terms |

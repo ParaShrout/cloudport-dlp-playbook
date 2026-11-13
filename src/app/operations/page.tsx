@@ -47,7 +47,7 @@ export default function OperationsPage() {
           title="Checklists"
           description="Tick items off as you go. Progress is saved in this browser; reset at the start of each shift."
         />
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           {checklists.map((c) => (
             <ChecklistCard key={c.id} checklist={c} />
           ))}

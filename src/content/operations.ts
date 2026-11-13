@@ -21,7 +21,8 @@ export const stations: Station[] = [
     channelName: "CBS News Baltimore",
     timeZone: "America/New_York",
     status: "live",
-    notes: "POC station. The official user guide was written against this channel.",
+    notes:
+      "POC station. The official user guide was written against this channel.",
     escalation: {
       troubleshootingChannel: "Add Baltimore troubleshooting Slack channel",
       leadDlp: "Add Baltimore Lead DLP contact",
@@ -90,16 +91,55 @@ export const dailyRhythm = [
 
 export const checklists: Checklist[] = [
   {
-    id: "pre-shift",
-    title: "Start of shift",
-    description: "Run this before you take responsibility for the channel.",
+    id: "initial-setup",
+    title: "Initial set-up tasks",
+    description:
+      "The following UI set-up tasks should be completed the first time a user signs in to Cloudport to ensure correct UI fields are visible.",
     items: [
-      { id: "ps-1", text: "Read the previous shift log and any open incident threads." },
-      { id: "ps-2", text: "In Google Chrome, sign in to Cloudport and open the Playout page for your station." },
-      { id: "ps-3", text: "Confirm the channel is on air and the current event matches the schedule." },
-      { id: "ps-4", text: "Scroll ahead through the shift's schedule and note planned live cut-ins and show start times." },
-      { id: "ps-5", text: "Confirm any live segments already added for the shift have the correct source and duration." },
-      { id: "ps-7", text: "Post 'On shift' in your station's troubleshooting channel." },
+      { id: "is-1", text: "Login to Cloudport, navigate to Playout page." },
+      {
+        id: "is-2",
+        text: "Confirm correct columns are visible and positioned per standard screen grab.",
+      },
+      { id: "is-3", text: "Check same details on Schedule and Layout pages." },
+    ],
+  },
+  {
+    id: "pre-shift",
+    title: "Start of shift checks",
+    description:
+      "The following steps should be performed at the start of each DLP's shift.",
+    items: [
+      { id: "ps-1", text: "Login to Cloudport, navigate to Playout page." },
+      { id: "ps-2", text: "Confirm channel output video is present." },
+      { id: "ps-3", text: "Confirm playlist is in correct position for time." },
+      { id: "ps-4", text: "Check current and next shows for issues." },
+      {
+        id: "ps-5",
+        text: "Review any warnings and errors using the shortcuts under the counters.",
+      },
+      { id: "ps-6", text: "Check channel output from streaming distribution." },
+      { id: "ps-7", text: "Confirm closed captioning is present." },
+      {
+        id: "ps-8",
+        text: "Confirm at least one commercial break airs with ads.",
+      },
+    ],
+  },
+  {
+    id: "handoff",
+    title: "End of shift checks",
+    description:
+      "The following steps should be performed at the end of each DLP's shift.",
+    items: [
+      { id: "es-1", text: "Confirm channel output video is present." },
+      { id: "es-2", text: "Confirm playlist is in correct position for time." },
+      { id: "es-3", text: "Check current and next shows for issues." },
+      {
+        id: "es-4",
+        text: "Ensure any Schedule page tabs opened have been exited from edit mode.",
+      },
+      { id: "es-5", text: "Logout of Cloudport and Windows." },
     ],
   },
   {
@@ -107,23 +147,31 @@ export const checklists: Checklist[] = [
     title: "Before any live cut-in",
     description: "The short version of the Adding Live Segments guide.",
     items: [
-      { id: "pl-1", text: "Method chosen: Adding Live Segments (preferred) or Immediate Live if it has to go now.", guide: "live-cut-ins" },
-      { id: "pl-2", text: "Playout page open and scrolled to the planned cut-in time.", guide: "live-cut-in-add-live-segment" },
-      { id: "pl-3", text: "Prior event identified, with adequate time left before the next event starts.", guide: "live-cut-in-add-live-segment" },
-      { id: "pl-4", text: "Live source confirmed with the orange Preview button (Custom if the default is wrong).", guide: "live-cut-in-add-live-segment" },
-      { id: "pl-5", text: "Duration set to the estimated cut-in length; event disabled if the start time is unknown.", guide: "live-cut-in-add-live-segment" },
-    ],
-  },
-  {
-    id: "handoff",
-    title: "End of shift handoff",
-    description: "Leave the next DLP with no surprises.",
-    items: [
-      { id: "ho-1", text: "Channel on air and the next show set to start on time (or timing issue noted)." },
-      { id: "ho-2", text: "Shift log written: live events, issues, resolutions." },
-      { id: "ho-3", text: "Open escalations listed with ticket / thread links." },
-      { id: "ho-4", text: "Upcoming live hits for the next shift noted." },
-      { id: "ho-5", text: "Post 'Off shift, handed to <name>' in your station's troubleshooting channel." },
+      {
+        id: "pl-1",
+        text: "Method chosen: Adding Live Segments (preferred) or Immediate Live if it has to go now.",
+        guide: "live-cut-ins",
+      },
+      {
+        id: "pl-2",
+        text: "Playout page open and scrolled to the planned cut-in time.",
+        guide: "live-cut-in-add-live-segment",
+      },
+      {
+        id: "pl-3",
+        text: "Prior event identified, with adequate time left before the next event starts.",
+        guide: "live-cut-in-add-live-segment",
+      },
+      {
+        id: "pl-4",
+        text: "Live source confirmed with the orange Preview button (Custom if the default is wrong).",
+        guide: "live-cut-in-add-live-segment",
+      },
+      {
+        id: "pl-5",
+        text: "Duration set to the estimated cut-in length; event disabled if the start time is unknown.",
+        guide: "live-cut-in-add-live-segment",
+      },
     ],
   },
 ];

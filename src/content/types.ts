@@ -35,6 +35,8 @@ export type Step = {
   screenshotCaption?: string;
   /** Set false for steps that never need a screenshot (hides the empty slot). */
   wantsScreenshot?: boolean;
+  /** Show the list of station stream URLs under this step (for monitoring channel output). */
+  showStationStreams?: boolean;
   callout?: Callout;
 };
 
@@ -161,6 +163,8 @@ export type Station = {
   market: string;
   /** Channel name exactly as it appears in Cloudport. */
   channelName: string;
+  /** Public DAI stream (HLS master playlist) for monitoring the channel output. */
+  streamUrl?: string;
   /** Local time zone, used when writing times in the shift log. */
   timeZone: string;
   status: "live" | "onboarding" | "planned";

@@ -21,6 +21,8 @@ export const stations: Station[] = [
     callSign: "WJZ",
     market: "Baltimore",
     channelName: "CBS News Baltimore",
+    streamUrl:
+      "https://dai.google.com/linear/hls/event/TMUt418sQMeu1QtneYJ9ag/master.m3u8",
     timeZone: "America/New_York",
     status: "live",
     notes:
@@ -36,6 +38,8 @@ export const stations: Station[] = [
     callSign: "KOVR",
     market: "Sacramento",
     channelName: "CBS News Sacramento",
+    streamUrl:
+      "https://dai.google.com/linear/hls/event/SRarJVIFQL6TdaqdHiTr6A/master.m3u8",
     timeZone: "America/Los_Angeles",
     status: "live",
     escalation: {
@@ -49,6 +53,8 @@ export const stations: Station[] = [
     callSign: "WFOR",
     market: "Miami",
     channelName: "CBS News Miami",
+    streamUrl:
+      "https://dai.google.com/linear/hls/event/_yODrBHESGSzPe3dqW4gGg/master.m3u8",
     timeZone: "America/New_York",
     status: "live",
     escalation: {

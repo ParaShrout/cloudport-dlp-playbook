@@ -32,6 +32,7 @@ import {
 import { Callout } from "@/components/callout";
 import { StepScreenshots } from "@/components/screenshot";
 import { StationStrip } from "@/components/station/station-path";
+import { StationStreams } from "@/components/station/station-streams";
 import type { StepScreenshots as StepScreenshotMap } from "@/lib/screenshots";
 import { StatusBadge } from "@/components/status-badge";
 import { SectionHeading } from "@/components/page-header";
@@ -410,6 +411,9 @@ function StepCard({
             ) : null}
             {step.callout ? (
               <Callout callout={step.callout} className="mt-4" />
+            ) : null}
+            {step.showStationStreams ? (
+              <StationStreams className="mt-4" />
             ) : null}
             <StepScreenshots
               shots={shots}

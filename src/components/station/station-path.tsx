@@ -7,6 +7,7 @@ import {
   PhoneIcon,
   RadioIcon,
   UserRoundIcon,
+  PlayIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -118,6 +119,17 @@ export function StationPathDetails({
       value: station.channelName,
       hint: `Your station's channel in Cloudport. Local time zone: ${station.timeZone.replace("_", " ")}.`,
     },
+    ...(station.streamUrl
+      ? [
+          {
+            icon: PlayIcon,
+            label: "Stream output",
+            value: station.streamUrl,
+            href: station.streamUrl,
+            hint: "What viewers see. Open in Safari or VLC to check channel output.",
+          },
+        ]
+      : []),
   ];
   return (
     <dl className={cn("grid gap-3 sm:grid-cols-2", className)}>

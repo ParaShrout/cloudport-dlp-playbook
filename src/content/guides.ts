@@ -81,11 +81,13 @@ export const guides: Guide[] = [
             id: "open-chrome",
             title: "Open Google Chrome Browser",
             summary: "Open Google Chrome Browser.",
+            wantsScreenshot: false,
           },
           {
             id: "navigate",
             title: "Navigate to Cloudport",
             summary: "Navigate to https://cbsnews.east-cloudport.amagi.tv/",
+            wantsScreenshot: false,
           },
           {
             id: "sign-in",
@@ -120,65 +122,86 @@ export const guides: Guide[] = [
             title: "Add Live Segment",
             summary:
               "Right click on the event prior to where you would like the cut-in to be placed; select Add Live Segment.",
+            screenshotCaption:
+              "Right-click menu on the prior event. Add Live Segment is the first option.",
           },
           {
             id: "confirm-source",
             title: "Confirm the live source",
             summary:
               "Click the orange button in the Preview column to confirm the correct live source is selected. If the default source is not correct, move the toggle button to Custom, and select the desired source.",
+            screenshotCaption:
+              "#1: the orange Preview button on the new live segment. #2: the Ingest points dialog with the Default source selected; switch to Custom to pick another.",
           },
           {
             id: "set-duration",
             title: "Update the duration",
             summary:
               "Update the duration of the live segment to the estimated duration of the cut-in. By default, the segment will be added with the hold mode enabled.",
+            screenshotCaption:
+              "Click the duration on the live segment row to open Set Duration, type the estimate and save.",
           },
           {
             id: "disable-if-unknown",
             title: "Disable the event if the start time is unknown",
             summary:
               "If the exact start time of the event is unknown, mark the event as disabled. Move as necessary.",
+            screenshotCaption:
+              "With the live segment selected, Disable is in the lower right.",
           },
           {
             id: "take-next",
             title: "Take Next to start the cut-in",
             summary:
               "When ready to start the cut-in, click the Take Next button in the lower left.",
+            screenshotCaption:
+              "Take Next, lower left. The live segment is the next event (purple row).",
           },
           {
             id: "confirm-time-and-triggers",
             title: "Confirm show duration and start triggers",
             summary:
               "After the cut-in has started, confirm there is adequate time left in the show duration, and that any start triggers on the following show have been adjusted as necessary.",
+            screenshotCaption:
+              "Select the show header to read its duration and mode; the overrun shows in red under the duration.",
           },
           {
             id: "check-following-events",
             title: "Check the events following the cut-in",
             summary:
               "Prior to the end of the cut-in, check the events following the cut-in for conflicting content. Modify the schedule as necessary.",
+            screenshotCaption:
+              "The events after the live segment selected for review. Loop Selected and Disable act on the selection.",
           },
           {
             id: "monitor-audio",
             title: "Monitor the audio",
             summary: "Monitor the audio from the live source preview window.",
+            screenshotCaption:
+              "The Ingest Point preview on the left. Use its volume control to listen to the live source.",
           },
           {
             id: "take-next-to-end",
             title: "Take Next when the event completes",
             summary:
               "When the event completes in the preview window, click Take Next.",
+            screenshotCaption:
+              "Take Next again to leave the live segment and move to the next event.",
           },
           {
             id: "confirm-transition",
             title: "Confirm the transition",
             summary:
               "Confirm the playlist and channel output transition to the next event.",
+            wantsScreenshot: false,
+            showStationStreams: true,
           },
           {
             id: "assess-timing",
             title: "Assess timing impact",
             summary:
               "Assess timing impact of the cut-in and adjust schedule so that the next show starts on time.",
+            wantsScreenshot: false,
           },
         ],
       },

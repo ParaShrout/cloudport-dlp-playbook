@@ -110,8 +110,8 @@ export const trainingModules: TrainingModule[] = [
       },
       {
         id: "ac-2",
-        text: "In Google Chrome, sign in at cbsnews.east-cloudport.amagi.tv and open the Playout page.",
-        href: "https://cbsnews.east-cloudport.amagi.tv/",
+        text: "In Google Chrome, sign in at cbsnews-east.cloudport.amagi.tv and open the Playout page.",
+        href: "https://cbsnews-east.cloudport.amagi.tv/",
         hrefLabel: "Cloudport",
       },
       { id: "ac-3", text: "Bookmark Cloudport and this playbook." },

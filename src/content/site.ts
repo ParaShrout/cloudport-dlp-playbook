@@ -2,7 +2,7 @@ export const site = {
   name: "DLP Playbook",
   tagline: "Cloudport operations guide for Digital Line Producers",
   toolName: "Cloudport",
-  toolUrl: "https://cbsnews.east-cloudport.amagi.tv/",
+  toolUrl: "https://cbsnews-east.cloudport.amagi.tv/",
   vendorName: "Amagi",
   program: "Streaming Rundown POC",
   slack: {

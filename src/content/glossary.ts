@@ -8,7 +8,7 @@ export const glossary: GlossaryTerm[] = [
   {
     term: "Cloudport",
     definition:
-      "Amagi's cloud playout platform used to run the station streams. Accessed in Google Chrome at cbsnews.east-cloudport.amagi.tv.",
+      "Amagi's cloud playout platform used to run the station streams. Accessed in Google Chrome at cbsnews-east.cloudport.amagi.tv.",
   },
   {
     term: "DLP",

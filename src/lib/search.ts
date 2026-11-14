@@ -4,6 +4,7 @@ import { priorities, tiers } from "@/content/escalations";
 import { checklists, stations } from "@/content/operations";
 import { trainingModules } from "@/content/training";
 import { troubleshooting } from "@/content/troubleshooting";
+import { uatPart1 } from "@/content/uat";
 
 export type SearchItem = {
   id: string;
@@ -69,6 +70,18 @@ export function buildSearchIndex(): SearchItem[] {
     });
   }
 
+  for (const g of uatPart1) {
+    for (const s of g.scenarios) {
+      items.push({
+        id: `uat-${s.id}`,
+        group: "Training",
+        title: `${s.number}: ${s.title}`,
+        subtitle: `Practice scenario, ${g.title.toLowerCase()}`,
+        href: `/training#uat-${g.id}`,
+        keywords: s.items.join(" "),
+      });
+    }
+  }
   for (const t of troubleshooting) {
     items.push({
       id: `quick-${t.id}`,

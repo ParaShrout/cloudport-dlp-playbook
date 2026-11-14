@@ -86,7 +86,7 @@ const unordered: Guide[] = [
           {
             id: "navigate",
             title: "Navigate to Cloudport",
-            summary: "Navigate to https://cbsnews.east-cloudport.amagi.tv/",
+            summary: "Navigate to https://cbsnews-east.cloudport.amagi.tv/",
             wantsScreenshot: false,
           },
           {
@@ -240,7 +240,7 @@ const unordered: Guide[] = [
           {
             id: "navigate",
             title: "Navigate to Cloudport",
-            summary: "Navigate to https://cbsnews.east-cloudport.amagi.tv/",
+            summary: "Navigate to https://cbsnews-east.cloudport.amagi.tv/",
             wantsScreenshot: false,
           },
           {

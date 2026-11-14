@@ -2,11 +2,11 @@ import Link from "next/link";
 import {
   ArrowRightIcon,
   BookOpenIcon,
-  ClipboardCheckIcon,
   ExternalLinkIcon,
   GraduationCapIcon,
   ListChecksIcon,
   SirenIcon,
+  WrenchIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,10 +64,10 @@ export default function DashboardPage() {
             <Button
               size="lg"
               className="bg-white text-cbs-navy hover:bg-white/90"
-              render={<Link href="/setup" />}
+              render={<Link href="/troubleshooting" />}
             >
-              <ClipboardCheckIcon data-icon="inline-start" />
-              Set-up and shift checks
+              <WrenchIcon data-icon="inline-start" />
+              Quick troubleshooting
             </Button>
             <Button
               variant="outline"

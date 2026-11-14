@@ -3,6 +3,7 @@ import { PageHeader, SectionHeading } from "@/components/page-header";
 import { TrainingPath } from "@/components/training/training-path";
 import { KnowledgeCheck } from "@/components/training/knowledge-check";
 import { DailyRhythm } from "@/components/training/daily-rhythm";
+import { UatScenarios } from "@/components/training/uat-scenarios";
 
 export const metadata: Metadata = { title: "New DLP training" };
 
@@ -12,7 +13,7 @@ export default function TrainingPage() {
       <PageHeader
         eyebrow="Training"
         title="New DLP training path"
-        description="Five modules that take a new Digital Line Producer from first login to running a shift alone. Tick items off as you go; progress is saved in this browser so you can come back to it."
+        description="What a shift looks like, five modules that take a new Digital Line Producer from first login to running a shift alone, the practice scenarios to sign off before launch, and a knowledge check. Tick items off as you go; progress is saved in this browser so you can come back to it."
       />
       <section id="daily-rhythm" className="scroll-mt-24">
         <SectionHeading
@@ -27,6 +28,13 @@ export default function TrainingPage() {
           description="Work top to bottom. Each module assumes the one before it."
         />
         <TrainingPath />
+      </section>
+      <section id="scenarios" className="scroll-mt-24">
+        <SectionHeading
+          title="Practice scenarios"
+          description="The scenarios the programming manager has every DLP work through before launch. Tick a scenario off once you can do it without help. Part 2 is the engineering checklist, included for reference."
+        />
+        <UatScenarios />
       </section>
       <section id="knowledge-check" className="scroll-mt-24">
         <SectionHeading

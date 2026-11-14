@@ -108,7 +108,7 @@ export const glossary: GlossaryTerm[] = [
     term: "Troubleshooting channel",
     aka: ["Station channel"],
     definition:
-      "Each station's own Slack channel for its DLPs. Where cut-ins are announced, P2 and P3 issues are raised and the Lead DLP is reached. Pick your station in the header to see yours.",
+      "Each station's own Slack channel for its DLPs. Where cut-ins are announced, P2 and P3 issues are raised and the Lead DLP is reached.",
   },
   {
     term: "Shift log",

@@ -18,7 +18,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
-import { monitoring, opsTeam, stations } from "@/content/operations";
+import {
+  monitoring,
+  opsTeam,
+  stationChannelUrl,
+  stations,
+} from "@/content/operations";
 import type { Station } from "@/content/types";
 import { cn } from "cn";
 
@@ -150,7 +155,7 @@ export default function OperationsPage() {
         <SectionHeading
           id="stations"
           title="Stations in scope"
-          description="Each station's DLPs see only their own schedule, rundown and playout in Cloudport. Pick your station in the header so escalation paths show your channel."
+          description="Each station's DLPs see only their own schedule, rundown and playout in Cloudport. Every issue goes to the station's own troubleshooting channel; the 24/7 Operations team acknowledges there."
         />
         <div className="overflow-hidden rounded-lg border">
           <Table>
@@ -161,6 +166,8 @@ export default function OperationsPage() {
                 <TableHead>Cloudport channel</TableHead>
                 <TableHead>Time zone</TableHead>
                 <TableHead>Troubleshooting channel</TableHead>
+                <TableHead>Lead DLP</TableHead>
+                <TableHead>Control room</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
@@ -176,16 +183,12 @@ export default function OperationsPage() {
                     <TableCell className="text-muted-foreground">
                       {s.timeZone.replace("_", " ")}
                     </TableCell>
-                    <TableCell
-                      className={cn(
-                        "whitespace-normal",
-                        s.escalation.troubleshootingChannel.startsWith("Add ")
-                          ? "italic text-muted-foreground"
-                          : "",
-                      )}
-                    >
-                      {s.escalation.troubleshootingChannel}
-                    </TableCell>
+                    <PlaceholderCell
+                      value={s.escalation.troubleshootingChannel}
+                      href={stationChannelUrl(s)}
+                    />
+                    <PlaceholderCell value={s.escalation.leadDlp} />
+                    <PlaceholderCell value={s.escalation.controlRoom} />
                     <TableCell>
                       <Badge variant="outline" className={cn(st.className)}>
                         {st.label}
@@ -202,5 +205,30 @@ export default function OperationsPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+function PlaceholderCell({ value, href }: { value: string; href?: string }) {
+  const placeholder = value.startsWith("Add ");
+  return (
+    <TableCell
+      className={cn(
+        "whitespace-normal",
+        placeholder ? "italic text-muted-foreground" : "",
+      )}
+    >
+      {href && !placeholder ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary underline underline-offset-4"
+        >
+          {value}
+        </a>
+      ) : (
+        value
+      )}
+    </TableCell>
   );
 }

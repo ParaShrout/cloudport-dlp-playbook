@@ -18,7 +18,6 @@ import {
 import { PageHeader, SectionHeading } from "@/components/page-header";
 import { CopyButton } from "@/components/copy-button";
 import { IssueReporter } from "@/components/station/issue-reporter";
-import { stationChannelUrl, stations } from "@/content/operations";
 import {
   contacts,
   dlpSteps,
@@ -233,42 +232,8 @@ export default function EscalationsPage() {
         <SectionHeading
           id="contacts"
           title="Contacts"
-          description="Station channels first, then the shared ones. Placeholders read 'Add ...'."
+          description="Shared across all three stations. Each station's own troubleshooting channel, Lead DLP and control room are listed on the Operations page."
         />
-        <div className="mb-4 overflow-hidden rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Station</TableHead>
-                <TableHead>Troubleshooting channel</TableHead>
-                <TableHead>Lead DLP</TableHead>
-                <TableHead>Control room</TableHead>
-                <TableHead>Cloudport channel</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {stations.map((s) => (
-                <TableRow key={s.id} className="align-top">
-                  <TableCell className="font-medium">
-                    {s.market}{" "}
-                    <span className="font-normal text-muted-foreground">
-                      · {s.callSign}
-                    </span>
-                  </TableCell>
-                  <PlaceholderCell
-                    value={s.escalation.troubleshootingChannel}
-                    href={stationChannelUrl(s)}
-                  />
-                  <PlaceholderCell value={s.escalation.leadDlp} />
-                  <PlaceholderCell value={s.escalation.controlRoom} />
-                  <TableCell className="whitespace-normal">
-                    {s.channelName}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
         <div className="overflow-hidden rounded-lg border">
           <Table>
             <TableHeader>

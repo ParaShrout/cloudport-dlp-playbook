@@ -70,7 +70,9 @@ export const trainingModules: TrainingModule[] = [
     items: [
       {
         id: "or-0",
-        text: "Pick your station (Baltimore, Sacramento or Miami) in the header so escalation paths show your channel and Lead DLP.",
+        text: "Know your station's troubleshooting channel: it is the one place you report anything, any hour.",
+        href: "/operations#stations",
+        hrefLabel: "Stations",
       },
       {
         id: "or-1",

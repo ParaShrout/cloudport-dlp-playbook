@@ -31,7 +31,6 @@ import {
 } from "@/components/ui/table";
 import { Callout } from "@/components/callout";
 import { StepScreenshots } from "@/components/screenshot";
-import { StationStrip } from "@/components/station/station-path";
 import { StationStreams } from "@/components/station/station-streams";
 import type { StepScreenshots as StepScreenshotMap } from "@/lib/screenshots";
 import { StatusBadge } from "@/components/status-badge";
@@ -108,8 +107,6 @@ export function GuideView({
             </Alert>
           ) : null}
         </header>
-
-        <StationStrip className="mb-6" />
 
         {guide.whenToUse.length > 0 || guide.prerequisites.length > 0 ? (
           <div className="mb-10 grid gap-4 md:grid-cols-2">

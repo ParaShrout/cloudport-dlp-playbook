@@ -102,7 +102,7 @@ npm run screenshots -- status   # which guide steps still need a screenshot
 Two targets are supported from the same code.
 
 - **GitHub Pages** (current public preview): every push to `main` runs `.github/workflows/pages.yml`, which builds a static export with `STATIC_EXPORT=1 BASE_PATH=/cloudport-dlp-playbook` and publishes it to https://parashrout.github.io/cloudport-dlp-playbook/.
-- **CBS Builder Sandbox** (Okta-gated, `https://<app>.design.cbssports.cloud`): the sandbox runs each prototype from `apps/<app>/Dockerfile` in the prototypes repo, with a matching entry in the CD repo. The `Dockerfile` at the repo root is written for it: copy this repository's contents into `apps/cloudport-dlp-playbook/` (or have the Dockerfile clone this repo), add the CD entry, and push. The image is a self-contained Node server (`STANDALONE=1 npm run build`, then `node server.js`) listening on `PORT` (default 3000) and `HOSTNAME=0.0.0.0`. No environment variables or database are required.
+- **CBS Builder Sandbox** (Okta-gated, `https://<app>.design.cbssports.cloud`): the sandbox runs each prototype from `apps/<app>/Dockerfile` in its shared prototypes repo, with a matching entry in the CD repo. The playbook's code stays in this repository; the sandbox only needs `deploy/sandbox/Dockerfile`, copied to `apps/cloudport-dlp-playbook/Dockerfile`. That image clones this repo's `main` at build time, builds the self-contained Node server (`STANDALONE=1 npm run build`, then `node server.js`) and listens on `PORT` (default 3000) at `HOSTNAME=0.0.0.0`. No environment variables or database are required. The root `Dockerfile` does the same from a local checkout, for any other container host.
 
 ## Stack
 

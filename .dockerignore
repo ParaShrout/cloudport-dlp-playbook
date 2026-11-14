@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.git
+.github
+.cursor
+*.md
+!README.md
+npm-debug.log*
+.env*

@@ -18,12 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
-import {
-  communicationNorms,
-  monitoring,
-  opsTeam,
-  stations,
-} from "@/content/operations";
+import { monitoring, opsTeam, stations } from "@/content/operations";
 import type { Station } from "@/content/types";
 import { cn } from "cn";
 
@@ -50,7 +45,7 @@ export default function OperationsPage() {
       <PageHeader
         eyebrow="Operations"
         title="Operations and monitoring"
-        description="How the stream is watched and by whom, the 24/7 Operations team behind the DLPs, the stations in scope, and the communication norms everyone follows. Each station runs its own schedule under its own news director, so there is no single daily rhythm here."
+        description="How the stream is watched and by whom, the 24/7 Operations team behind the DLPs and the stations in scope. Each station runs its own schedule under its own news director, so there is no single daily rhythm here."
       />
 
       <section>
@@ -204,27 +199,6 @@ export default function OperationsPage() {
               })}
             </TableBody>
           </Table>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          id="norms"
-          title="Communication norms"
-          description="Short, consistent, and written for the next person."
-        />
-        <div className="grid gap-4 sm:grid-cols-2">
-          {communicationNorms.map((n) => (
-            <Card key={n.title}>
-              <CardHeader>
-                <CardTitle className="text-base">{n.title}</CardTitle>
-                <CardDescription className="text-foreground/80">
-                  {n.text}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="hidden" />
-            </Card>
-          ))}
         </div>
       </section>
     </div>

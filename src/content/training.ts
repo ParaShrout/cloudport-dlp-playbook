@@ -51,7 +51,7 @@ export const dailyRhythm: RhythmPhase[] = [
         label: "Simulcast Hours \u2192 Operations and Monitoring",
         href: "/guides/simulcast-hours#operations",
       },
-      { label: "Troubleshooting", href: "/guides/troubleshooting-tips" },
+      { label: "Quick troubleshooting", href: "/troubleshooting" },
     ],
   },
   {

@@ -1118,36 +1118,7 @@ const unordered: Guide[] = [
     lastUpdated: UPDATED,
     owner: OWNER,
   },
-  ...comingSoon(
-    "troubleshooting-tips",
-    "Troubleshooting Tips",
-    "Troubleshooting",
-  ),
 ];
-
-function comingSoon(
-  slug: string,
-  title: string,
-  category: Guide["category"],
-): Guide[] {
-  return [
-    {
-      slug,
-      title,
-      summary:
-        "Page exists in the User Manual on the Google Site. Steps have not been transferred to the playbook yet.",
-      category,
-      status: "coming-soon",
-      estimatedMinutes: 0,
-      whenToUse: [],
-      prerequisites: [],
-      phases: [],
-      troubleshooting: [],
-      lastUpdated: UPDATED,
-      owner: OWNER,
-    },
-  ];
-}
 
 /**
  * Where a guide link should go. Overview guides have no page of their own;

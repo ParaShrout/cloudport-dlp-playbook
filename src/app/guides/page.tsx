@@ -11,7 +11,7 @@ export default function GuidesPage() {
       <PageHeader
         eyebrow="Guides"
         title="Step-by-step guides"
-        description="The User Manual procedures from the Streaming Google Site, one action per step with screenshots and a tick-off checklist. Pick a guide to open it. Pages not yet transferred are marked Coming soon."
+        description="The User Manual procedures from the Streaming Google Site, one action per step with screenshots and a tick-off checklist. Pick a guide to open it. For the everyday fixes, see Quick troubleshooting."
       />
       <div className="flex flex-col gap-10">
         {CATEGORY_ORDER.map((category) => {

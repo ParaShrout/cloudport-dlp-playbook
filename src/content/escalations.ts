@@ -113,7 +113,7 @@ export const tiers: EscalationTier[] = [
   {
     tier: "Level 3",
     name: "Amagi",
-    who: "Freshdesk \u2192 Evan Thomas \u2192 Paco Lancaster. Business hours 8\u20135 ET domestic team; after hours Bangalore (24/7/365). Phone number in Cloudport UI / escalation matrix.",
+    who: "Freshdesk \u2192 Evan Thomas. Business hours 8\u20135 ET domestic team; after hours Bangalore (24/7/365). Phone number in Cloudport UI / escalation matrix.",
     scope:
       "Platform faults, hotfixes, player/pod restarts, resource/config corrections, log pulls for RCA.",
     escalatesWhen:
@@ -144,8 +144,7 @@ export const escalationSteps: EscalationStep[] = [
   {
     step: "Vendor engagement",
     owner: "Video Ops (or engineering) opens Freshdesk",
-    whoIsIn:
-      "Amagi support desk; Evan as single CBS-facing contact; Paco Lancaster if unanswered.",
+    whoIsIn: "Amagi support desk; Evan as single CBS-facing contact.",
   },
   {
     step: "Station communication",

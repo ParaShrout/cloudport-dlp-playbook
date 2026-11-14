@@ -3,6 +3,7 @@ import { glossary } from "@/content/glossary";
 import { priorities, tiers } from "@/content/escalations";
 import { checklists, stations } from "@/content/operations";
 import { trainingModules } from "@/content/training";
+import { troubleshooting } from "@/content/troubleshooting";
 
 export type SearchItem = {
   id: string;
@@ -63,11 +64,25 @@ export function buildSearchIndex(): SearchItem[] {
       group: "Stations",
       title: `${s.market} · ${s.callSign}`,
       subtitle: `${s.channelName} · ${s.escalation.troubleshootingChannel}`,
-      href: "/escalations#station",
+      href: "/escalations#contacts",
       keywords: `${s.escalation.leadDlp} ${s.escalation.controlRoom} station escalation`,
     });
   }
 
+  for (const t of troubleshooting) {
+    items.push({
+      id: `quick-${t.id}`,
+      group: "Troubleshooting",
+      title: t.title,
+      subtitle: t.when,
+      href: `/troubleshooting#${t.id}`,
+      keywords: [
+        t.group,
+        ...(t.options?.map((o) => o.title) ?? []),
+        ...(t.tips ?? []),
+      ].join(" "),
+    });
+  }
   for (const p of priorities) {
     items.push({
       id: `priority-${p.level}`,

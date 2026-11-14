@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
 import { CopyButton } from "@/components/copy-button";
-import { YourStationSection } from "@/components/station/station-path";
 import { IssueReporter } from "@/components/station/issue-reporter";
 import { stationChannelUrl, stations } from "@/content/operations";
 import {
@@ -104,10 +103,6 @@ export default function EscalationsPage() {
             </pre>
           </CardContent>
         </Card>
-      </section>
-
-      <section id="station" className="scroll-mt-24">
-        <YourStationSection />
       </section>
 
       <section>

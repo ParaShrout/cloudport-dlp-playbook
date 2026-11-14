@@ -6,6 +6,7 @@ import {
   ListChecksIcon,
   SirenIcon,
   SpellCheckIcon,
+  WrenchIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -14,6 +15,7 @@ export type NavItem = {
     | "/"
     | "/setup"
     | "/guides"
+    | "/troubleshooting"
     | "/operations"
     | "/escalations"
     | "/training"
@@ -41,6 +43,12 @@ export const navItems: NavItem[] = [
     label: "Step-by-step guides",
     description: "Procedures with screenshots",
     icon: BookOpenIcon,
+  },
+  {
+    href: "/troubleshooting",
+    label: "Quick troubleshooting",
+    description: "Fix the everyday situations fast",
+    icon: WrenchIcon,
   },
   {
     href: "/operations",

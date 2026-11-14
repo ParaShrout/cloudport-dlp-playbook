@@ -208,22 +208,3 @@ export const checklists: Checklist[] = [
     ],
   },
 ];
-
-export const communicationNorms = [
-  {
-    title: "Station troubleshooting channel",
-    text: "Each station has its own channel. Every live cut-in gets two posts there: 'Live on stream at HH:MM' and 'Back to schedule at HH:MM'. Questions and P2-P3 issues go there first. Keep it short; details go in the shift log.",
-  },
-  {
-    title: "One thread per issue",
-    text: "Your first post uses the issue template. Ops acknowledges in the thread and every update, including 'back to normal', stays there. Don't open a second thread for the same problem.",
-  },
-  {
-    title: "Shift log",
-    text: "Written in plain language for the next DLP. Times in local station time. Include what you tried, not just what broke.",
-  },
-  {
-    title: "Changes to the schedule",
-    text: "After every cut-in, check the following events for conflicting content and adjust so the next show starts on time. Check with the Lead DLP before removing a show.",
-  },
-];

@@ -148,8 +148,8 @@ export type StationEscalation = {
   troubleshootingChannel: string;
   /**
    * Slack channel id (starts with "C"). Copy it from the channel's link in
-   * Slack. When set, the Report an issue button opens the channel directly;
-   * otherwise Slack is asked to find it by name.
+   * Slack. When set, the channel link on the Operations page opens it
+   * directly; otherwise Slack is asked to find it by name.
    */
   slackChannelId?: string;
   /** How to reach the Lead DLP covering this station's shift. */

@@ -12,8 +12,8 @@ import { site } from "./site";
  * dashboard, escalations page and guides show that station's path.
  *
  * Values beginning with "Add " are placeholders. Replace them with the real
- * contact details. Add each station's `slackChannelId` so the Report an issue
- * button opens the channel directly.
+ * contact details. Add each station's `slackChannelId` so the channel link on
+ * the Operations page opens it directly.
  */
 export const stations: Station[] = [
   {

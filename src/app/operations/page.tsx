@@ -137,15 +137,15 @@ export default function OperationsPage() {
               ))}
             </ul>
             <p className="mt-4 text-sm text-muted-foreground">
-              For anything on air right now, use{" "}
+              For anything on air right now, post in your station&apos;s
+              troubleshooting channel using the{" "}
               <Link
                 href="/escalations#report"
                 className="text-primary underline underline-offset-4"
               >
-                Report an issue
-              </Link>{" "}
-              so it lands in your station&apos;s troubleshooting channel with
-              the agreed template.
+                issue post template
+              </Link>
+              .
             </p>
           </CardContent>
         </Card>

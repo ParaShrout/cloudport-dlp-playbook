@@ -33,7 +33,7 @@ export default function TroubleshootingPage() {
             variant="outline"
             render={<Link href="/escalations#report" />}
           >
-            Report an issue
+            Issue post template
           </Button>
         }
       />

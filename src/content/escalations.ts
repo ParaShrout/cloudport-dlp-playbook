@@ -80,8 +80,8 @@ export const priorities: Priority[] = [
 ];
 
 /**
- * What a DLP needs to know. Shown at the top of the escalations page next
- * to the Report an issue form.
+ * What a DLP needs to know. Shown at the top of the escalations page above
+ * the issue post template.
  */
 export const dlpSteps: string[] = [
   "Post in your station's troubleshooting channel \u2014 the only place you ever need to go, any hour.",
@@ -190,8 +190,8 @@ export const contacts: Contact[] = [
 ];
 
 /**
- * Agreed with the programming manager. The Report an issue form on the
- * escalations page fills this in; keep the three lines in this order.
+ * Agreed with the programming manager. Shown on the escalations page for
+ * DLPs to copy; keep the three lines in this order.
  */
 export const incidentTemplate = `[Timing]: LIVE NOW / airs at 6:00 PM (within 2 hrs) / airs tomorrow
 [What's happening]: e.g., assets won't ingest into the 7 PM wheel; error attached

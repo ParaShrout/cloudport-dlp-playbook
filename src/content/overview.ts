@@ -21,19 +21,19 @@ export const rolesAsOf = "Oct 2026";
 export const roles: Role[] = [
   {
     role: "Digital Line Producers (DLPs)",
-    who: "Station teams, e.g. Eric, Desmond (BAL); Ali, Holly, Soad, Monica (SAC); Alyssa, Elizabeth (MIA)",
+    who: "Station teams, e.g. Eric (BAL); Ali, Holly, Soad, Monica (SAC); Alyssa, Elizabeth (MIA)",
     responsibility:
       "Build and run the daily schedule; start/end-of-shift checks; first eyes on recording status; report issues in the station channel using the template.",
   },
   {
     role: "Programming / News Ops",
-    who: "Andrea Oess, Marie Simmons",
+    who: "Andrea Oess, Marie Simmons, Desmond",
     responsibility:
       "Own templates, naming, workflow best practices and the DLP-facing documentation; approve any message sent to station channels; UAT sign-off on releases.",
   },
   {
     role: "Video Operations (L1)",
-    who: "Dave Swietkowski's 24/7 team (Toby/Tobias, Marie, Alex and overnight operators)",
+    who: "Dave Swietkowski's 24/7 team (Toby/Tobias, Alex and overnight operators)",
     responsibility:
       "Monitor the three station channels and health dashboards around the clock; acknowledge, classify (P1/P2/P3), mitigate within L1 boundaries; open tickets; post updates and closure summaries; log incidents.",
   },
@@ -45,7 +45,7 @@ export const roles: Role[] = [
   },
   {
     role: "Amagi (L3 / vendor)",
-    who: "Evan Thomas (primary), Imran / Ebin (infrastructure), Francisco 'Paco' Lancaster (escalation); 24/7 support desk (Freshdesk)",
+    who: "Evan Thomas, Bruce Jones, Amagi 24/7 Support (Freshdesk)",
     responsibility:
       "Platform faults and changes only Amagi can execute; releases and hotfixes; staging environment; Freshdesk tickets.",
   },

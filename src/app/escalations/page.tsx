@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/table";
 import { PageHeader, SectionHeading } from "@/components/page-header";
 import { CopyButton } from "@/components/copy-button";
-import { IssueReporter } from "@/components/station/issue-reporter";
 import {
   contacts,
   dlpSteps,
@@ -82,14 +81,10 @@ export default function EscalationsPage() {
       </section>
 
       <section id="report" className="scroll-mt-24">
-        <IssueReporter />
-      </section>
-
-      <section>
         <SectionHeading
           id="template"
           title="Issue post template"
-          description="The agreed format for every post in a station troubleshooting channel. The form above fills it in for you; copy it here if you would rather write it by hand."
+          description="The agreed format for every post in a station troubleshooting channel. Copy it, replace the examples with what you are seeing, attach a screenshot of the error and post it in your station channel."
         />
         <Card>
           <CardHeader className="flex-row items-center justify-between">

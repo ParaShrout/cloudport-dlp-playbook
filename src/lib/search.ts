@@ -90,7 +90,6 @@ export function buildSearchIndex(): SearchItem[] {
       subtitle: t.when,
       href: `/troubleshooting#${t.id}`,
       keywords: [
-        t.group,
         ...(t.options?.map((o) => o.title) ?? []),
         ...(t.tips ?? []),
       ].join(" "),

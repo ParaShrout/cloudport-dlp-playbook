@@ -8,11 +8,10 @@ import { site } from "./site";
 
 /**
  * Stations running Cloudport. Each station has its own troubleshooting
- * channel and Lead DLP, so DLPs pick their station in the header and the
- * dashboard, escalations page and guides show that station's path.
+ * channel and a station contact to phone when a Slack post gets no response.
  *
- * Empty escalation values render as "To be confirmed". Replace them with the real
- * contact details. Add each station's `slackChannelId` so the channel link on
+ * An empty `stationContact` renders as "To be confirmed"; fill it with a name
+ * and phone number. Add each station's `slackChannelId` so the channel link on
  * the Operations page opens it directly.
  */
 export const stations: Station[] = [
@@ -33,8 +32,7 @@ export const stations: Station[] = [
     notes: "Proof-of-concept station; first to launch on Cloudport.",
     escalation: {
       troubleshootingChannel: "#cbsnews-baltimore-trouble-shooting",
-      leadDlp: "",
-      controlRoom: "",
+      stationContact: "",
     },
   },
   {
@@ -53,8 +51,7 @@ export const stations: Station[] = [
     status: "live",
     escalation: {
       troubleshootingChannel: "#cbsnews-sac-troubleshooting",
-      leadDlp: "",
-      controlRoom: "",
+      stationContact: "",
     },
   },
   {
@@ -73,8 +70,7 @@ export const stations: Station[] = [
     status: "live",
     escalation: {
       troubleshootingChannel: "#cbsnews-miami-trouble-shooting",
-      leadDlp: "",
-      controlRoom: "",
+      stationContact: "",
     },
   },
 ];

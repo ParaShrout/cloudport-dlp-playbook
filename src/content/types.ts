@@ -150,10 +150,11 @@ export type StationEscalation = {
    * directly; otherwise Slack is asked to find it by name.
    */
   slackChannelId?: string;
-  /** How to reach the Lead DLP covering this station's shift. */
-  leadDlp: string;
-  /** Control room / master control contact for live source and cue coordination. */
-  controlRoom: string;
+  /**
+   * Who to phone when a Slack post gets no response, with their number.
+   * Empty until confirmed; renders as "To be confirmed".
+   */
+  stationContact: string;
   /** Anything specific to this station's path, e.g. who approves content removal. */
   notes?: string;
 };

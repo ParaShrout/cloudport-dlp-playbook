@@ -66,7 +66,7 @@ export function buildSearchIndex(): SearchItem[] {
       title: `${s.market} · ${s.callSign}`,
       subtitle: `${s.channelName} · ${s.escalation.troubleshootingChannel}`,
       href: "/operations#stations",
-      keywords: `${s.escalation.leadDlp} ${s.escalation.controlRoom} station escalation`,
+      keywords: `${s.escalation.stationContact} station contact escalation`,
     });
   }
 

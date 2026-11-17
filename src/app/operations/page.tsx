@@ -155,7 +155,7 @@ export default function OperationsPage() {
         <SectionHeading
           id="stations"
           title="Stations in scope"
-          description="Each station's DLPs see only their own schedule, rundown and playout in Cloudport. Every issue goes to the station's own troubleshooting channel; the 24/7 Operations team acknowledges there."
+          description="Each station's DLPs see only their own schedule, rundown and playout in Cloudport. Every issue goes to the station's own troubleshooting channel; the 24/7 Operations team acknowledges there. If a post gets no response, phone the station contact."
         />
         <div className="overflow-hidden rounded-lg border">
           <Table>
@@ -166,8 +166,7 @@ export default function OperationsPage() {
                 <TableHead>Cloudport channel</TableHead>
                 <TableHead>Time zone</TableHead>
                 <TableHead>Troubleshooting channel</TableHead>
-                <TableHead>Lead DLP</TableHead>
-                <TableHead>Control room</TableHead>
+                <TableHead>Station contact</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Notes</TableHead>
               </TableRow>
@@ -187,8 +186,7 @@ export default function OperationsPage() {
                       value={s.escalation.troubleshootingChannel}
                       href={stationChannelUrl(s)}
                     />
-                    <PlaceholderCell value={s.escalation.leadDlp} />
-                    <PlaceholderCell value={s.escalation.controlRoom} />
+                    <PlaceholderCell value={s.escalation.stationContact} />
                     <TableCell>
                       <Badge variant="outline" className={cn(st.className)}>
                         {st.label}

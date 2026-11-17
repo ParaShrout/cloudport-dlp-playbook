@@ -227,7 +227,7 @@ export default function EscalationsPage() {
         <SectionHeading
           id="contacts"
           title="Contacts"
-          description="Shared across all three stations. Each station's own troubleshooting channel, Lead DLP and control room are listed on the Operations page."
+          description="Shared across all three stations. Each station's own troubleshooting channel and station contact are listed on the Operations page."
         />
         <div className="overflow-hidden rounded-lg border">
           <Table>

@@ -24,6 +24,7 @@ export function StatusBadge({
   status: GuideStatus;
   className?: string;
 }) {
+  if (status !== "coming-soon") return null;
   const c = config[status];
   return (
     <Badge variant="outline" className={cn(c.className, className)}>

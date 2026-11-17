@@ -78,8 +78,6 @@ export type Guide = {
   /** Paragraphs shown at the top of an overview guide. */
   intro?: string[];
   methods?: GuideMethod[];
-  /** Shown as a reviewer note while status is "review". */
-  reviewNote?: string;
   estimatedMinutes: number;
   whenToUse: string[];
   prerequisites: string[];

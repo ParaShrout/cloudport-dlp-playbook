@@ -11,7 +11,7 @@ export const aboutCloudport = {
   paragraphs: [
     "Cloudport is Amagi's cloud playout platform. It runs the 24/7 streaming channels for CBS News Baltimore, Sacramento and Miami: the daily schedule, file playback, live sources from the control room, recordings and commercial breaks all live in Cloudport.",
     "Digital Line Producers (DLPs) are the people in Cloudport every day. A DLP builds and runs the day's schedule for their station's channel, inserts live cut-ins when news breaks, keeps an eye on recordings, and raises anything that looks wrong in the station channel.",
-    "This playbook is the DLP's working reference: set-up and shift checks, step-by-step procedures transferred from the User Manual, who to call, and a training path for new DLPs.",
+    "This playbook is the DLP's working reference: set-up and shift checks, step-by-step procedures, who to call, and a training path for new DLPs.",
   ],
 };
 
@@ -98,7 +98,7 @@ export const buildingBlocks: BuildingBlock[] = [
     block: "Live cut-ins (unplanned)",
     whatItIs: "Breaking news inserted into file playback.",
     howItIsBuilt:
-      "Preferred: 'Add Live Segment' (more control on rejoin). Fast path: 'Take Live' button. Both documented in the User Manual.",
+      "Preferred: 'Add Live Segment' (more control on rejoin). Fast path: 'Take Live' button.",
     guide: "live-cut-ins",
   },
 ];

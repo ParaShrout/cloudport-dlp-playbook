@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Table,
   TableBody,
@@ -98,14 +97,6 @@ export function GuideView({
               <dd className="inline">{guide.owner}</dd>
             </div>
           </dl>
-          {guide.status === "review" && guide.reviewNote ? (
-            <Alert className="mt-5 border-amber-200 bg-amber-50 text-amber-950">
-              <AlertTitle>Pending review</AlertTitle>
-              <AlertDescription className="text-amber-900/90">
-                {guide.reviewNote}
-              </AlertDescription>
-            </Alert>
-          ) : null}
         </header>
 
         {guide.whenToUse.length > 0 || guide.prerequisites.length > 0 ? (
@@ -169,7 +160,6 @@ export function GuideView({
                       key={step.id}
                       step={step}
                       number={stepNumbers.get(step.id) ?? 0}
-                      guideSlug={guide.slug}
                       shots={screenshots[step.id] ?? []}
                       done={hydrated && has(step.id)}
                       onToggle={() => toggle(step.id)}
@@ -334,23 +324,17 @@ export function GuideView({
 function StepCard({
   step,
   number,
-  guideSlug,
   shots,
   done,
   onToggle,
 }: {
   step: Step;
   number: number;
-  guideSlug: string;
   shots: Screenshot[];
   done: boolean;
   onToggle: () => void;
 }) {
   const checkboxId = `done-${step.id}`;
-  const slotPath =
-    step.wantsScreenshot === false
-      ? undefined
-      : `public/screenshots/${guideSlug}/${String(number).padStart(2, "0")}.png`;
   return (
     <li id={step.id} className="scroll-mt-24">
       <article
@@ -412,11 +396,7 @@ function StepCard({
             {step.showStationStreams ? (
               <StationStreams className="mt-4" />
             ) : null}
-            <StepScreenshots
-              shots={shots}
-              slotPath={slotPath}
-              className="mt-4"
-            />
+            <StepScreenshots shots={shots} className="mt-4" />
           </div>
         </div>
       </article>

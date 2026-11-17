@@ -32,8 +32,6 @@ const unordered: Guide[] = [
     category: "Live Operations",
     status: "review",
     kind: "overview",
-    reviewNote:
-      "Transferred from the Google Site page 'Abnormal Operations - Live Cut-ins'. Read through once against the site, then switch to Published.",
     intro: [
       "We have established two methods of inserting live cut-ins during file playback programming: Adding Live Segments and Immediate Live.",
       "Which method a user selects depends on time available to set up the cut-in, and how much control the user requires over when normal programming is resumed. Under most conditions, a user should select the 'Adding Live Segment' approach because it offers better control over the return to normal programming.",
@@ -64,8 +62,6 @@ const unordered: Guide[] = [
       "All shows scheduled in Cloudport will allow a user to add a live segment. This is how we will typically add live cut-ins in order to allow the user maximum flexibility when rejoining normal content.",
     category: "Live Operations",
     status: "review",
-    reviewNote:
-      "Steps 1-16 transferred word for word from the Google Site. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 10,
     whenToUse: [
       "There is time to set up the cut-in before it needs to start.",
@@ -219,8 +215,6 @@ const unordered: Guide[] = [
       'Cloudport offers an immediate live cut-in feature that will take a live source to air, and offer the user a way to re-join the "in progress" programming at the end of the live cut-in.',
     category: "Live Operations",
     status: "review",
-    reviewNote:
-      "Steps 1-9 transferred word for word from the Google Site. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 5,
     whenToUse: [
       "The live source needs to go to air now, with little or no set-up time.",
@@ -312,8 +306,6 @@ const unordered: Guide[] = [
       "Situations may exist where users need to alter an existing schedule to add a new show to accommodate breaking news or other unplanned events.",
     category: "Live Operations",
     status: "review",
-    reviewNote:
-      "Transferred from the Google Site. The two branches (Live Show vs Show) are shown as separate phases, followed by the steps common to both. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 10,
     whenToUse: [
       "Breaking news or another unplanned event means a new show has to be added to today's schedule.",
@@ -450,8 +442,6 @@ const unordered: Guide[] = [
       "Simulcast hours represent approx. 6-8 hrs/day on each channel where a local news program is run on both the main broadcast channel and the streaming channel at the same time and is recorded for later re-airing. Each hour is pre-built in a mini playlist that is manually scheduled on a daily basis.",
     category: "Programming Hours",
     status: "review",
-    reviewNote:
-      "Transferred from the Google Site. The naming format document is not linked yet ('link here' on the site); add it to steps 3 and 11 when available. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 30,
     whenToUse: [
       "Pre-building the mini playlist for a simulcast hour.",
@@ -689,8 +679,6 @@ const unordered: Guide[] = [
       "Replay hours represent approx. 7 hrs/day on each channel where a local news program recorded earlier in the day is replayed.",
     category: "Programming Hours",
     status: "review",
-    reviewNote:
-      "Transferred from the Google Site. The naming format document is not linked yet ('link here' on the site); add it to steps 3 and 4 when available. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 30,
     whenToUse: [
       "Pre-building the mini playlist for a replay hour.",
@@ -859,8 +847,6 @@ const unordered: Guide[] = [
       "On a daily basis, the Baltimore DLP team creates two 1 hr wheel shows. The afternoon wheel is typically built in the morning hours, runs between 1PM and 4PM, and contains stories selected from the morning shows. The evening wheel is built in the early evening, runs between 8PM and 11PM, and contains stories selected from the morning and evening shows.",
     category: "Programming Hours",
     status: "review",
-    reviewNote:
-      "Transferred from the Google Site. Written for the Baltimore schedule; confirm the wheel times for other stations. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 45,
     whenToUse: [
       "Building the afternoon wheel (airs 1PM-4PM) in the morning.",
@@ -1010,8 +996,6 @@ const unordered: Guide[] = [
       "In order to support easy insertion of live segments during file playback programming, we need to perform certain steps on each file playback show so it is ready to support this.",
     category: "Live Operations",
     status: "review",
-    reviewNote:
-      "Steps 1-7 transferred word for word from the Google Site page 'All File Shows - Prepare for Live Cutin'. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 3,
     whenToUse: [
       "Every time a new file playback show has been created in the schedule grid.",
@@ -1076,8 +1060,6 @@ const unordered: Guide[] = [
       "In order to have each show available in the media library, the decision has been taken to record each show regardless of whether it is scheduled for replay. Follow these steps on each live show created in order to capture the recording.",
     category: "Live Operations",
     status: "review",
-    reviewNote:
-      "Steps 1-5 transferred word for word from the Google Site. Add screenshots, read through once, then switch to Published.",
     estimatedMinutes: 2,
     whenToUse: ["While creating any new live show."],
     prerequisites: [],

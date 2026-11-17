@@ -209,7 +209,7 @@ export default function OperationsPage() {
 }
 
 function PlaceholderCell({ value, href }: { value: string; href?: string }) {
-  const placeholder = value.startsWith("Add ");
+  const placeholder = value.trim() === "";
   return (
     <TableCell
       className={cn(
@@ -226,6 +226,8 @@ function PlaceholderCell({ value, href }: { value: string; href?: string }) {
         >
           {value}
         </a>
+      ) : placeholder ? (
+        "To be confirmed"
       ) : (
         value
       )}

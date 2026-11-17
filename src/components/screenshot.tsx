@@ -13,42 +13,17 @@ import {
 import { cn } from "cn";
 
 /**
- * Screenshots for one step. Shows a labelled empty slot (with the file name
- * to save) when nothing has been added yet.
+ * Screenshots for one step. Renders nothing until an image has been added
+ * (use `npm run screenshots -- status` to see which steps still need one).
  */
 export function StepScreenshots({
   shots,
-  slotPath,
   className,
 }: {
   shots: ScreenshotType[];
-  /** e.g. "public/screenshots/live-cut-ins/03.png" */
-  slotPath?: string;
   className?: string;
 }) {
-  if (shots.length === 0) {
-    if (!slotPath) return null;
-    return (
-      <div
-        className={cn(
-          "flex items-center gap-3 rounded-lg border border-dashed bg-muted/40 px-3.5 py-3 text-xs text-muted-foreground",
-          className,
-        )}
-      >
-        <ImageIcon className="size-4 shrink-0" />
-        <p>
-          <span className="font-medium text-foreground/80">
-            Screenshot slot.
-          </span>{" "}
-          Save the image as{" "}
-          <code className="rounded bg-background px-1.5 py-0.5 text-[11px]">
-            {slotPath}
-          </code>{" "}
-          and it appears here.
-        </p>
-      </div>
-    );
-  }
+  if (shots.length === 0) return null;
 
   return (
     <div
@@ -97,9 +72,6 @@ export function Screenshot({
           <ImageIcon className="size-6" />
           <p className="text-sm font-medium text-foreground">Image not found</p>
           <p className="text-xs">{shot.alt}</p>
-          <code className="mt-1 rounded bg-background px-2 py-1 text-[11px]">
-            public{shot.src}
-          </code>
         </div>
         {shot.caption ? (
           <figcaption className="border-t bg-background px-3 py-2 text-xs text-muted-foreground">

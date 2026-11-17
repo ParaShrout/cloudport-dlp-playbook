@@ -31,7 +31,7 @@ export default function TroubleshootingPage() {
       <PageHeader
         eyebrow="Quick reference"
         title="Quick troubleshooting"
-        description="The programming team's Amagi News Quick Troubleshooting Guide, section for section and in the same order, so you can follow along with the PDF. Each section says when it applies, gives the recommended option first and links to the full step-by-step guide. If it is on air and you cannot fix it in a minute, post in your station channel and let Ops take it."
+        description="The situations DLPs hit most often, with the fix for each. Every section says when it applies, gives the recommended option first and links to the full step-by-step guide. If it is on air and you cannot fix it in a minute, post in your station channel and let Ops take it."
         actions={
           <Button
             variant="outline"

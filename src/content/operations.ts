@@ -11,7 +11,7 @@ import { site } from "./site";
  * channel and Lead DLP, so DLPs pick their station in the header and the
  * dashboard, escalations page and guides show that station's path.
  *
- * Values beginning with "Add " are placeholders. Replace them with the real
+ * Empty escalation values render as "To be confirmed". Replace them with the real
  * contact details. Add each station's `slackChannelId` so the channel link on
  * the Operations page opens it directly.
  */
@@ -30,12 +30,11 @@ export const stations: Station[] = [
     ],
     timeZone: "America/New_York",
     status: "live",
-    notes:
-      "POC station. The official user guide was written against this channel.",
+    notes: "Proof-of-concept station; first to launch on Cloudport.",
     escalation: {
       troubleshootingChannel: "#cbsnews-baltimore-trouble-shooting",
-      leadDlp: "Add Baltimore Lead DLP contact",
-      controlRoom: "Add WJZ control room phone / intercom",
+      leadDlp: "",
+      controlRoom: "",
     },
   },
   {
@@ -54,8 +53,8 @@ export const stations: Station[] = [
     status: "live",
     escalation: {
       troubleshootingChannel: "#cbsnews-sac-troubleshooting",
-      leadDlp: "Add Sacramento Lead DLP contact",
-      controlRoom: "Add KOVR control room phone / intercom",
+      leadDlp: "",
+      controlRoom: "",
     },
   },
   {
@@ -74,8 +73,8 @@ export const stations: Station[] = [
     status: "live",
     escalation: {
       troubleshootingChannel: "#cbsnews-miami-trouble-shooting",
-      leadDlp: "Add Miami Lead DLP contact",
-      controlRoom: "Add WFOR control room phone / intercom",
+      leadDlp: "",
+      controlRoom: "",
     },
   },
 ];
@@ -91,7 +90,7 @@ export function stationChannelUrl(
   const { troubleshootingChannel, slackChannelId } = station.escalation;
   if (slackChannelId)
     return `${site.slack.workspaceUrl}/archives/${slackChannelId}`;
-  if (troubleshootingChannel.startsWith("Add ")) return undefined;
+  if (!troubleshootingChannel) return undefined;
   return `https://slack.com/app_redirect?channel=${encodeURIComponent(troubleshootingChannel.replace(/^#/, ""))}`;
 }
 

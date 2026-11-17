@@ -104,7 +104,7 @@ export const tiers: EscalationTier[] = [
   {
     tier: "Level 2",
     name: "Internal Engineering",
-    who: "Markel (ingest / Cloudport UI / EPG); Dave's team for encoders, cloud encoding, CDN, distribution",
+    who: "Markell Lambright (ingest / Cloudport UI / EPG); Dave's team for encoders, cloud encoding, CDN, distribution",
     scope:
       "Deeper diagnosis; owns distribution and encoder changes; decides vendor vs. downstream.",
     escalatesWhen:
@@ -139,7 +139,7 @@ export const escalationSteps: EscalationStep[] = [
     step: "P1 working thread",
     owner: "Video Ops opens the thread in #i-news-missioncontr",
     whoIsIn:
-      "Video Ops, Markel/engineering on-call, Evan (Amagi), Clinton; stakeholders (Sherra, Andrea, Fred) read the opened/resolved posts. DLPs are not members.",
+      "Video Ops, Markell Lambright/engineering on-call, Evan (Amagi), Clinton; stakeholders (Sherra, Andrea, Fred) read the opened/resolved posts. DLPs are not members.",
   },
   {
     step: "Vendor engagement",

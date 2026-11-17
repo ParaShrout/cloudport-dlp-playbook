@@ -39,7 +39,7 @@ export const roles: Role[] = [
   },
   {
     role: "Internal Engineering (L2)",
-    who: "Markel (asset ingest, Cloudport UI, EPG); Dave's team for encoders, cloud encoding, CDN, distribution",
+    who: "Markell Lambright (asset ingest, Cloudport UI, EPG); Dave's team for encoders, cloud encoding, CDN, distribution",
     responsibility:
       "Deeper troubleshooting when L1 boundaries are exceeded; owns change tickets for ingest/encoder changes.",
   },
@@ -51,13 +51,13 @@ export const roles: Role[] = [
   },
   {
     role: "News Streaming PM",
-    who: "Clinton Shrout",
+    who: "Sherra Pierre-March (Director of Project Management), Clinton Shrout (Senior PM)",
     responsibility:
       "Owns this plan, the Airtable tracker, Monday standup, Tuesday product call facilitation, weekly status and reconciliation.",
   },
   {
-    role: "Program lead / stakeholders",
-    who: "Sherra Pierre-March (program), Fred Harner, Kyle Sekimoto, Cathy Shallcross, station GMs",
+    role: "Editorial stakeholders",
+    who: "Fred Harner, Kyle Sekimoto, Cathy Shallcross, station GMs",
     responsibility:
       "Prioritization, budget, go/no-go decisions, SLT reporting.",
   },
@@ -67,21 +67,21 @@ export const buildingBlocks: BuildingBlock[] = [
   {
     block: "Simulcast hours",
     whatItIs:
-      "Approx. 6-8 hrs/day. The local broadcast newscast airs on the stream at the same time and is recorded for replay.",
+      "The local broadcast newscast airs on the stream at the same time and is recorded for replay.",
     howItIsBuilt:
       "Pre-built mini playlist (live show template + one live segment per rundown segment + breaks with loopers), dragged into the day's schedule, then break times adjusted to the rundown.",
     guide: "simulcast-hours",
   },
   {
     block: "Replay hours",
-    whatItIs: "Approx. 7 hrs/day. A newscast recorded earlier is replayed.",
+    whatItIs: "A newscast recorded earlier is replayed.",
     howItIsBuilt:
       "Mini playlist of placeholders, one per segment, with breaks/loopers/bumpers; placeholders are filled by the recorded segments once processed.",
     guide: "replay-hours",
   },
   {
     block: "Wheel hours",
-    whatItIs: "Two 1-hour file-based shows of selected stories.",
+    whatItIs: "30-60 minute file-based selected/curated stories.",
     howItIsBuilt:
       "Afternoon / Evening Wheel Template mini playlists, filled from the media library; placeholders used for content still arriving.",
     guide: "wheel-hours",

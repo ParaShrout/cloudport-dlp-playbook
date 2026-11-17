@@ -439,7 +439,7 @@ const unordered: Guide[] = [
     slug: "simulcast-hours",
     title: "Simulcast Hours",
     summary:
-      "Simulcast hours represent approx. 6-8 hrs/day on each channel where a local news program is run on both the main broadcast channel and the streaming channel at the same time and is recorded for later re-airing. Each hour is pre-built in a mini playlist that is manually scheduled on a daily basis.",
+      "Simulcast hours are the hours on each channel where a local news program is run on both the main broadcast channel and the streaming channel at the same time and is recorded for later re-airing. Each hour is pre-built in a mini playlist that is manually scheduled on a daily basis.",
     category: "Programming Hours",
     status: "review",
     estimatedMinutes: 30,
@@ -676,7 +676,7 @@ const unordered: Guide[] = [
     slug: "replay-hours",
     title: "Replay Hours",
     summary:
-      "Replay hours represent approx. 7 hrs/day on each channel where a local news program recorded earlier in the day is replayed.",
+      "Replay hours are the hours on each channel where a local news program recorded earlier in the day is replayed.",
     category: "Programming Hours",
     status: "review",
     estimatedMinutes: 30,

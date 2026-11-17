@@ -143,9 +143,24 @@ export const opsTeam = {
   name: "Video Operations (L1)",
   description:
     "Dave Swietkowski's 24/7 team monitors the three station channels and the health dashboards around the clock. They acknowledge, classify (P1/P2/P3) and mitigate issues within L1 boundaries, open tickets, post updates and closure summaries, and log incidents.",
+  contactsTitle: "Ops team contacts",
+  contactsNote:
+    "Post in your station's troubleshooting channel first. If you get no response there, CC Dave and Tobias on the thread, or reach them directly by Slack or email.",
   contacts: [
-    { name: "Dave Swietkowski", role: "Video Operations lead" },
-    { name: "Tobias Girazian", role: "Video Operations" },
+    {
+      name: "Dave Swietkowski",
+      role: "Video Operations lead",
+      email: "david.swietkowski@paramount.com",
+      slackHandle: "@dave.swietkowski",
+      slackUrl: "https://paramountglobal.enterprise.slack.com/team/W011PGKS1NZ",
+    },
+    {
+      name: "Tobias Girazian",
+      role: "Video Operations",
+      email: "tobias.girazian@paramount.com",
+      slackHandle: "@tobias.girazian",
+      slackUrl: "https://paramountglobal.enterprise.slack.com/team/W012344ECSE",
+    },
   ] as OpsContact[],
 };
 

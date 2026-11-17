@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EyeIcon, UserRoundIcon } from "lucide-react";
+import {
+  EyeIcon,
+  MailIcon,
+  MessageSquareIcon,
+  UserRoundIcon,
+} from "lucide-react";
 import {
   Card,
   CardContent,
@@ -108,34 +113,47 @@ export default function OperationsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {opsTeam.contacts.map((c) => (
-                <li
-                  key={c.name}
-                  className="flex items-start gap-3 rounded-lg border bg-muted/40 p-3"
-                >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <UserRoundIcon className="size-4" />
-                  </span>
-                  <span className="flex flex-col">
-                    <span className="font-medium">{c.name}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {c.role}
+            <div className="rounded-lg border bg-muted/40 p-4">
+              <h3 className="font-semibold">{opsTeam.contactsTitle}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {opsTeam.contactsNote}
+              </p>
+              <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+                {opsTeam.contacts.map((c) => (
+                  <li key={c.name} className="flex items-start gap-3">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <UserRoundIcon className="size-4" />
                     </span>
-                    <span
-                      className={cn(
-                        "mt-1 text-xs",
-                        c.contact
-                          ? "text-foreground/80"
-                          : "italic text-muted-foreground",
-                      )}
-                    >
-                      {c.contact ?? "Contact details to be added"}
+                    <span className="flex min-w-0 flex-col">
+                      <span className="font-medium">{c.name}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {c.role}
+                      </span>
+                      {c.slackHandle ? (
+                        <a
+                          href={c.slackUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-1.5 inline-flex items-center gap-1.5 text-sm text-primary underline underline-offset-4"
+                        >
+                          <MessageSquareIcon className="size-3.5 shrink-0" />
+                          {c.slackHandle}
+                        </a>
+                      ) : null}
+                      {c.email ? (
+                        <a
+                          href={`mailto:${c.email}`}
+                          className="mt-1 inline-flex items-center gap-1.5 break-all text-sm text-primary underline underline-offset-4"
+                        >
+                          <MailIcon className="size-3.5 shrink-0" />
+                          {c.email}
+                        </a>
+                      ) : null}
                     </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <p className="mt-4 text-sm text-muted-foreground">
               For anything on air right now, post in your station&apos;s
               troubleshooting channel using the{" "}
@@ -163,7 +181,6 @@ export default function OperationsPage() {
               <TableRow>
                 <TableHead>Call sign</TableHead>
                 <TableHead>Market</TableHead>
-                <TableHead>Cloudport channel</TableHead>
                 <TableHead>Time zone</TableHead>
                 <TableHead>Troubleshooting channel</TableHead>
                 <TableHead>Station contact</TableHead>
@@ -178,7 +195,6 @@ export default function OperationsPage() {
                   <TableRow key={s.id} className="align-top">
                     <TableCell className="font-medium">{s.callSign}</TableCell>
                     <TableCell>{s.market}</TableCell>
-                    <TableCell>{s.channelName}</TableCell>
                     <TableCell className="text-muted-foreground">
                       {s.timeZone.replace("_", " ")}
                     </TableCell>

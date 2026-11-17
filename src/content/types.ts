@@ -225,8 +225,11 @@ export type MonitoringTool = {
 export type OpsContact = {
   name: string;
   role: string;
-  /** Email, Slack handle or phone once confirmed. */
-  contact?: string;
+  email?: string;
+  /** Slack display handle, e.g. "@dave.swietkowski" */
+  slackHandle?: string;
+  /** Slack profile URL for the handle. */
+  slackUrl?: string;
 };
 
 export type TimingMode = {
